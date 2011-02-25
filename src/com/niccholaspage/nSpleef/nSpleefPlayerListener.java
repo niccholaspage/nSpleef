@@ -234,7 +234,7 @@ public class nSpleefPlayerListener extends PlayerListener{
 						 player.sendMessage(ChatColor.DARK_PURPLE + "That game does not exist.");
 						 return;
 					 }
-					 if (name.equalsIgnoreCase(plugin.nSpleefGames.get(v).split(",")[2])){
+					 if ((name.equalsIgnoreCase(plugin.nSpleefGames.get(v).split(",")[2])) || (nSpleef.Permissions.has(player, "nSpleef.admin"))){
 						 //plugin.nSpleefGames.remove(plugin.nSpleefGames.get(v));
 						 plugin.nSpleefGames.remove(v.intValue());
 						 player.sendMessage(ChatColor.DARK_PURPLE + "Deleted game.");

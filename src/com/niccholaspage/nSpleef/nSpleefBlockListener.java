@@ -57,12 +57,16 @@ public class nSpleefBlockListener extends BlockListener{
 		 //Get the player doing the placing
 			Player player = event.getPlayer();
 			 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
-				 for (int j = 0; j <= plugin.nSpleefArenas.get(i).getPlayers().size() - 1; j++){
+				 if ((plugin.nSpleefArenas.get(i).getPlayers().contains(player)) && (canplaceblocks == false)){
+					 event.setCancelled(true);
+					 player.sendMessage(ChatColor.DARK_PURPLE + "Cannot place blocks during spleef!");
+				 }
+				 /*for (int j = 0; j <= plugin.nSpleefArenas.get(i).getPlayers().size() - 1; j++){
 					 if ((player.equals(plugin.nSpleefArenas.get(i).getPlayers().get(j)) && canplaceblocks == false)){
 						event.setCancelled(true);
 						player.sendMessage(ChatColor.DARK_PURPLE + "Cannot place blocks during spleef!");
 					}
-				}
+				}*/
 			}
 	 }
 	 public void onBlockRightClick(BlockRightClickEvent event){
@@ -91,7 +95,13 @@ public class nSpleefBlockListener extends BlockListener{
 		 }
 		 Boolean pass = false;
 		 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
-			 for (int j = 0; j <= plugin.nSpleefArenas.get(i).getPlayers().size() - 1; j++){
+			 if (plugin.nSpleefArenas.get(i).getPlayers().contains(player)){
+				 pass = true;
+				 if (plugin.nSpleefArenas.get(i).getInGame() == false){
+					 return;
+				 }
+			 }
+			 /*for (int j = 0; j <= plugin.nSpleefArenas.get(i).getPlayers().size() - 1; j++){
 				 if (player.equals(plugin.nSpleefArenas.get(i).getPlayers().get(j))){
 					 pass = true;
 					 if (plugin.nSpleefArenas.get(i).getInGame() == false){
@@ -99,7 +109,7 @@ public class nSpleefBlockListener extends BlockListener{
 					 }
 					 break;
 				}
-			 }
+			 }*/
 		 }
 		 if (pass == false){
 			 return;
