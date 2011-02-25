@@ -58,7 +58,7 @@ public class nSpleefArena {
 		this.ingame = ingame;
 	}
 	public void go(){
-		//Eclipse test!
+		//Eclipse test! Ugh.
 		for (int i = 0; i <= players.size() - 1; i++){
 			players.get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] 3");
 		}
