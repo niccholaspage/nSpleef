@@ -25,15 +25,18 @@ public class nSpleefPlayerListener extends PlayerListener{
 				 return;
 			 }
 			 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
-				 for (int j = 0; j <= plugin.nSpleefArenas.get(i).getPlayers().size() - 1; j++){
+				 if (plugin.nSpleefArenas.get(i).getPlayers().contains(player)){
+					 pass = true;
+				 }
+				 /*for (int j = 0; j <= plugin.nSpleefArenas.get(i).getPlayers().size() - 1; j++){
 					 if (plugin.nSpleefArenas.get(i).getPlayers().size() == 0){
 						 continue;
-					 }
-				 if (player.equals(plugin.nSpleefArenas.get(i).getPlayers().get(j))){
+					 }*/
+				 /*if (player.equals(plugin.nSpleefArenas.get(i).getPlayers().get(j))){
 					 pass = true;
 					 break;
 				 }
-				 }
+				 }*/
 			 }
 			 if (pass == false){
 				 return;
