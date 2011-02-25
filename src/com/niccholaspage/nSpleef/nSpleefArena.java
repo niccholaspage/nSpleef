@@ -61,15 +61,15 @@ public class nSpleefArena {
 		for (int i = 0; i <= players.size() - 1; i++){
 			players.get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] 3");
 		}
-		Util.waitMS(1000);
+		//Util.waitMS(1000);
 		for (int i = 0; i <= players.size() - 1; i++){
 			players.get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] 2");
 		}
-		Util.waitMS(1000);
+		//Util.waitMS(1000);
 		for (int i = 0; i <= players.size() - 1; i++){
 			players.get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] 1");
 		}
-		Util.waitMS(1000);
+		//Util.waitMS(1000);
 		for (int i = 0; i <= players.size() - 1; i++){
 			players.get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] Go!");
 		}
