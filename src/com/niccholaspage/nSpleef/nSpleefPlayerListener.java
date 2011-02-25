@@ -67,18 +67,24 @@ public class nSpleefPlayerListener extends PlayerListener{
 									 } 
 										 if (loc.getBlockY() + 1 == theblock.getBlockY() + 1){
 											 for (int k = 0; k <= plugin.nSpleefArenas.size() - 1; k++){
-												 for (int l = 0; l <= plugin.nSpleefArenas.get(k).getPlayers().size() - 1; l++){
-													 if (player.equals(plugin.nSpleefArenas.get(k).getPlayers().get(l))){
-															plugin.nSpleefArenas.get(k).getPlayers().remove(l);
-															//event.setFrom(player.getWorld().getSpawnLocation());
-															//event.setTo(player.getWorld().getSpawnLocation());
-															player.teleportTo(player.getWorld().getSpawnLocation());
-															player.setHealth(20);
-															player.sendMessage(ChatColor.DARK_PURPLE + "You've left the spleef game.");
-															plugin.nSpleefArenas.get(k).checkLeave();
-															return;
-													 }
+												 if (plugin.nSpleefArenas.get(k).getPlayers().contains(player)){
+													 plugin.nSpleefArenas.get(k).getPlayers().remove(player);
+													 player.teleportTo(player.getWorld().getSpawnLocation());
+													 player.setHealth(20);
+													 player.sendMessage(ChatColor.DARK_PURPLE + "You've left the spleef game.");
+													 plugin.nSpleefArenas.get(k).checkLeave();
+													 return;
 												 }
+												// for (int l = 0; l <= plugin.nSpleefArenas.get(k).getPlayers().size() - 1; l++){
+													// if (player.equals(plugin.nSpleefArenas.get(k).getPlayers().get(l))){
+												//			plugin.nSpleefArenas.get(k).getPlayers().remove(l);
+												//			player.teleportTo(player.getWorld().getSpawnLocation());
+												//			player.setHealth(20);
+												//			player.sendMessage(ChatColor.DARK_PURPLE + "You've left the spleef game.");
+												//			plugin.nSpleefArenas.get(k).checkLeave();
+												//			return;
+												//	 }
+												 //}
 											 }
 										 }
 								 }
