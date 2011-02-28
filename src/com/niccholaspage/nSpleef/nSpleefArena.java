@@ -13,6 +13,7 @@ public class nSpleefArena {
 	private final ArrayList<Player> players = new ArrayList<Player>();
 	private BlockVector block1;
 	private BlockVector block2;
+	private BlockVector tpblock = new BlockVector(0,0,0);
 	private Volume vol = null;
 	private Boolean ingame = false;
 	private Integer mygame = null;
@@ -39,6 +40,32 @@ public class nSpleefArena {
 	  public void setSecondBlock(BlockVector b2){
 		  this.block2 = b2;
 	  }
+	  public void setTpBlock(){
+			 if (block1.getBlockX() == block2.getBlockX()){
+				 this.tpblock = block1;
+				 return;
+			 }
+			 if (block1.getBlockX() > block2.getBlockX()){
+				 tpblock.setX(block1.getBlockX() - block2.getBlockX() + block2.getBlockX());
+			 }
+			 if (block1.getBlockX() < block2.getBlockX()){
+				 tpblock.setX(block2.getBlockX() - block1.getBlockX() + block1.getBlockX());
+			 }
+			 if (block1.getBlockZ() > block2.getBlockZ()){
+				 tpblock.setZ(block1.getBlockZ() - block2.getBlockZ() + block2.getBlockZ());
+			 }
+			 if (block1.getBlockZ() < block2.getBlockZ()){
+				 tpblock.setZ(block2.getBlockZ() - block1.getBlockZ() + block1.getBlockZ());
+			 }
+			 if (block1.getBlockY() > block2.getBlockY()){
+				 tpblock.setY(block1.getBlockY());
+			 }else {
+				 tpblock.setY(block2.getBlockY());
+			 }
+	  }
+	  public BlockVector getTpBlock(){
+		  return this.tpblock;
+	  }
 	  public void createVolume(){
 		  this.vol = new Volume(name,world);
 	  }
@@ -58,22 +85,27 @@ public class nSpleefArena {
 		this.ingame = ingame;
 	}
 	public void go(){
-		for (int i = 0; i <= players.size() - 1; i++){
-			players.get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] 3");
-		}
-		//Util.waitMS(1000);
-		for (int i = 0; i <= players.size() - 1; i++){
-			players.get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] 2");
-		}
-		//Util.waitMS(1000);
-		for (int i = 0; i <= players.size() - 1; i++){
-			players.get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] 1");
-		}
-		//Util.waitMS(1000);
-		for (int i = 0; i <= players.size() - 1; i++){
-			players.get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] Go!");
-		}
-		ingame = true;
+		Runnable r = new Runnable(){
+			public void run(){
+				for (int i = 0; i <= players.size() - 1; i++){
+					players.get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] 3");
+				}
+				Util.waitMS(1000);
+				for (int i = 0; i <= players.size() - 1; i++){
+					players.get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] 2");
+				}
+				Util.waitMS(1000);
+				for (int i = 0; i <= players.size() - 1; i++){
+					players.get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] 1");
+				}
+				Util.waitMS(1000);
+				for (int i = 0; i <= players.size() - 1; i++){
+					players.get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] Go!");
+				}
+				ingame = true;
+			}
+		};
+		new Thread(r).start();
 	}
 	public void leave(Player player){
 		players.remove(player);
