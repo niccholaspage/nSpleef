@@ -106,7 +106,7 @@ public class nSpleef extends JavaPlugin{
 		//Create the pluginmanage pm.
 		PluginManager pm = getServer().getPluginManager();
 		//Create PlayerCommand listener
-	    pm.registerEvent(Event.Type.PLAYER_COMMAND, this.playerListener, Event.Priority.Normal, this);
+	    pm.registerEvent(Event.Type.PLAYER_COMMAND_PREPROCESS, this.playerListener, Event.Priority.Normal, this);
 	    //Create PlayerMove listener
 	    pm.registerEvent(Event.Type.PLAYER_MOVE, this.playerListener, Event.Priority.Normal, this);
 	    //Create BlockPlaced listener

@@ -74,7 +74,7 @@ public class nSpleefPlayerListener extends PlayerListener{
 				    	}
 				    }
 		 }
-		 public void onPlayerCommand(PlayerChatEvent event) {
+		 public void onPlayerCommandPreprocess(PlayerChatEvent event) {
 		  //Make the message a string.
 			String[] split = event.getMessage().split(" ");
 			//Get the player that talked.
