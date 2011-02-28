@@ -137,7 +137,7 @@ public class nSpleefPlayerListener extends PlayerListener{
 				    					return;
 				    				}
 				    				BlockVector tp = plugin.nSpleefArenas.get(j).getTpBlock();
-				    				tp.setY(tp.getBlockY() + 1);
+				    				tp.setY(tp.getY() + 1);
 				    				player.teleportTo(tp.toLocation(plugin.nSpleefArenas.get(j).getWorld()));
 				    				plugin.nSpleefArenas.get(j).getPlayers().add(player);
 				    				player.sendMessage(ChatColor.DARK_PURPLE + "Joined game " + name + ".");
