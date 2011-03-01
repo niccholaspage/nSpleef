@@ -74,6 +74,25 @@ public class nSpleefPlayerListener extends PlayerListener{
 				    	}
 				    }
 		 }
+		 public void onPlayerChat(PlayerChatEvent event){
+			 
+			 Player player = event.getPlayer();
+			 
+			 if (plugin.nSpleefGames.size() == 0){
+				 return;
+			 }
+			 if (event.getMessage().toLowerCase().contains("ready")){
+				 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
+					 if (plugin.nSpleefArenas.get(i).getPlayers().contains(player)){
+						 if (plugin.nSpleefArenas.get(i).getInGame() == false){
+							 Integer where = plugin.nSpleefArenas.get(i).getPlayers().indexOf(player);
+							 plugin.nSpleefArenas.get(i).getPlayerStatus().set(where, true);
+							 plugin.nSpleefArenas.get(i).checkReady();
+						 }
+					 }
+				 }
+			 }
+		 }
 		 public void onPlayerCommandPreprocess(PlayerChatEvent event) {
 		  //Make the message a string.
 			String[] split = event.getMessage().split(" ");
@@ -140,12 +159,13 @@ public class nSpleefPlayerListener extends PlayerListener{
 				    				tp.setY(tp.getY() + 1);
 				    				player.teleportTo(tp.toLocation(plugin.nSpleefArenas.get(j).getWorld()));
 				    				plugin.nSpleefArenas.get(j).getPlayers().add(player);
+				    				plugin.nSpleefArenas.get(j).getPlayerStatus().add(false);
 				    				player.sendMessage(ChatColor.DARK_PURPLE + "Joined game " + name + ".");
-				    				if (plugin.nSpleefArenas.get(j).getPlayers().size() == 1){
-				    					player.sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] The game will begin when another player joins this game.");
-				    				}else {
-				    					plugin.nSpleefArenas.get(j).go();
-				    				}
+				    				//if (plugin.nSpleefArenas.get(j).getPlayers().size() == 1){
+				    				//	player.sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] The game will begin when another player joins this game.");
+				    				//}else {
+				    				//	plugin.nSpleefArenas.get(j).go();
+				    				//}
 				    				return;
 				    			}
 				    		}
@@ -161,6 +181,7 @@ public class nSpleefPlayerListener extends PlayerListener{
 					 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
 						 for (int j = 0; j <= plugin.nSpleefArenas.get(i).getPlayers().size() - 1; j++){
 							 if (player.equals(plugin.nSpleefArenas.get(i).getPlayers().get(j))){
+								 	plugin.nSpleefArenas.get(i).getPlayerStatus().remove(j);
 									plugin.nSpleefArenas.get(i).leave(player);
 							 }
 						 }

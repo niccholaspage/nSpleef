@@ -11,6 +11,8 @@ public class nSpleefArena {
 	private final String name;
 	private World world;
 	private final ArrayList<Player> players = new ArrayList<Player>();
+	//Dirty workaround :)
+	private final ArrayList<Boolean> playerstatus = new ArrayList<Boolean>();
 	private BlockVector block1;
 	private BlockVector block2;
 	private BlockVector tpblock = new BlockVector(0,0,0);
@@ -78,6 +80,9 @@ public class nSpleefArena {
 	  public ArrayList<Player> getPlayers(){
 		  return players;
 	  }
+	  public ArrayList<Boolean> getPlayerStatus(){
+		  return playerstatus;
+	  }
 	  public Volume getVolume(){
 		  return this.vol;
 	  }
@@ -106,6 +111,17 @@ public class nSpleefArena {
 			}
 		};
 		new Thread(r).start();
+	}
+	public void checkReady(){
+		if (players.size() == 1){
+			return;
+		}
+		for (int i = 0; i<= playerstatus.size() - 1; i++){
+			if (playerstatus.get(i) == false){
+				return;
+			}
+		}
+		go();
 	}
 	public void leave(Player player){
 		players.remove(player);

@@ -4,13 +4,15 @@ import org.bukkit.entity.Player;
 
 public class nSpleefPlayer {
 	private final Player player;
-	private final String arena;
-	  public nSpleefPlayer(Player player, String arena){
+	private Boolean ready = false;
+	  public nSpleefPlayer(Player player){
 	    this.player = player;
-	    this.arena = arena;
 	  }
-	  public String getArena(String string){
-	    return this.arena;
+	  public Boolean getReady(){
+	    return this.ready;
+	  }
+	  public void setReady(Boolean ready){
+		  this.ready = ready;
 	  }
 	  public Player getPlayer(){
 		  return this.player;
