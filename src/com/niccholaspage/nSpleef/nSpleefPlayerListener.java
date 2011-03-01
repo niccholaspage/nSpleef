@@ -132,10 +132,12 @@ public class nSpleefPlayerListener extends PlayerListener{
 				    	player.sendMessage(ChatColor.RED + "/spleef join gamename");
 				    	return;
 				    }
-					 for (int i = 0; i <= plugin.nSpleefPlayers.size() - 1; i++){
-						 if (player.equals(plugin.nSpleefPlayers.get(i).getPlayer())){
+				    if (plugin.nSpleefArenas.size() == 0){
+				    	return;
+				    }
+					 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
+						 if (plugin.nSpleefArenas.get(i).getPlayers().contains(player)){
 							 player.sendMessage(ChatColor.DARK_PURPLE + "You are already in a game!");
-							 return;
 						 }
 					 }
 					 if (Util.exists() == false) {
@@ -161,11 +163,6 @@ public class nSpleefPlayerListener extends PlayerListener{
 				    				plugin.nSpleefArenas.get(j).getPlayers().add(player);
 				    				plugin.nSpleefArenas.get(j).getPlayerStatus().add(false);
 				    				player.sendMessage(ChatColor.DARK_PURPLE + "Joined game " + name + ".");
-				    				//if (plugin.nSpleefArenas.get(j).getPlayers().size() == 1){
-				    				//	player.sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] The game will begin when another player joins this game.");
-				    				//}else {
-				    				//	plugin.nSpleefArenas.get(j).go();
-				    				//}
 				    				return;
 				    			}
 				    		}
