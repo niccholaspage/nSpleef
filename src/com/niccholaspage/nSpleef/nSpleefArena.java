@@ -12,7 +12,7 @@ public class nSpleefArena {
 	private World world;
 	private final ArrayList<Player> players = new ArrayList<Player>();
 	//Dirty workaround :)
-	private final ArrayList<Boolean> playerstatus = new ArrayList<Boolean>();
+	private ArrayList<Boolean> playerstatus = new ArrayList<Boolean>();
 	private BlockVector block1;
 	private BlockVector block2;
 	private BlockVector tpblock = new BlockVector(0,0,0);
@@ -135,6 +135,7 @@ public class nSpleefArena {
 		if (players.size() == 0){
 			ingame = false;
 			vol.resetBlocks();
+			this.playerstatus = new ArrayList<Boolean>();
 		}
 	}
 	public void checkLeave(){
@@ -149,6 +150,7 @@ public class nSpleefArena {
 		if (players.size() == 0){
 			ingame = false;
 			vol.resetBlocks();
+			this.playerstatus = new ArrayList<Boolean>();
 		}
 	}
 	public Boolean getInGame() {

@@ -101,15 +101,6 @@ public class nSpleefBlockListener extends BlockListener{
 					 return;
 				 }
 			 }
-			 /*for (int j = 0; j <= plugin.nSpleefArenas.get(i).getPlayers().size() - 1; j++){
-				 if (player.equals(plugin.nSpleefArenas.get(i).getPlayers().get(j))){
-					 pass = true;
-					 if (plugin.nSpleefArenas.get(i).getInGame() == false){
-						 return;
-					 }
-					 break;
-				}
-			 }*/
 		 }
 		 if (pass == false){
 			 return;

@@ -114,6 +114,8 @@ public class nSpleef extends JavaPlugin{
         pm.registerEvent(Event.Type.BLOCK_PLACED, blockListener, Event.Priority.Normal, this);
         //Create BlockDamaged listener
         pm.registerEvent(Event.Type.BLOCK_DAMAGED, blockListener, Event.Priority.Normal, this);
+        //Create BlockBreak for cancelling (Damn you bukkit!)
+        //pm.registerEvent(Event.Type.BLOCK_BREAK, blockListener, Event.Priority.Normal, this);
         //Create BlockRightClicked listener
         pm.registerEvent(Event.Type.BLOCK_RIGHTCLICKED, blockListener, Event.Priority.Normal, this);
         //Create CreatureSpawnedEvent

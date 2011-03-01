@@ -64,7 +64,7 @@ public class nSpleefPlayerListener extends PlayerListener{
 													 event.setTo(player.getWorld().getSpawnLocation());
 													 player.teleportTo(event.getTo());
 													 player.setHealth(20);
-													 player.sendMessage(ChatColor.DARK_PURPLE + "You've left the spleef game.");
+													 player.sendMessage(ChatColor.DARK_PURPLE + "You've lost the spleef game.");
 													 plugin.nSpleefArenas.get(k).checkLeave();
 													 return;
 												 }
