@@ -1,7 +1,6 @@
 package com.niccholaspage.nSpleef;
 
 import java.util.ArrayList;
-
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -11,6 +10,7 @@ public class nSpleefArena {
 	private final String name;
 	private World world;
 	private final ArrayList<Player> players = new ArrayList<Player>();
+	private ArrayList<Player> playersin = new ArrayList<Player>();
 	//Dirty workaround :)
 	private ArrayList<Boolean> playerstatus = new ArrayList<Boolean>();
 	private BlockVector block1;
@@ -19,7 +19,6 @@ public class nSpleefArena {
 	private Volume vol = null;
 	private Boolean ingame = false;
 	private Integer mygame = null;
-	 public static nSpleef plugin;
 	  public nSpleefArena(String name, World world){
 		  this.name = name;
 		  this.world = world;
@@ -60,9 +59,9 @@ public class nSpleefArena {
 				 tpblock.setZ(block2.getBlockZ() - block1.getBlockZ() + block1.getBlockZ());
 			 }
 			 if (block1.getBlockY() > block2.getBlockY()){
-				 tpblock.setY(block1.getBlockY());
+				 tpblock.setY(block1.getBlockY() + 1);
 			 }else {
-				 tpblock.setY(block2.getBlockY());
+				 tpblock.setY(block2.getBlockY() + 1);
 			 }
 	  }
 	  public BlockVector getTpBlock(){
@@ -79,6 +78,9 @@ public class nSpleefArena {
 	  }
 	  public ArrayList<Player> getPlayers(){
 		  return players;
+	  }
+	  public ArrayList<Player> getPlayersIn(){
+		  return playersin;
 	  }
 	  public ArrayList<Boolean> getPlayerStatus(){
 		  return playerstatus;
@@ -135,21 +137,32 @@ public class nSpleefArena {
 		if (players.size() == 0){
 			ingame = false;
 			vol.resetBlocks();
+			for (int i = 0; i <= nSpleefPlayerListener.plugin.nSpleefGames.size() - 1; i++){
+				if (nSpleefPlayerListener.plugin.nSpleefGames.get(i).split(",")[1].equalsIgnoreCase(this.name)){
+					nSpleefPlayerListener.plugin.nSpleefGames.remove(i);
+				}
+			}
+			this.playersin = new ArrayList<Player>();
 			this.playerstatus = new ArrayList<Boolean>();
 		}
 	}
 	public void checkLeave(){
 		if (players.size() == 1){
 			ingame = false;
-			players.get(0).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] You have won the game!");
-			players.get(0).teleportTo(players.get(0).getWorld().getSpawnLocation());
+			for (int i = 0; i <= playersin.size() - 1; i++){
+				playersin.get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] " + players.get(0).getDisplayName() + " has won the game!");
+			}
 			players.remove(0);
 			vol.resetBlocks();
+			checkLeave();
 			return;
 		}
 		if (players.size() == 0){
 			ingame = false;
 			vol.resetBlocks();
+			for (int i = 0; i <= playersin.size() - 1; i++){
+				playersin.get(i).teleportTo(world.getSpawnLocation());
+			}
 			this.playerstatus = new ArrayList<Boolean>();
 		}
 	}

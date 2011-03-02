@@ -59,12 +59,10 @@ public class nSpleefPlayerListener extends PlayerListener{
 										 if (loc.getBlockY() + 1 == theblock.getBlockY() + 1){
 											 for (int k = 0; k <= plugin.nSpleefArenas.size() - 1; k++){
 												 if (plugin.nSpleefArenas.get(k).getPlayers().contains(player)){
+													 for (int j = 0; j <= plugin.nSpleefArenas.get(k).getPlayers().size() - 1; j++){
+														 plugin.nSpleefArenas.get(k).getPlayers().get(j).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] " + player.getDisplayName() + " is out!");
+													 }
 													 plugin.nSpleefArenas.get(k).getPlayers().remove(player);
-													 event.setFrom(player.getWorld().getSpawnLocation());
-													 event.setTo(player.getWorld().getSpawnLocation());
-													 player.teleportTo(event.getTo());
-													 player.setHealth(20);
-													 player.sendMessage(ChatColor.DARK_PURPLE + "You've lost the spleef game.");
 													 plugin.nSpleefArenas.get(k).checkLeave();
 													 return;
 												 }
@@ -138,6 +136,7 @@ public class nSpleefPlayerListener extends PlayerListener{
 					 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
 						 if (plugin.nSpleefArenas.get(i).getPlayers().contains(player)){
 							 player.sendMessage(ChatColor.DARK_PURPLE + "You are already in a game!");
+							 return;
 						 }
 					 }
 					 if (Util.exists() == false) {
@@ -157,10 +156,9 @@ public class nSpleefPlayerListener extends PlayerListener{
 				    					player.sendMessage(ChatColor.DARK_PURPLE + "A game is in progress in that arena.");
 				    					return;
 				    				}
-				    				BlockVector tp = plugin.nSpleefArenas.get(j).getTpBlock();
-				    				tp.setY(tp.getY() + 1);
-				    				player.teleportTo(tp.toLocation(plugin.nSpleefArenas.get(j).getWorld()));
+				    				player.teleportTo(plugin.nSpleefArenas.get(j).getTpBlock().toLocation(plugin.nSpleefArenas.get(j).getWorld()));
 				    				plugin.nSpleefArenas.get(j).getPlayers().add(player);
+				    				plugin.nSpleefArenas.get(j).getPlayersIn().add(player);
 				    				plugin.nSpleefArenas.get(j).getPlayerStatus().add(false);
 				    				player.sendMessage(ChatColor.DARK_PURPLE + "Joined game " + name + ".");
 				    				return;
@@ -175,10 +173,14 @@ public class nSpleefPlayerListener extends PlayerListener{
 				    if (!nSpleef.Permissions.has(player, "nSpleef.member")) {
 				        return;
 				    }
+				    if (plugin.nSpleefArenas.size() == 0){
+				    	return;
+				    }
 					 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
 						 for (int j = 0; j <= plugin.nSpleefArenas.get(i).getPlayers().size() - 1; j++){
 							 if (player.equals(plugin.nSpleefArenas.get(i).getPlayers().get(j))){
 								 	plugin.nSpleefArenas.get(i).getPlayerStatus().remove(j);
+								 	plugin.nSpleefArenas.get(i).getPlayersIn().remove(j);
 									plugin.nSpleefArenas.get(i).leave(player);
 							 }
 						 }
