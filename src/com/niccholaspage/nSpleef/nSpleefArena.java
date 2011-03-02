@@ -9,7 +9,7 @@ import org.bukkit.util.BlockVector;
 public class nSpleefArena {
 	private final String name;
 	private World world;
-	private final ArrayList<Player> players = new ArrayList<Player>();
+	private ArrayList<Player> players = new ArrayList<Player>();
 	private ArrayList<Player> playersin = new ArrayList<Player>();
 	//Dirty workaround :)
 	private ArrayList<Boolean> playerstatus = new ArrayList<Boolean>();
@@ -163,8 +163,15 @@ public class nSpleefArena {
 			for (int i = 0; i <= playersin.size() - 1; i++){
 				playersin.get(i).teleportTo(world.getSpawnLocation());
 			}
+			this.players = new ArrayList<Player>();
+			this.playersin = new ArrayList<Player>();
 			this.playerstatus = new ArrayList<Boolean>();
 		}
+	}
+	public void resetVars(){
+		this.players = new ArrayList<Player>();
+		this.playersin = new ArrayList<Player>();
+		this.playerstatus = new ArrayList<Boolean>();
 	}
 	public Boolean getInGame() {
 		return ingame;

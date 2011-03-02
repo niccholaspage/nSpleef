@@ -60,7 +60,7 @@ public class nSpleefPlayerListener extends PlayerListener{
 											 for (int k = 0; k <= plugin.nSpleefArenas.size() - 1; k++){
 												 if (plugin.nSpleefArenas.get(k).getPlayers().contains(player)){
 													 for (int j = 0; j <= plugin.nSpleefArenas.get(k).getPlayers().size() - 1; j++){
-														 plugin.nSpleefArenas.get(k).getPlayers().get(j).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] " + player.getDisplayName() + " is out!");
+														 plugin.nSpleefArenas.get(k).getPlayersIn().get(j).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] " + player.getDisplayName() + " is out!");
 													 }
 													 plugin.nSpleefArenas.get(k).getPlayers().remove(player);
 													 plugin.nSpleefArenas.get(k).checkLeave();
@@ -107,11 +107,19 @@ public class nSpleefPlayerListener extends PlayerListener{
 				    	player.sendMessage(ChatColor.RED + "/spleef define arenaname");
 				    	return;
 				    }
+				    if (!(plugin.nSpleefArenas.size() == 0)){
+				    }
 				    b1loc = nSpleefBlockListener.returnblock(1);
 				    b2loc = nSpleefBlockListener.returnblock(2);
 					 if ((b1loc == null) || (b2loc == null)){
 						 player.sendMessage("Positions aren't set.");
 						 return;
+					 }
+					 for (int i = 0; i<= plugin.nSpleefArenas.size() - 1; i++){
+						 if (split[2].equalsIgnoreCase(plugin.nSpleefArenas.get(i).getName())){
+							 player.sendMessage(ChatColor.DARK_PURPLE + "An arena with that name already exists.");
+							 return;
+						 }
 					 }
 					 String name = split[2];
 					 Util.openfile();
@@ -161,6 +169,7 @@ public class nSpleefPlayerListener extends PlayerListener{
 				    				plugin.nSpleefArenas.get(j).getPlayersIn().add(player);
 				    				plugin.nSpleefArenas.get(j).getPlayerStatus().add(false);
 				    				player.sendMessage(ChatColor.DARK_PURPLE + "Joined game " + name + ".");
+				    				player.sendMessage(ChatColor.DARK_PURPLE + "Type ready in the chat when you are ready.");
 				    				return;
 				    			}
 				    		}
@@ -169,6 +178,40 @@ public class nSpleefPlayerListener extends PlayerListener{
 				    player.sendMessage(ChatColor.DARK_PURPLE + "The game " + name + " does not exist.");
 					return;
 				}
+				/*if (split[1].equalsIgnoreCase("deletearena")){
+				    if (!nSpleef.Permissions.has(player, "nSpleef.admin")) {
+				        return;
+				    }
+				    if (!(split.length == 3)){
+				    	player.sendMessage(ChatColor.RED + "/spleef deletearena arenaname");
+				    	return;
+				    }
+				    if (plugin.nSpleefArenas.size() == 0){
+				    	player.sendMessage(ChatColor.DARK_PURPLE + "No arenas exist.");
+				    	return;
+				    }
+				    for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
+				    	if (plugin.nSpleefArenas.get(i).getName().equalsIgnoreCase(split[2])){
+				    		nSpleefArena pointer = plugin.nSpleefArenas.get(i);
+				    		BlockVector pointerb1 = pointer.getFirstBlock();
+				    		BlockVector pointerb2 = pointer.getSecondBlock();
+				    		String text = pointer.getName() + ":" + pointerb1.getBlockX() + ":" + pointerb1.getBlockY() + ":" + pointerb1.getBlockZ() + ":" + pointerb2.getBlockX() + ":" + pointerb2.getBlockY() + ":" + pointerb2.getBlockZ() + ":" + pointer.getWorld() + "\n";
+				    		Util.openfileread();
+				    		ArrayList<String> file = Util.filetoarray();
+				    		Util.closefileread();
+				    		player.sendMessage("" + file.size());
+				    		for (int j = 0; j<=file.size() - 1; j++){
+				    			if (file.get(j).equalsIgnoreCase(text)){
+				    				file.remove(j);
+				    			}
+				    		}
+				    		Util.openfile();
+				    		Util.replaceFile(file);
+				    		Util.closefile();
+				    		Data.setupArrays();
+				    	}
+				    }
+				}*/
 				if (split[1].equalsIgnoreCase("leave")){
 				    if (!nSpleef.Permissions.has(player, "nSpleef.member")) {
 				        return;
@@ -212,6 +255,7 @@ public class nSpleefPlayerListener extends PlayerListener{
 				        return;
 				    }
 				    if (plugin.nSpleefGames.size() == 0){
+				    	player.sendMessage(ChatColor.DARK_PURPLE + "No games exist.");
 				    	return;
 				    }
 					 if (!(split.length == 3)){
@@ -233,6 +277,11 @@ public class nSpleefPlayerListener extends PlayerListener{
 						 return;
 					 }
 					 if ((name.equalsIgnoreCase(plugin.nSpleefGames.get(v).split(",")[2])) || (nSpleef.Permissions.has(player, "nSpleef.admin"))){
+						 for (int i = 0; i<=plugin.nSpleefArenas.size() - 1; i++){
+						 if (plugin.nSpleefGames.get(v).split(",")[1].equalsIgnoreCase(plugin.nSpleefArenas.get(i).getName())){
+							 plugin.nSpleefArenas.get(i).resetVars();
+						 }
+						 }
 						 plugin.nSpleefGames.remove(v.intValue());
 						 player.sendMessage(ChatColor.DARK_PURPLE + "Deleted game.");
 					 }else {
