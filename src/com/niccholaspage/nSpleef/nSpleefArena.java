@@ -141,6 +141,7 @@ public class nSpleefArena {
 				if (nSpleefPlayerListener.plugin.nSpleefGames.get(i).split(",")[1].equalsIgnoreCase(this.name)){
 					nSpleefPlayerListener.plugin.nSpleefGames.remove(i);
 				}
+			resetVars();
 			}
 			this.playersin = new ArrayList<Player>();
 			this.playerstatus = new ArrayList<Boolean>();
