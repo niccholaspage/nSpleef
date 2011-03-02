@@ -123,8 +123,16 @@ public class nSpleefPlayerListener extends PlayerListener{
 					 }
 					 String name = split[2];
 					 Util.openfile();
-					 Util.writefile(name + ":" + b1loc.getBlockX() + ":" + b1loc.getBlockY() + ":" + b1loc.getBlockZ()
-							 + ":" + b2loc.getBlockX() + ":" + b2loc.getBlockY() + ":" + b2loc.getBlockZ() + ":" + nSpleefBlockListener.returnworld().getName() + "\n");
+					 if (b1loc.getBlockY() == b2loc.getBlockY()){
+						 return;
+					 }
+					 if (b1loc.getBlockY() > b2loc.getBlockY()){
+						 Util.writefile(name + ":" + b1loc.getBlockX() + ":" + b1loc.getBlockY() + ":" + b1loc.getBlockZ()
+								 + ":" + b2loc.getBlockX() + ":" + (b2loc.getBlockY() + 1) + ":" + b2loc.getBlockZ() + ":" + nSpleefBlockListener.returnworld().getName() + "\n");
+					 }else {
+						 Util.writefile(name + ":" + b1loc.getBlockX() + ":" + (b1loc.getBlockY() + 1) + ":" + b1loc.getBlockZ()
+								 + ":" + b2loc.getBlockX() + ":" + b2loc.getBlockY() + ":" + b2loc.getBlockZ() + ":" + nSpleefBlockListener.returnworld().getName() + "\n");
+					 }
 					 Util.closefile();
 					 Data.setupArrays();
 					 player.sendMessage(ChatColor.DARK_PURPLE + "Arena " + name + " has been made!");
