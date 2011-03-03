@@ -44,7 +44,7 @@ public class nSpleef extends JavaPlugin{
     //Create the games array
     public final ArrayList<String> nSpleefGames = new ArrayList<String>();
     //Create arena array
-    public final ArrayList<nSpleefArena> nSpleefArenas = new ArrayList<nSpleefArena>();
+    public ArrayList<nSpleefArena> nSpleefArenas = new ArrayList<nSpleefArena>();
     //Create the hashmap debugees
     private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
 
