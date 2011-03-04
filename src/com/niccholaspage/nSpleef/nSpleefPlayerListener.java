@@ -82,7 +82,7 @@ public class nSpleefPlayerListener extends PlayerListener{
 			 if (event.getMessage().toLowerCase().contains("ready")){
 				 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
 					 if (plugin.nSpleefArenas.get(i).getPlayers().contains(player)){
-						 if (plugin.nSpleefArenas.get(i).getInGame() == false){
+						 if (plugin.nSpleefArenas.get(i).getInGame() == 0){
 							 Integer where = plugin.nSpleefArenas.get(i).getPlayers().indexOf(player);
 							 plugin.nSpleefArenas.get(i).getPlayerStatus().set(where, true);
 							 plugin.nSpleefArenas.get(i).checkReady();
@@ -168,7 +168,7 @@ public class nSpleefPlayerListener extends PlayerListener{
 				    	if ((plugin.nSpleefGames.get(i).split(",")[0].equalsIgnoreCase(name)) && (!(plugin.enabled(player)))){
 				    		for (int j = 0; j<= plugin.nSpleefArenas.size() - 1; j++){
 				    			if (plugin.nSpleefGames.get(i).split(",")[1].equalsIgnoreCase(plugin.nSpleefArenas.get(j).getName())){
-				    				if (plugin.nSpleefArenas.get(j).getInGame() == true){
+				    				if (plugin.nSpleefArenas.get(j).getInGame() == 2){
 				    					player.sendMessage(ChatColor.DARK_PURPLE + "A game is in progress in that arena.");
 				    					return;
 				    				}

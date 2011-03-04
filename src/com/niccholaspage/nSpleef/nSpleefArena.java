@@ -17,7 +17,7 @@ public class nSpleefArena {
 	private BlockVector block2;
 	private BlockVector tpblock = new BlockVector(0,0,0);
 	private Volume vol = null;
-	private Boolean ingame = false;
+	private Integer ingame = 0;
 	private Integer mygame = null;
 	  public nSpleefArena(String name, World world){
 		  this.name = name;
@@ -88,10 +88,11 @@ public class nSpleefArena {
 	  public Volume getVolume(){
 		  return this.vol;
 	  }
-	public void setInGame(Boolean ingame) {
+	public void setInGame(Integer ingame) {
 		this.ingame = ingame;
 	}
 	public void go(){
+		ingame = 1;
 		Runnable r = new Runnable(){
 			public void run(){
 				for (int i = 0; i <= players.size() - 1; i++){
@@ -109,7 +110,7 @@ public class nSpleefArena {
 				for (int i = 0; i <= players.size() - 1; i++){
 					players.get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] Go!");
 				}
-				ingame = true;
+				ingame = 2;
 			}
 		};
 		new Thread(r).start();
@@ -130,12 +131,12 @@ public class nSpleefArena {
 		player.teleportTo(player.getWorld().getSpawnLocation());
 		player.sendMessage(ChatColor.DARK_PURPLE + "You've left the spleef game.");
 		if (players.size() == 1){
-			ingame = false;
+			ingame = 0;
 			players.get(0).sendMessage(ChatColor.DARK_PURPLE + "Everyone else has left. If you would like to leave, type /spleef leave.");
 			return;
 		}
 		if (players.size() == 0){
-			ingame = false;
+			ingame = 0;
 			vol.resetBlocks();
 			for (int i = 0; i <= nSpleefPlayerListener.plugin.nSpleefGames.size() - 1; i++){
 				if (nSpleefPlayerListener.plugin.nSpleefGames.get(i).split(",")[1].equalsIgnoreCase(this.name)){
@@ -149,7 +150,7 @@ public class nSpleefArena {
 	}
 	public void checkLeave(){
 		if (players.size() == 1){
-			ingame = false;
+			ingame = 0;
 			for (int i = 0; i <= playersin.size() - 1; i++){
 				playersin.get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] " + players.get(0).getDisplayName() + " has won the game!");
 			}
@@ -159,7 +160,7 @@ public class nSpleefArena {
 			return;
 		}
 		if (players.size() == 0){
-			ingame = false;
+			ingame = 0;
 			vol.resetBlocks();
 			for (int i = 0; i <= playersin.size() - 1; i++){
 				playersin.get(i).teleportTo(world.getSpawnLocation());
@@ -174,7 +175,7 @@ public class nSpleefArena {
 		this.playersin = new ArrayList<Player>();
 		this.playerstatus = new ArrayList<Boolean>();
 	}
-	public Boolean getInGame() {
+	public Integer getInGame() {
 		return ingame;
 	}
 }
