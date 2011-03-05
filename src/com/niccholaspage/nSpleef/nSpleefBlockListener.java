@@ -11,6 +11,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockDamageLevel;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.BlockListener;
@@ -60,13 +61,7 @@ public class nSpleefBlockListener extends BlockListener{
 				 if ((plugin.nSpleefArenas.get(i).getPlayers().contains(player)) && (canplaceblocks == false)){
 					 event.setCancelled(true);
 					 player.sendMessage(ChatColor.DARK_PURPLE + "Cannot place blocks during spleef!");
-				 }
-				 /*for (int j = 0; j <= plugin.nSpleefArenas.get(i).getPlayers().size() - 1; j++){
-					 if ((player.equals(plugin.nSpleefArenas.get(i).getPlayers().get(j)) && canplaceblocks == false)){
-						event.setCancelled(true);
-						player.sendMessage(ChatColor.DARK_PURPLE + "Cannot place blocks during spleef!");
-					}
-				}*/
+				 }  
 			}
 	 }
 	 public void onBlockRightClick(BlockRightClickEvent event){
@@ -81,11 +76,32 @@ public class nSpleefBlockListener extends BlockListener{
 				 player.sendMessage(ChatColor.DARK_PURPLE + "Second point set.");
 		 }
 	 }
+	 public void onBlockBreak(BlockBreakEvent event){
+		 Player player = event.getPlayer();
+		 Block block = event.getBlock();
+		 Boolean pass = false;
+		 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
+			 if (plugin.nSpleefArenas.get(i).getPlayersIn().contains(player)){
+				 pass = true;
+			 }
+		 }
+		 if (pass == false){
+			 return;
+		 }
+		    for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++) {
+				 if (!(returnblockinarea(Util.toVector(block), plugin.nSpleefArenas.get(i).getFirstBlock(), plugin.nSpleefArenas.get(i).getSecondBlock())) == true) {
+						 if (player.getWorld().toString().equals(plugin.nSpleefArenas.get(i).getWorld().toString())){
+							 player.sendMessage(ChatColor.DARK_PURPLE + "You cannot mine outside the spleef zone!");
+							 event.setCancelled(true);
+						 }
+		    	}
+		    }
+	 }
 	 public void onBlockDamage(BlockDamageEvent event) {
 		 Player player = event.getPlayer();
 		 Block block = event.getBlock();
 		 if ((player.getItemInHand().getTypeId() == 281) && (event.getDamageLevel() == BlockDamageLevel.STARTED)){
-			    if ((!nSpleef.Permissions.has(player, "nSpleef.admin")) && (!(event.getDamageLevel() == BlockDamageLevel.STARTED))) {
+			    if (!(nSpleef.Permissions.has(player, "nSpleef.admin")) && (!(event.getDamageLevel() == BlockDamageLevel.STARTED))) {
 			        return;
 			    }
 			 b1loc = Util.toVector(block);
@@ -118,8 +134,8 @@ public class nSpleefBlockListener extends BlockListener{
 			    	}
 			    }
 			    if (did == false){
-			    	player.sendMessage(ChatColor.DARK_PURPLE + "Cannot mine outside of spleef zone!");
-			    	event.setCancelled(true);
+			    	//player.sendMessage(ChatColor.DARK_PURPLE + "Cannot mine outside of spleef zone!");
+			    	//event.setCancelled(true);
 			    	return;
 			    }
 			 if ((!(block.getTypeId() == 7)) && (did == true)){
