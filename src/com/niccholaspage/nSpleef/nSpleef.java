@@ -105,22 +105,15 @@ public class nSpleef extends JavaPlugin{
 	public void onEnable() {
 		//Create the pluginmanage pm.
 		PluginManager pm = getServer().getPluginManager();
-		//Create PlayerCommand listener
+		//PlayerListener stuff
 	    pm.registerEvent(Event.Type.PLAYER_COMMAND_PREPROCESS, this.playerListener, Event.Priority.Normal, this);
 	    pm.registerEvent(Event.Type.PLAYER_CHAT, this.playerListener, Event.Priority.Normal, this);
-	    //Create PlayerMove listener
 	    pm.registerEvent(Event.Type.PLAYER_MOVE, this.playerListener, Event.Priority.Normal, this);
-	    //Create BlockPlaced listener
+	    //BlockListener stuff
         pm.registerEvent(Event.Type.BLOCK_PLACED, blockListener, Event.Priority.Normal, this);
-        //Create BlockDamaged listener
         pm.registerEvent(Event.Type.BLOCK_DAMAGED, blockListener, Event.Priority.Normal, this);
-        //Create BlockBreak for cancelling 
         pm.registerEvent(Event.Type.BLOCK_BREAK, blockListener, Event.Priority.Normal, this);
-        //Create BlockRightClicked listener
         pm.registerEvent(Event.Type.BLOCK_RIGHTCLICKED, blockListener, Event.Priority.Normal, this);
-        //Create CreatureSpawnedEvent
-        //pm.registerEvent(Event.Type.CREATURE_SPAWN, monsterListener, Event.Priority.Normal, this);
-        //Create Block
        //Get the infomation from the yml file.
         PluginDescriptionFile pdfFile = this.getDescription();
         //Setup Permissions
