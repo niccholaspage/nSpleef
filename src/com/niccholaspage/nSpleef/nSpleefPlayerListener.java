@@ -107,8 +107,6 @@ public class nSpleefPlayerListener extends PlayerListener{
 				    	player.sendMessage(ChatColor.RED + "/spleef define arenaname");
 				    	return;
 				    }
-				    if (!(plugin.nSpleefArenas.size() == 0)){
-				    }
 				    b1loc = nSpleefBlockListener.returnblock(1);
 				    b2loc = nSpleefBlockListener.returnblock(2);
 					 if ((b1loc == null) || (b2loc == null)){
@@ -124,6 +122,7 @@ public class nSpleefPlayerListener extends PlayerListener{
 					 String name = split[2];
 					 Util.openfile();
 					 if (b1loc.getBlockY() == b2loc.getBlockY()){
+						 player.sendMessage(ChatColor.DARK_PURPLE + "Both blocks cannot be on the same level. If you want a one level spleef arena, make the second point 2 or more blocks below the arena.");
 						 return;
 					 }
 					 if (b1loc.getBlockY() > b2loc.getBlockY()){
