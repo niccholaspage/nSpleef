@@ -56,15 +56,17 @@ public class nSpleefPlayerListener extends PlayerListener{
 									 if (plugin.nSpleefArenas.get(i).getFirstBlock().getBlockY() < plugin.nSpleefArenas.get(i).getSecondBlock().getBlockY()){
 										 theblock = plugin.nSpleefArenas.get(i).getFirstBlock();
 									 } 
-										 if (loc.getBlockY() + 1 == theblock.getBlockY() + 1){
+										 if (loc.getBlockY() + 1 <= theblock.getBlockY() + 1){
 											 for (int k = 0; k <= plugin.nSpleefArenas.size() - 1; k++){
 												 if (plugin.nSpleefArenas.get(k).getPlayers().contains(player)){
 													 for (int j = 0; j <= plugin.nSpleefArenas.get(k).getPlayers().size() - 1; j++){
 														 plugin.nSpleefArenas.get(k).getPlayersIn().get(j).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] " + player.getDisplayName() + " is out!");
 													 }
 													 plugin.nSpleefArenas.get(k).getPlayers().remove(player);
+													 if (plugin.nSpleefArenas.get(k).getPlayers().size() == 1){
 													 event.setFrom(player.getWorld().getSpawnLocation());
 													 event.setTo(player.getWorld().getSpawnLocation());
+													 }
 													 plugin.nSpleefArenas.get(k).checkLeave();
 													 return;
 												 }
