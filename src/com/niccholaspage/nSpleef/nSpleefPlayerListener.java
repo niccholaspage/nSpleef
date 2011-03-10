@@ -56,13 +56,15 @@ public class nSpleefPlayerListener extends PlayerListener{
 									 if (plugin.nSpleefArenas.get(i).getFirstBlock().getBlockY() < plugin.nSpleefArenas.get(i).getSecondBlock().getBlockY()){
 										 theblock = plugin.nSpleefArenas.get(i).getFirstBlock();
 									 } 
-										 if (loc.getBlockY() + 1 <= theblock.getBlockY() + 1){
+										 if (loc.getBlockY() + 1 == theblock.getBlockY() + 1){
 											 for (int k = 0; k <= plugin.nSpleefArenas.size() - 1; k++){
 												 if (plugin.nSpleefArenas.get(k).getPlayers().contains(player)){
 													 for (int j = 0; j <= plugin.nSpleefArenas.get(k).getPlayers().size() - 1; j++){
 														 plugin.nSpleefArenas.get(k).getPlayersIn().get(j).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] " + player.getDisplayName() + " is out!");
 													 }
 													 plugin.nSpleefArenas.get(k).getPlayers().remove(player);
+													 event.setFrom(player.getWorld().getSpawnLocation());
+													 event.setTo(player.getWorld().getSpawnLocation());
 													 plugin.nSpleefArenas.get(k).checkLeave();
 													 return;
 												 }
@@ -227,8 +229,8 @@ public class nSpleefPlayerListener extends PlayerListener{
 				    	return;
 				    }
 					 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
-						 for (int j = 0; j <= plugin.nSpleefArenas.get(i).getPlayers().size() - 1; j++){
-							 if (player.equals(plugin.nSpleefArenas.get(i).getPlayers().get(j))){
+						 for (int j = 0; j <= plugin.nSpleefArenas.get(i).getPlayersIn().size() - 1; j++){
+							 if (player.equals(plugin.nSpleefArenas.get(i).getPlayersIn().get(j))){
 								 	plugin.nSpleefArenas.get(i).getPlayerStatus().remove(j);
 								 	plugin.nSpleefArenas.get(i).getPlayersIn().remove(j);
 									plugin.nSpleefArenas.get(i).leave(player);

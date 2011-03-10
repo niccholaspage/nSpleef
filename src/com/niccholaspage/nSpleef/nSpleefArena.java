@@ -155,16 +155,16 @@ public class nSpleefArena {
 				playersin.get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] " + players.get(0).getDisplayName() + " has won the game!");
 			}
 			players.remove(0);
-			vol.resetBlocks();
+			//vol.resetBlocks();
 			checkLeave();
 			return;
 		}
 		if (players.size() == 0){
 			ingame = 0;
-			vol.resetBlocks();
 			for (int i = 0; i <= playersin.size() - 1; i++){
 				playersin.get(i).teleportTo(world.getSpawnLocation());
 			}
+			vol.resetBlocks();
 			this.players = new ArrayList<Player>();
 			this.playersin = new ArrayList<Player>();
 			this.playerstatus = new ArrayList<Boolean>();
