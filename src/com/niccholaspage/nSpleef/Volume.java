@@ -1,35 +1,56 @@
 package com.niccholaspage.nSpleef;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.Chest;
+import org.bukkit.block.Dispenser;
+import org.bukkit.block.Sign;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+
+//import com.tommytony.war.jobs.BlockResetJob;=
 
 /**
  * 
  * @author tommytony
  *
  */
-//Tommytony's volume code.
-//Thanks for letting me use it! ~niccholaspage
 public class Volume {
 	private final String name;
 	private final World world;
-	private Block cornerOne;
-	private Block cornerTwo;
+	//private final Warzone warzone;
+	private BlockInfo cornerOne;
+	private BlockInfo cornerTwo;
 	private int[][][] blockTypes = null;
 	private byte[][][] blockDatas = null;
+	private HashMap<String, String[]> signLines = new HashMap<String, String[]>();
+	private HashMap<String, List<ItemStack>> invBlockContents = new HashMap<String, List<ItemStack>>();
+
 	public Volume(String name, World world) {
 		this.name = name;
 		this.world = world;
 	}
+	
+	public World getWorld() {
+		return world;
+	}
+	
+	public boolean hasTwoCorners() {
+		return cornerOne != null && cornerTwo != null;
+	}
+	
 	public void setCornerOne(Block block) {
-		this.cornerOne = block;
+		this.cornerOne = new BlockInfo(block);
 	}
-	public void setCornerTwo(Block block) {
-		this.cornerTwo = block;
-	}
+	
 	public int saveBlocks() {
 		int noOfSavedBlocks = 0;
 		int x = 0;
@@ -39,17 +60,62 @@ public class Volume {
 			if(hasTwoCorners()) {
 				this.setBlockTypes(new int[getSizeX()][getSizeY()][getSizeZ()]);
 				this.setBlockDatas(new byte[getSizeX()][getSizeY()][getSizeZ()]);
+				this.getSignLines().clear();
+				this.getInvBlockContents().clear();
 				x = getMinX();
 				for(int i = 0; i < getSizeX(); i++){
 					y = getMinY();
 					for(int j = 0; j < getSizeY(); j++){
 						z = getMinZ();
 						for(int k = 0;k < getSizeZ(); k++) {
-							Block block = getWorld().getBlockAt(x, y, z);
-							this.getBlockTypes()[i][j][k] = block.getTypeId();
-							this.getBlockDatas()[i][j][k] = block.getData();
-							z++;
-							noOfSavedBlocks++;
+							try {
+								Block block = getWorld().getBlockAt(x, y, z);
+								this.getBlockTypes()[i][j][k] = block.getTypeId();
+								this.getBlockDatas()[i][j][k] = block.getData();
+								BlockState state = block.getState();
+								if(state instanceof Sign) {
+									// Signs
+									Sign sign = (Sign)state;
+									if(sign.getLines() != null) {
+										this.getSignLines().put("sign-" + i + "-" + j + "-" + k, sign.getLines());
+									}
+									
+								} else if(state instanceof Chest) {
+									// Chests
+									Chest chest = (Chest)state;
+									Inventory inv = chest.getInventory();
+									int size = inv.getSize();
+									List<ItemStack> items = new ArrayList<ItemStack>();
+									for(int invIndex = 0; invIndex < size; invIndex++){
+										ItemStack item = inv.getItem(invIndex);
+										if(item != null && item.getType().getId() != Material.AIR.getId()) {
+											items.add(item);
+										}
+									}
+									this.getInvBlockContents().put("chest-" + i + "-" + j + "-" + k, items);
+								} else if(state instanceof Dispenser) {
+									// Dispensers							
+									Dispenser dispenser = (Dispenser)state;
+									Inventory inv = dispenser.getInventory();
+									int size = inv.getSize();
+									List<ItemStack> items = new ArrayList<ItemStack>();
+									for(int invIndex = 0; invIndex < size; invIndex++){
+										ItemStack item = inv.getItem(invIndex);
+										if(item != null && item.getType().getId() != Material.AIR.getId()) {
+											items.add(item);
+										}
+									}
+									this.getInvBlockContents().put("dispenser-" + i + "-" + j + "-" + k, items);
+								}
+								
+								noOfSavedBlocks++;
+							} catch (Exception e) {
+								System.out.println("Failed to save block in arena " + getName() + ". Saved blocks so far:" + noOfSavedBlocks 
+										+ ". Error at x:" + x + " y:" + y + " z:" + z + ". Exception:" + e.getClass().toString() + e.getMessage());
+								e.printStackTrace();
+							} finally {
+								z++;
+							}
 						}
 						y++;
 					}
@@ -58,11 +124,16 @@ public class Volume {
 			}		
 		} catch (Exception e) {
 			System.out.println("Failed to save volume " + getName() + " blocks. Saved blocks:" + noOfSavedBlocks 
-					+ ". Error at x:" + x + " y:" + y + " z:" + z + ". Exception:" + e.getClass().toString() + e.getMessage());
+					+ ". Error at x:" + x + " y:" + y + " z:" + z + ". Exception:" + e.getClass().toString() + " "+ e.getMessage());
+			e.printStackTrace();
 		}
 		return noOfSavedBlocks;
 	}
+	
 	public int resetBlocks() {
+//		BlockResetJob job = new BlockResetJob(this);
+//		war.getServer().getScheduler().scheduleSyncDelayedTask(war, job);
+//		return 0;
 		int visitedBlocks = 0, noOfResetBlocks = 0, x = 0, y = 0, z = 0;
 		int currentBlockId = 0;
 		int oldBlockType = 0;
@@ -75,34 +146,32 @@ public class Volume {
 					for(int j = 0; j < getSizeY(); j++){
 						z = getMinZ();
 						for(int k = 0;k < getSizeZ(); k++) {
-							oldBlockType = getBlockTypes()[i][j][k];
-							byte oldBlockData = getBlockDatas()[i][j][k];
-							Block currentBlock = getWorld().getBlockAt(x, y, z);
-							currentBlockId = currentBlock.getTypeId();
-							if(currentBlockId != oldBlockType ||
-								(currentBlockId == oldBlockType && currentBlock.getData() != oldBlockData ) ||
-								(currentBlockId == oldBlockType && currentBlock.getData() == oldBlockData &&
-										(oldBlockType == Material.WALL_SIGN.getId() || oldBlockType == Material.SIGN_POST.getId() 
-												|| oldBlockType == Material.CHEST.getId() || oldBlockType == Material.DISPENSER.getId())
-								)
-							) {
-
-//								if(oldBlockInfo.is(Material.SIGN) || oldBlockInfo.is(Material.SIGN_POST)) {
-//									BlockState state = currentBlock.getState();
-//									Sign currentSign = (Sign) state;
-//									currentSign.setLine(0, oldBlockInfo.getSignLines()[0]);
-//									currentSign.setLine(1, oldBlockInfo.getSignLines()[1]);
-//									currentSign.setLine(2, oldBlockInfo.getSignLines()[2]);
-//									currentSign.setLine(3, oldBlockInfo.getSignLines()[3]);
-//									state.update();
-//								}
-									// regular block
-									currentBlock.setType(Material.getMaterial(oldBlockType));
-									currentBlock.setData(oldBlockData);
-								noOfResetBlocks++;
+							try {
+								oldBlockType = getBlockTypes()[i][j][k];
+								byte oldBlockData = getBlockDatas()[i][j][k];
+								Block currentBlock = getWorld().getBlockAt(x, y, z);
+								currentBlockId = currentBlock.getTypeId();
+								if(currentBlockId != oldBlockType ||
+									(currentBlockId == oldBlockType && currentBlock.getData() != oldBlockData ) ||
+									(currentBlockId == oldBlockType && currentBlock.getData() == oldBlockData &&
+											(oldBlockType == Material.WALL_SIGN.getId() || oldBlockType == Material.SIGN_POST.getId() 
+													|| oldBlockType == Material.CHEST.getId() || oldBlockType == Material.DISPENSER.getId())
+									)
+								) {
+										// regular block
+										currentBlock.setType(Material.getMaterial(oldBlockType));
+										currentBlock.setData(oldBlockData);
+									}
+									noOfResetBlocks++;
+								visitedBlocks++;
+							} catch (Exception e) {
+								System.out.println("Failed to reset block in volume " + getName() + ". Visited blocks so far:" + visitedBlocks 
+										+ ". Blocks reset: "+ noOfResetBlocks + 
+										". Error at x:" + x + " y:" + y + " z:" + z + ". Exception:" + e.getClass().toString() + " " + e.getMessage());
+								e.printStackTrace();
+							} finally {
+								z++;
 							}
-							visitedBlocks++;
-							z++;
 						}
 						y++;
 					}
@@ -113,11 +182,12 @@ public class Volume {
 			System.out.println("Failed to reset volume " + getName() + " blocks. Blocks visited: " + visitedBlocks 
 					+ ". Blocks reset: "+ noOfResetBlocks + ". Error at x:" + x + " y:" + y + " z:" + z 
 					+ ". Current block: " + currentBlockId + ". Old block: " + oldBlockType + ". Exception: " + e.getClass().toString() + " " + e.getMessage());
+			e.printStackTrace();
 		}
 		return noOfResetBlocks;
 	}
+
 	public byte[][][] getBlockDatas() {
-		// TODO Auto-generated method stub
 		return this.blockDatas;
 	}
 	
@@ -125,20 +195,24 @@ public class Volume {
 		this.blockDatas = data;
 	}
 	
+
+	public void setCornerTwo(Block block) {
+		this.cornerTwo = new BlockInfo(block);
+	}
 	
 	public Block getMinXBlock() {
-		if(cornerOne.getX() < cornerTwo.getX()) return cornerOne;
-		return cornerTwo;
+		if(cornerOne.getX() < cornerTwo.getX()) return BlockInfo.getBlock(world, cornerOne);
+		return BlockInfo.getBlock(world, cornerTwo);
 	}
 	
 	public Block getMinYBlock() {
-		if(cornerOne.getY() < cornerTwo.getY()) return cornerOne;
-		return cornerTwo;
+		if(cornerOne.getY() < cornerTwo.getY()) return BlockInfo.getBlock(world, cornerOne);
+		return BlockInfo.getBlock(world, cornerTwo);
 	}
 	
 	public Block getMinZBlock() {
-		if(cornerOne.getZ() < cornerTwo.getZ()) return cornerOne;
-		return cornerTwo;
+		if(cornerOne.getZ() < cornerTwo.getZ()) return BlockInfo.getBlock(world, cornerOne);
+		return BlockInfo.getBlock(world, cornerTwo);
 	}
 	
 	public int getMinX() {
@@ -154,18 +228,18 @@ public class Volume {
 	}
 	
 	public Block getMaxXBlock() {
-		if(cornerOne.getX() < cornerTwo.getX()) return cornerTwo;
-		return cornerOne;
+		if(cornerOne.getX() < cornerTwo.getX()) return BlockInfo.getBlock(world, cornerTwo);
+		return BlockInfo.getBlock(world, cornerOne);
 	}
 	
 	public Block getMaxYBlock() {
-		if(cornerOne.getY() < cornerTwo.getY()) return cornerTwo;
-		return cornerOne;
+		if(cornerOne.getY() < cornerTwo.getY()) return BlockInfo.getBlock(world, cornerTwo);
+		return BlockInfo.getBlock(world, cornerOne);
 	}
 	
 	public Block getMaxZBlock() {
-		if(cornerOne.getZ() < cornerTwo.getZ()) return cornerTwo;
-		return cornerOne;
+		if(cornerOne.getZ() < cornerTwo.getZ()) return BlockInfo.getBlock(world, cornerTwo);
+		return BlockInfo.getBlock(world, cornerOne);
 	}
 	
 	public int getMaxX() {
@@ -201,11 +275,11 @@ public class Volume {
 	}
 	
 	public Block getCornerOne() {
-		return cornerOne;
+		return BlockInfo.getBlock(world, cornerOne);
 	}
 	
 	public Block getCornerTwo() {
-		return cornerTwo;
+		return BlockInfo.getBlock(world, cornerTwo);
 	}
 
 	public boolean contains(Location location) {
@@ -233,6 +307,7 @@ public class Volume {
 	public String getName() {
 		return name;
 	}
+
 	public void setToMaterial(Material material) {
 		try {
 			if(hasTwoCorners() && getBlockTypes() != null) {
@@ -282,7 +357,7 @@ public class Volume {
 				}
 			}		
 		} catch (Exception e) {
-			System.out.println("Failed to set block to " + material + "in volume " + name + "." + e.getClass().toString() + " " + e.getMessage());
+			System.out.println("Failed to set block to " + material + "in arena " + name + "." + e.getClass().toString() + " " + e.getMessage());
 		}
 	}
 	
@@ -314,15 +389,10 @@ public class Volume {
 				}
 			}	
 		} catch (Exception e) {
-			System.out.println("Failed to switch block to " + newType + "in volume " + name + "." + e.getClass().toString() + " " + e.getMessage());
+			System.out.println("Failed to switch block to " + newType + "in arena " + name + "." + e.getClass().toString() + " " + e.getMessage());
 		}
 	}
-	public boolean hasTwoCorners() {
-		return cornerOne != null && cornerTwo != null;
-	}
-	public World getWorld() {
-		return world;
-	}
+
 	public void clearBlocksThatDontFloat() {
 		Material[] toAirMaterials = new Material[22];
 		toAirMaterials[0] = Material.SIGN_POST;
@@ -352,5 +422,20 @@ public class Volume {
 		switchMaterials(toAirMaterials, Material.AIR);
 	}
 
+	public void setSignLines(HashMap<String, String[]> signLines) {
+		this.signLines = signLines;
+	}
+
+	public HashMap<String, String[]> getSignLines() {
+		return signLines;
+	}
+
+	public void setInvBlockContents(HashMap<String, List<ItemStack>> invBlockContents) {
+		this.invBlockContents = invBlockContents;
+	}
+
+	public HashMap<String, List<ItemStack>> getInvBlockContents() {
+		return invBlockContents;
+	}
 
 }
