@@ -16,17 +16,15 @@ import org.bukkit.block.Sign;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-//import com.tommytony.war.jobs.BlockResetJob;=
-
 /**
  * 
  * @author tommytony
  *
  */
 public class Volume {
+	//Thanks for letting me use your code ~niccholaspage
 	private final String name;
 	private final World world;
-	//private final Warzone warzone;
 	private BlockInfo cornerOne;
 	private BlockInfo cornerTwo;
 	private int[][][] blockTypes = null;
