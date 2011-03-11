@@ -27,29 +27,7 @@ public class BlockInfo {
 		this.z = block.getZ();
 		this.type = block.getTypeId();
 		this.data = block.getData();
-//		if(is(Material.SIGN) || is(Material.SIGN_POST)) {
-//			Sign sign = (Sign)block.getState();
-//			this.signLines = sign.getLines();
-//		}
 	}
-	
-//	public BlockInfo(BlockState blockState) {
-//		this.x = blockState.getX();
-//		this.y = blockState.getY();
-//		this.z = blockState.getZ();
-//		this.type = blockState.getTypeId();
-//		this.data = blockState.getData().getData();
-////		if(is(Material.SIGN) || is(Material.SIGN_POST)) {
-////			Sign sign = (Sign)blockState;
-////			this.signLines = sign.getLines();
-////		}
-//	}
-	
-//	public BlockInfo(int typeID, byte data, String[] lines) {
-//		type = typeID;
-//		this.data = data;
-//		//signLines = lines;
-//	}
 
 	public int getX() {
 		return x;
@@ -78,11 +56,4 @@ public class BlockInfo {
 	public boolean is(Material material) {
 		return getType() == material;
 	}
-	
-//	public String[] getSignLines() {
-//		if(is(Material.SIGN) || is(Material.SIGN_POST)){
-//			return new String[4] {"", ""};
-//		}
-//		return null;
-//	}
 }

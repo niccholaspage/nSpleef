@@ -121,7 +121,7 @@ public class Volume {
 				}
 			}		
 		} catch (Exception e) {
-			System.out.println("Failed to save volume " + getName() + " blocks. Saved blocks:" + noOfSavedBlocks 
+			System.out.println("Failed to save arena " + getName() + " blocks. Saved blocks:" + noOfSavedBlocks 
 					+ ". Error at x:" + x + " y:" + y + " z:" + z + ". Exception:" + e.getClass().toString() + " "+ e.getMessage());
 			e.printStackTrace();
 		}
@@ -163,7 +163,7 @@ public class Volume {
 									noOfResetBlocks++;
 								visitedBlocks++;
 							} catch (Exception e) {
-								System.out.println("Failed to reset block in volume " + getName() + ". Visited blocks so far:" + visitedBlocks 
+								System.out.println("Failed to reset block in arena " + getName() + ". Visited blocks so far:" + visitedBlocks 
 										+ ". Blocks reset: "+ noOfResetBlocks + 
 										". Error at x:" + x + " y:" + y + " z:" + z + ". Exception:" + e.getClass().toString() + " " + e.getMessage());
 								e.printStackTrace();
@@ -177,7 +177,7 @@ public class Volume {
 				}
 			}		
 		} catch (Exception e) {
-			System.out.println("Failed to reset volume " + getName() + " blocks. Blocks visited: " + visitedBlocks 
+			System.out.println("Failed to reset arena " + getName() + " blocks. Blocks visited: " + visitedBlocks 
 					+ ". Blocks reset: "+ noOfResetBlocks + ". Error at x:" + x + " y:" + y + " z:" + z 
 					+ ". Current block: " + currentBlockId + ". Old block: " + oldBlockType + ". Exception: " + e.getClass().toString() + " " + e.getMessage());
 			e.printStackTrace();
@@ -325,7 +325,7 @@ public class Volume {
 				}
 			}		
 		} catch (Exception e) {
-			System.out.println("Failed to set block to " + material + "in volume " + name + "." + e.getClass().toString() + " " + e.getMessage());
+			System.out.println("Failed to set block to " + material + "in arena " + name + "." + e.getClass().toString() + " " + e.getMessage());
 		}
 	}
 	
