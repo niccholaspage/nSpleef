@@ -100,8 +100,8 @@ public class nSpleefPlayerListener extends PlayerListener{
 			String[] split = event.getMessage().split(" ");
 			//Get the player that talked.
 			Player player = event.getPlayer();
-			//If the first part of the string is /nSpleef or /s then do this.
 			if (split[0].equalsIgnoreCase("/spleef")){
+				event.setCancelled(true);
 				if (split.length >= 2){
 				if (split[1].equalsIgnoreCase("define")){
 				    if (!nSpleef.Permissions.has(player, "nSpleef.admin")) {
