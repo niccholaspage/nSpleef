@@ -5,6 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerChatEvent;
+import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.util.BlockVector;
@@ -17,6 +18,21 @@ public class nSpleefPlayerListener extends PlayerListener{
 	    }
 	  static BlockVector b1loc;
 	  static BlockVector b2loc;
+	  public void onPlayerQuit(PlayerEvent event){
+		  Player player = event.getPlayer();
+		    if (plugin.nSpleefArenas.size() == 0){
+		    	return;
+		    }
+			 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
+				 for (int j = 0; j <= plugin.nSpleefArenas.get(i).getPlayersIn().size() - 1; j++){
+					 if (player.equals(plugin.nSpleefArenas.get(i).getPlayersIn().get(j))){
+						 	plugin.nSpleefArenas.get(i).getPlayerStatus().remove(j);
+						 	plugin.nSpleefArenas.get(i).getPlayersIn().remove(j);
+							plugin.nSpleefArenas.get(i).leave(player);
+					 }
+				 }
+			 }
+	  }
 		 public void onPlayerMove(PlayerMoveEvent event){
 			 Player player = event.getPlayer();
 			 Location loc = player.getLocation();
