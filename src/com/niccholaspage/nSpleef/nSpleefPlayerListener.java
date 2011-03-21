@@ -169,7 +169,7 @@ public class nSpleefPlayerListener extends PlayerListener{
 				    	return;
 				    }
 					 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
-						 if (plugin.nSpleefArenas.get(i).getPlayers().contains(player)){
+						 if (plugin.nSpleefArenas.get(i).getPlayersIn().contains(player)){
 							 player.sendMessage(ChatColor.DARK_PURPLE + "You are already in a game!");
 							 return;
 						 }
@@ -184,7 +184,7 @@ public class nSpleefPlayerListener extends PlayerListener{
 					 }
 					String name = split[2];
 				    for (int i = 0; i <= plugin.nSpleefGames.size() - 1; i++) {
-				    	if ((plugin.nSpleefGames.get(i).split(",")[0].equalsIgnoreCase(name)) && (!(plugin.enabled(player)))){
+				    	if (plugin.nSpleefGames.get(i).split(",")[0].equalsIgnoreCase(name)){
 				    		for (int j = 0; j<= plugin.nSpleefArenas.size() - 1; j++){
 				    			if (plugin.nSpleefGames.get(i).split(",")[1].equalsIgnoreCase(plugin.nSpleefArenas.get(j).getName())){
 				    				if (plugin.nSpleefArenas.get(j).getInGame() > 0){

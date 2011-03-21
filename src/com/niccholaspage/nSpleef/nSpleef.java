@@ -9,8 +9,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -45,8 +43,6 @@ public class nSpleef extends JavaPlugin{
     public final ArrayList<String> nSpleefGames = new ArrayList<String>();
     //Create arena array
     public ArrayList<nSpleefArena> nSpleefArenas = new ArrayList<nSpleefArena>();
-    //Create the hashmap debugees
-    private final HashMap<Player, Boolean> debugees = new HashMap<Player, Boolean>();
 
     public static PermissionHandler Permissions;
 	//public nSpleef(PluginLoader pluginLoader, Server instance, PluginDescriptionFile desc, File folder, File plugin, ClassLoader cLoader)
@@ -127,39 +123,4 @@ public class nSpleef extends JavaPlugin{
         System.out.println( pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!" );
 		
 	}
-	//Used when debugging
-	  public boolean isDebugging(final Player player) {
-	        if (debugees.containsKey(player)) {
-	            return debugees.get(player);
-	        } else {
-	            return false;
-	        }
-	    }
-
-	    public void setDebugging(final Player player, final boolean value) {
-	        debugees.put(player, value);
-	    }
-	   
-	    //The method enabled which checks to see if the player is in the hashmap nSpleefUsers
-	    public boolean enabled(Player player) {
-			return this.nSpleefUsers.containsKey(player);
-		}
-	    //The method toggleVision which if the player is on the hashmap will remove the player else it will add the player.
-	    //Also sends user a message to notify them.
-	    public void toggleVision(Player player) {
-			if (enabled(player)) {
-				this.nSpleefUsers.remove(player);
-				player.sendMessage(ChatColor.DARK_PURPLE + "You have left the game.");
-			} else {
-				this.nSpleefUsers.put(player, null);
-				player.sendMessage(ChatColor.DARK_PURPLE + "You have left the game.");
-			}
-		}
-	    /*public void toggleInGame(Player player){
-			if (enabled(player)) {
-				this.nSpleefInGame.remove(player);
-			} else {
-				this.nSpleefInGame.put(player, null);
-			}
-	    }*/
 }
