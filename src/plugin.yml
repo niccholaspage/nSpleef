@@ -6,5 +6,4 @@ version: 0.2
 
 commands:
   spleef:
-    description: Chicken
     usage: /<command>
