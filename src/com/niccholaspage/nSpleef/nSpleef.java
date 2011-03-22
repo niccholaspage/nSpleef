@@ -90,12 +90,14 @@ public class nSpleef extends JavaPlugin{
             if (test != null) {
                 nSpleef.Permissions = ((Permissions)test).getHandler();
             } else {
-            	System.out.println("Permissions system not detected, disabling plugin.");
-            	this.getServer().getPluginManager().disablePlugin(this);
+            	System.out.println(nSpleefMessage("Permissions not detected, disabling nSpleef."));
+            	getPluginLoader().disablePlugin(this);
             }
         }
     }
-
+    public String nSpleefMessage(String message){
+    	return "[nSpleef] " + message;
+    }
 	@Override
 	//When the plugin is enabled this method is called.
 	public void onEnable() {
