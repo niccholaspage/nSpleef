@@ -10,6 +10,8 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.bukkit.block.Block;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.Plugin;
@@ -28,6 +30,8 @@ import org.bukkit.util.config.Configuration;
 public class nSpleef extends JavaPlugin{
 	//Links the nSpleefPlayerListener
 	private final nSpleefPlayerListener playerListener = new nSpleefPlayerListener(this);
+	//Command Handler
+	private final CommandHandler commandHandler = new CommandHandler(this);
 	//Links the nSpleefBlockListener
     private final nSpleefBlockListener blockListener = new nSpleefBlockListener(this);
     //Links nSpleefMonsterListener
@@ -45,10 +49,6 @@ public class nSpleef extends JavaPlugin{
     public ArrayList<nSpleefArena> nSpleefArenas = new ArrayList<nSpleefArena>();
 
     public static PermissionHandler Permissions;
-	//public nSpleef(PluginLoader pluginLoader, Server instance, PluginDescriptionFile desc, File folder, File plugin, ClassLoader cLoader)
-    //{
-    //    super(pluginLoader, instance, desc, folder, plugin, cLoader);
-    //  }
 	@Override
 	//When the plugin is disabled this method is called.
 	public void onDisable() {
@@ -102,7 +102,7 @@ public class nSpleef extends JavaPlugin{
 		//Create the pluginmanage pm.
 		PluginManager pm = getServer().getPluginManager();
 		//PlayerListener stuff
-	    pm.registerEvent(Event.Type.PLAYER_COMMAND_PREPROCESS, this.playerListener, Event.Priority.Normal, this);
+	    //pm.registerEvent(Event.Type.PLAYER_COMMAND_PREPROCESS, this.playerListener, Event.Priority.Normal, this);
 	    pm.registerEvent(Event.Type.PLAYER_CHAT, this.playerListener, Event.Priority.Normal, this);
 	    pm.registerEvent(Event.Type.PLAYER_MOVE, this.playerListener, Event.Priority.Normal, this);
 	    pm.registerEvent(Event.Type.PLAYER_QUIT, this.playerListener, Event.Priority.Normal, this);
@@ -122,5 +122,9 @@ public class nSpleef extends JavaPlugin{
         //Print that the plugin has been enabled!
         System.out.println( pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!" );
 		
+	}
+	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+		commandHandler.performCommand(sender, cmd, commandLabel, args);
+		return true;
 	}
 }

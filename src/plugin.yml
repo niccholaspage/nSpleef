@@ -3,3 +3,8 @@ name: nSpleef
 main: com.niccholaspage.nSpleef.nSpleef
 
 version: 0.2
+
+commands:
+  spleef:
+    description: Chicken
+    usage: /<command>
