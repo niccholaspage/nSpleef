@@ -16,8 +16,6 @@ public class nSpleefPlayerListener extends PlayerListener{
 	  public nSpleefPlayerListener(nSpleef instance) {
 	        plugin = instance;
 	    }
-	  static BlockVector b1loc;
-	  static BlockVector b2loc;
 	  public void onPlayerQuit(PlayerEvent event){
 		  Player player = event.getPlayer();
 		    if (plugin.nSpleefArenas.size() == 0){
