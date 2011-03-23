@@ -1,11 +1,6 @@
 //The package
 package com.niccholaspage.nSpleef;
-//All the imports
-
-//import org.bukkit.Material;
-//import org.bukkit.block.Block;
 import com.niccholaspage.nSpleef.Util;
-
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -17,7 +12,6 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.BlockRightClickEvent;
 import org.bukkit.util.BlockVector;
-//Start the class nSpleefBlockListener
 public class nSpleefBlockListener extends BlockListener{
 	 public static nSpleef plugin;
 	 public static BlockVector b1loc;
@@ -30,16 +24,6 @@ public class nSpleefBlockListener extends BlockListener{
 	 public static void setConfig(Boolean c){
 		 canplaceblocks = c;
 	 }
-	 /*public static BlockVector returnblock(int a0){
-		 switch (a0){
-		 case 1: return b1loc;
-		 case 2: return b2loc;
-		 default: return b1loc;
-		 }
-	 }*/
-	 //public static World returnworld(){
-	//	 return world;
-	 //}
 	 public static Boolean returnblockinarea(BlockVector block, BlockVector b1, BlockVector b2){
 		 if ((block.getBlockX() >= b1.getBlockX()) && (block.getBlockX() <= b2.getBlockX()) || 
 				 (block.getBlockX() >= b2.getBlockX()) && (block.getBlockX() <= b1.getBlockX())){
@@ -53,9 +37,7 @@ public class nSpleefBlockListener extends BlockListener{
 		 }
 		 return false;
 	 }
-	 //This method is called when ever a block is placed.
 	 public void onBlockPlace(BlockPlaceEvent event) {
-		 //Get the player doing the placing
 			Player player = event.getPlayer();
 			 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
 				 if ((plugin.nSpleefArenas.get(i).getPlayers().contains(player)) && (canplaceblocks == false)){
@@ -130,21 +112,15 @@ public class nSpleefBlockListener extends BlockListener{
 				 player.sendMessage(ChatColor.DARK_PURPLE + "No arenas!");
 				 return;
 			 }
-			 Boolean did = false;
 			    for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++) {
 					 if ((returnblockinarea(Util.toVector(block), plugin.nSpleefArenas.get(i).getFirstBlock(), plugin.nSpleefArenas.get(i).getSecondBlock())) == true) {
 							 if (player.getWorld().toString().equals(plugin.nSpleefArenas.get(i).getWorld().toString())){
-								 did = true;
+								 if ((!(block.getTypeId() == 7))){
+									 block.setTypeId(0);
+								 }
+								 return;
 							 }
 			    	}
 			    }
-			    if (did == false){
-			    	//player.sendMessage(ChatColor.DARK_PURPLE + "Cannot mine outside of spleef zone!");
-			    	//event.setCancelled(true);
-			    	return;
-			    }
-			 if ((!(block.getTypeId() == 7)) && (did == true)){
-				 block.setTypeId(0);
-			 }
 	 }
 	 }

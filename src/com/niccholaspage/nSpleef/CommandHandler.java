@@ -14,12 +14,11 @@ public class CommandHandler {
 	        plugin = instance;
 	    }
 	public void performCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
-		  //Args to split
+		//TODO: Instead of doing this crap, actually use args
 		String[] split = new String[args.length + 1];
 		for (int i = 0; i < args.length; i++){
 			split[i + 1] = args[i];
 		}
-		//Get the player that talked.
 		if (!(sender instanceof Player)){
 			sender.sendMessage("You are not a player!");
 			return;

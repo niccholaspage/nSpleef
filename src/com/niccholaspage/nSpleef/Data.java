@@ -4,10 +4,6 @@ import java.util.ArrayList;
 
 public class Data {
 	public ArrayList<String> data;
-	//public static ArrayList<String> titledata;
-	//public static BlockVector[] block1;
-	//public BlockVector[] block2;
-	//public static World[] worlds;
 	public static nSpleef plugin;
 	  public Data(nSpleef instance) {
 	        plugin = instance;
