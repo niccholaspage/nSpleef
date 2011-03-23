@@ -97,10 +97,11 @@ public class CommandHandler {
 			    					player.sendMessage(ChatColor.DARK_PURPLE + "A game is in progress in that arena.");
 			    					return;
 			    				}
-			    				player.teleportTo(plugin.nSpleefArenas.get(j).getTpBlock().toLocation(plugin.nSpleefArenas.get(j).getWorld()));
+			    				plugin.nSpleefArenas.get(j).getPlayersLocation().add(player.getLocation().clone());
 			    				plugin.nSpleefArenas.get(j).getPlayers().add(player);
 			    				plugin.nSpleefArenas.get(j).getPlayersIn().add(player);
 			    				plugin.nSpleefArenas.get(j).getPlayerStatus().add(false);
+			    				player.teleportTo(plugin.nSpleefArenas.get(j).getTpBlock().toLocation(plugin.nSpleefArenas.get(j).getWorld()));
 			    				player.sendMessage(ChatColor.DARK_PURPLE + "Joined game " + name + ".");
 			    				player.sendMessage(ChatColor.DARK_PURPLE + "Type ready in the chat when you are ready.");
 			    				return;
@@ -123,6 +124,9 @@ public class CommandHandler {
 						 if (player.equals(plugin.nSpleefArenas.get(i).getPlayersIn().get(j))){
 							 	plugin.nSpleefArenas.get(i).getPlayerStatus().remove(j);
 							 	plugin.nSpleefArenas.get(i).getPlayersIn().remove(j);
+							 	plugin.nSpleefArenas.get(i).getPlayers().remove(player);
+							 	player.teleportTo(plugin.nSpleefArenas.get(i).getPlayersLocation().get(j));
+							 	plugin.nSpleefArenas.get(i).getPlayersLocation().remove(j);
 								plugin.nSpleefArenas.get(i).leave(player);
 						 }
 					 }

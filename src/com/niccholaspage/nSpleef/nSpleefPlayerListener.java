@@ -78,8 +78,8 @@ public class nSpleefPlayerListener extends PlayerListener{
 													 }
 													 plugin.nSpleefArenas.get(k).getPlayers().remove(player);
 													 if (plugin.nSpleefArenas.get(k).getPlayers().size() == 1){
-													 event.setFrom(player.getWorld().getSpawnLocation());
-													 event.setTo(player.getWorld().getSpawnLocation());
+													 event.setFrom(plugin.nSpleefArenas.get(k).getPlayersLocation().get(0));
+													 event.setTo(plugin.nSpleefArenas.get(k).getPlayersLocation().get(0));
 													 }
 													 plugin.nSpleefArenas.get(k).checkLeave();
 													 return;

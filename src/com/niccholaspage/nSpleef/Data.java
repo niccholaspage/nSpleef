@@ -14,7 +14,7 @@ public class Data {
 		    plugin.nSpleefArenas = new ArrayList<nSpleefArena>();
 		    Util.openfileread();
 		    data = Util.filetoarray();
-		    for (int i = 0; i < data.size() - 1; i++) {
+		    for (int i = 0; i < data.size(); i++) {
 		    	nSpleefArena a = new nSpleefArena(data.get(i).split(":")[0],plugin.getServer().getWorld(data.get(i).split(":")[7]));
 		    	a.setFirstBlock(Util.toVectorxyz(Integer.parseInt((data.get(i).split(":")[1])), Integer.parseInt((data.get(i).split(":")[2])), Integer.parseInt((data.get(i).split(":")[3]))));
 		    	a.setSecondBlock(Util.toVectorxyz(Integer.parseInt((data.get(i).split(":")[4])), Integer.parseInt((data.get(i).split(":")[5])), Integer.parseInt((data.get(i).split(":")[6]))));
