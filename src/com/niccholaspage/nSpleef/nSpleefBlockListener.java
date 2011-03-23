@@ -20,9 +20,9 @@ import org.bukkit.util.BlockVector;
 //Start the class nSpleefBlockListener
 public class nSpleefBlockListener extends BlockListener{
 	 public static nSpleef plugin;
-	  static BlockVector b1loc;
-	  static BlockVector b2loc;
-	  static World world;
+	 public static BlockVector b1loc;
+	 public static BlockVector b2loc;
+	 public static World world;
 	  static Boolean canplaceblocks;
 	 public nSpleefBlockListener(nSpleef instance) {
     	 plugin = instance;
@@ -30,16 +30,16 @@ public class nSpleefBlockListener extends BlockListener{
 	 public static void setConfig(Boolean c){
 		 canplaceblocks = c;
 	 }
-	 public static BlockVector returnblock(int a0){
+	 /*public static BlockVector returnblock(int a0){
 		 switch (a0){
 		 case 1: return b1loc;
 		 case 2: return b2loc;
 		 default: return b1loc;
 		 }
-	 }
-	 public static World returnworld(){
-		 return world;
-	 }
+	 }*/
+	 //public static World returnworld(){
+	//	 return world;
+	 //}
 	 public static Boolean returnblockinarea(BlockVector block, BlockVector b1, BlockVector b2){
 		 if ((block.getBlockX() >= b1.getBlockX()) && (block.getBlockX() <= b2.getBlockX()) || 
 				 (block.getBlockX() >= b2.getBlockX()) && (block.getBlockX() <= b1.getBlockX())){

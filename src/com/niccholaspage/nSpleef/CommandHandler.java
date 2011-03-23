@@ -34,8 +34,8 @@ public class CommandHandler {
 			    	player.sendMessage(ChatColor.RED + "/spleef define arenaname");
 			    	return;
 			    }
-			    b1loc = nSpleefBlockListener.returnblock(1);
-			    b2loc = nSpleefBlockListener.returnblock(2);
+			    b1loc = nSpleefBlockListener.b1loc;
+			    b2loc = nSpleefBlockListener.b2loc;
 				 if ((b1loc == null) || (b2loc == null)){
 					 player.sendMessage("Positions aren't set.");
 					 return;
@@ -54,10 +54,10 @@ public class CommandHandler {
 				 }
 				 if (b1loc.getBlockY() > b2loc.getBlockY()){
 					 Util.writefile(name + ":" + b1loc.getBlockX() + ":" + b1loc.getBlockY() + ":" + b1loc.getBlockZ()
-							 + ":" + b2loc.getBlockX() + ":" + (b2loc.getBlockY() + 1) + ":" + b2loc.getBlockZ() + ":" + nSpleefBlockListener.returnworld().getName() + "\n");
+							 + ":" + b2loc.getBlockX() + ":" + (b2loc.getBlockY() + 1) + ":" + b2loc.getBlockZ() + ":" + nSpleefBlockListener.world.getName() + "\n");
 				 }else {
 					 Util.writefile(name + ":" + b1loc.getBlockX() + ":" + (b1loc.getBlockY() + 1) + ":" + b1loc.getBlockZ()
-							 + ":" + b2loc.getBlockX() + ":" + b2loc.getBlockY() + ":" + b2loc.getBlockZ() + ":" + nSpleefBlockListener.returnworld().getName() + "\n");
+							 + ":" + b2loc.getBlockX() + ":" + b2loc.getBlockY() + ":" + b2loc.getBlockZ() + ":" + nSpleefBlockListener.world.getName() + "\n");
 				 }
 				 Util.closefile();
 				 Data.setupArrays();
