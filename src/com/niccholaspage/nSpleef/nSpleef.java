@@ -41,8 +41,6 @@ public class nSpleef extends JavaPlugin{
 	private final Data data = new Data(this);
     //Create the hashmap "nSpleefUsers"
     public final HashMap<Player, ArrayList<Block>> nSpleefUsers = new HashMap<Player, ArrayList<Block>>();
-    //Create the nSpleefPlayers array
-    public ArrayList<nSpleefPlayer> nSpleefPlayers = new ArrayList<nSpleefPlayer>();
     //Create the games array
     public final ArrayList<String> nSpleefGames = new ArrayList<String>();
     //Create arena array
