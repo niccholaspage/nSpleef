@@ -26,7 +26,7 @@ public class CommandHandler {
 		Player player = (Player) sender;
 			if (split.length >= 2){
 			if (split[1].equalsIgnoreCase("define")){
-			    if (!nSpleef.Permissions.has(player, "nSpleef.admin")) {
+			    if (!nSpleef.Permissions.has(player, "nSpleef.admin.define")) {
 			        return;
 			    }
 			    if (!(split.length == 3)){
@@ -64,7 +64,7 @@ public class CommandHandler {
 				 return;
 			}
 			if (split[1].equalsIgnoreCase("join")){
-			    if (!nSpleef.Permissions.has(player, "nSpleef.member")) {
+			    if (!nSpleef.Permissions.has(player, "nSpleef.member.join")) {
 			        return;
 			    }
 			    if (!(split.length == 3)){
@@ -116,7 +116,7 @@ public class CommandHandler {
 				plugin.leave(player, true);
 			}
 			if (split[1].equalsIgnoreCase("list")){
-			    if (!nSpleef.Permissions.has(player, "nSpleef.member")) {
+			    if (!nSpleef.Permissions.has(player, "nSpleef.member.list")) {
 			        return;
 			    }
 				 if (Util.exists() == false) {
@@ -137,7 +137,7 @@ public class CommandHandler {
 			    }
 			}
 			if (split[1].equalsIgnoreCase("deletegame")){
-			    if (!nSpleef.Permissions.has(player, "nSpleef.member")) {
+			    if (!nSpleef.Permissions.has(player, "nSpleef.member.deletegame")) {
 			        return;
 			    }
 			    if (plugin.nSpleefGames.size() == 0){
@@ -162,7 +162,7 @@ public class CommandHandler {
 					 player.sendMessage(ChatColor.DARK_PURPLE + "That game does not exist.");
 					 return;
 				 }
-				 if ((name.equalsIgnoreCase(plugin.nSpleefGames.get(v).split(",")[2])) || (nSpleef.Permissions.has(player, "nSpleef.admin"))){
+				 if ((name.equalsIgnoreCase(plugin.nSpleefGames.get(v).split(",")[2])) || (nSpleef.Permissions.has(player, "nSpleef.admin.deleteanygame"))){
 					 for (int i = 0; i<=plugin.nSpleefArenas.size() - 1; i++){
 					 if (plugin.nSpleefGames.get(v).split(",")[1].equalsIgnoreCase(plugin.nSpleefArenas.get(i).getName())){
 						 plugin.nSpleefArenas.get(i).resetVars();
@@ -175,7 +175,7 @@ public class CommandHandler {
 				 }
 			}
 			if (split[1].equalsIgnoreCase("creategame")){
-			    if (!nSpleef.Permissions.has(player, "nSpleef.member")) {
+			    if (!nSpleef.Permissions.has(player, "nSpleef.member.creategame")) {
 			        return;
 			    }
 				 if (Util.exists() == false) {

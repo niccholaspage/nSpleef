@@ -127,7 +127,7 @@ public class nSpleef extends JavaPlugin{
 	}
 	public void leave(Player player,Boolean checkPermissions){
 		if (checkPermissions){
-	    if (!Permissions.has(player, "nSpleef.member")) {
+	    if (!Permissions.has(player, "nSpleef.member.leave")) {
 	        return;
 	    }
 		}
