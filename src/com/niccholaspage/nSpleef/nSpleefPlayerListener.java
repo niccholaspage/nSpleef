@@ -26,6 +26,9 @@ public class nSpleefPlayerListener extends PlayerListener{
 					 if (player.equals(plugin.nSpleefArenas.get(i).getPlayersIn().get(j))){
 						 	plugin.nSpleefArenas.get(i).getPlayerStatus().remove(j);
 						 	plugin.nSpleefArenas.get(i).getPlayersIn().remove(j);
+						 	plugin.nSpleefArenas.get(i).getPlayers().remove(player);
+						 	player.teleportTo(plugin.nSpleefArenas.get(i).getPlayersLocation().get(j));
+						 	plugin.nSpleefArenas.get(i).getPlayersLocation().remove(j);
 							plugin.nSpleefArenas.get(i).leave(player);
 					 }
 				 }
