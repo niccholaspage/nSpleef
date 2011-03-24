@@ -125,6 +125,28 @@ public class nSpleef extends JavaPlugin{
         System.out.println( pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!" );
 		
 	}
+	public void leave(Player player,Boolean checkPermissions){
+		if (checkPermissions){
+	    if (!Permissions.has(player, "nSpleef.member")) {
+	        return;
+	    }
+		}
+	    if (nSpleefArenas.size() == 0){
+	    	return;
+	    }
+		 for (int i = 0; i <= nSpleefArenas.size() - 1; i++){
+			 for (int j = 0; j <= nSpleefArenas.get(i).getPlayersIn().size() - 1; j++){
+				 if (player.equals(nSpleefArenas.get(i).getPlayersIn().get(j))){
+					 	nSpleefArenas.get(i).getPlayerStatus().remove(j);
+					 	nSpleefArenas.get(i).getPlayersIn().remove(j);
+					 	nSpleefArenas.get(i).getPlayers().remove(player);
+					 	player.teleportTo(nSpleefArenas.get(i).getPlayersLocation().get(j));
+					 	nSpleefArenas.get(i).getPlayersLocation().remove(j);
+						nSpleefArenas.get(i).leave(player);
+				 }
+			 }
+		 }
+	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		commandHandler.performCommand(sender, cmd, commandLabel, args);
 		return true;

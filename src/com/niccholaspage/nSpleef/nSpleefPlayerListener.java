@@ -18,21 +18,7 @@ public class nSpleefPlayerListener extends PlayerListener{
 	    }
 	  public void onPlayerQuit(PlayerEvent event){
 		  Player player = event.getPlayer();
-		    if (plugin.nSpleefArenas.size() == 0){
-		    	return;
-		    }
-			 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
-				 for (int j = 0; j <= plugin.nSpleefArenas.get(i).getPlayersIn().size() - 1; j++){
-					 if (player.equals(plugin.nSpleefArenas.get(i).getPlayersIn().get(j))){
-						 	plugin.nSpleefArenas.get(i).getPlayerStatus().remove(j);
-						 	plugin.nSpleefArenas.get(i).getPlayersIn().remove(j);
-						 	plugin.nSpleefArenas.get(i).getPlayers().remove(player);
-						 	player.teleportTo(plugin.nSpleefArenas.get(i).getPlayersLocation().get(j));
-						 	plugin.nSpleefArenas.get(i).getPlayersLocation().remove(j);
-							plugin.nSpleefArenas.get(i).leave(player);
-					 }
-				 }
-			 }
+		  plugin.leave(player, false);
 	  }
 		 public void onPlayerMove(PlayerMoveEvent event){
 			 Player player = event.getPlayer();

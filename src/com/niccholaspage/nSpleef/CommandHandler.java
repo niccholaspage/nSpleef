@@ -113,24 +113,7 @@ public class CommandHandler {
 				return;
 			}
 			if (split[1].equalsIgnoreCase("leave")){
-			    if (!nSpleef.Permissions.has(player, "nSpleef.member")) {
-			        return;
-			    }
-			    if (plugin.nSpleefArenas.size() == 0){
-			    	return;
-			    }
-				 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
-					 for (int j = 0; j <= plugin.nSpleefArenas.get(i).getPlayersIn().size() - 1; j++){
-						 if (player.equals(plugin.nSpleefArenas.get(i).getPlayersIn().get(j))){
-							 	plugin.nSpleefArenas.get(i).getPlayerStatus().remove(j);
-							 	plugin.nSpleefArenas.get(i).getPlayersIn().remove(j);
-							 	plugin.nSpleefArenas.get(i).getPlayers().remove(player);
-							 	player.teleportTo(plugin.nSpleefArenas.get(i).getPlayersLocation().get(j));
-							 	plugin.nSpleefArenas.get(i).getPlayersLocation().remove(j);
-								plugin.nSpleefArenas.get(i).leave(player);
-						 }
-					 }
-				 }
+				plugin.leave(player, true);
 			}
 			if (split[1].equalsIgnoreCase("list")){
 			    if (!nSpleef.Permissions.has(player, "nSpleef.member")) {
