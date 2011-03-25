@@ -4,9 +4,13 @@ package com.niccholaspage.nSpleef;
 import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.bukkit.Permissions.Permissions;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.bukkit.block.Block;
@@ -43,6 +47,7 @@ public class nSpleef extends JavaPlugin{
     public final HashMap<Player, ArrayList<Block>> nSpleefUsers = new HashMap<Player, ArrayList<Block>>();
     //Create the games array
     public final ArrayList<String> nSpleefGames = new ArrayList<String>();
+    public Boolean persistentgames;
     //Create arena array
     public ArrayList<nSpleefArena> nSpleefArenas = new ArrayList<nSpleefArena>();
 
@@ -59,8 +64,49 @@ public class nSpleef extends JavaPlugin{
 				nSpleefArenas.get(i).getVolume().resetBlocks();
 			}
 		}
+		if (new File("plugins/nSpleef/games.txt").exists()){
+			new File("plugins/nSpleef/games.txt").delete();
+		}
+		if (persistentgames){
+			if (nSpleefGames.size() > 0){
+				File file = new File("plugins/nSpleef/games.txt");
+				BufferedWriter out = null;
+				try {
+					file.createNewFile();
+					out = new BufferedWriter(new FileWriter("plugins/nSpleef/games.txt"));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				for (int i = 0; i < nSpleefGames.size(); i++){
+					try {
+						out.write(nSpleefGames.get(i) + "\n");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				try {
+					out.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		}
+	}
 		System.out.println("nSpleef Disabled");
-		
+	}
+	
+	public void readGames(){
+		File file = new File("plugins/nSpleef/games.txt");
+		if (!(file.exists())) return;
+		BufferedReader in = null;
+		try {
+			in = new BufferedReader(new FileReader("plugins/nSpleef/games.txt"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		ArrayList<String> data = Util.filetoarray(in);
+		for (int i = 0; i < data.size(); i++){
+			nSpleefGames.add(data.get(i));
+		}
 	}
 	
     public void readConfig() {
@@ -79,6 +125,7 @@ public class nSpleef extends JavaPlugin{
     	    	    BufferedWriter out = new BufferedWriter(fstream);
     	    	    out.write("nSpleef:\n");
     	    	    out.write("    canplaceblocks: false\n");
+    	    	    out.write("    persistentgames: false\n");
     	    	    //Close the output stream
     	    	    out.close();
     	    	    }catch (Exception e){//Catch exception if any
@@ -87,6 +134,7 @@ public class nSpleef extends JavaPlugin{
     	}
     	// Reading from yml file
     	Boolean canplaceblocks = _config.getBoolean("nSpleef.canplaceblocks", false);
+    	persistentgames = _config.getBoolean("nSpleef.persistentgames", false);
     	nSpleefBlockListener.setConfig(canplaceblocks);
         }
     private void setupPermissions() {
@@ -127,6 +175,10 @@ public class nSpleef extends JavaPlugin{
 	    Data.setupArrays();
 	    //Setup config
 	    readConfig();
+	    //Read Games
+	    if (persistentgames){
+	    readGames();
+	    }
         //Print that the plugin has been enabled!
         System.out.println( pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!" );
 		

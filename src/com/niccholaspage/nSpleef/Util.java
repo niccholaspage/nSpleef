@@ -104,6 +104,21 @@ public class Util {
 			  }
 			  return data;
 		}
+		public static ArrayList<String> filetoarray(BufferedReader in){
+			  String line = "";
+			  ArrayList<String> data = new ArrayList<String>();
+			  try {
+			   while((line = in.readLine()) != null) {
+			 
+			    data.add(line);
+			   }
+			  }
+			  catch(FileNotFoundException fN) {
+			  }
+			  catch(IOException e) {
+			  }
+			  return data;
+		}
 		public static void replaceFile(ArrayList<String> s){
 			try {
 			for (int i = 0; i<= s.size() - 1; i++){
