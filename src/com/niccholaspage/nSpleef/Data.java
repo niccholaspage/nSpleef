@@ -19,6 +19,10 @@ public class Data {
 		    	a.setFirstBlock(Util.toVectorxyz(Integer.parseInt((data.get(i).split(":")[1])), Integer.parseInt((data.get(i).split(":")[2])), Integer.parseInt((data.get(i).split(":")[3]))));
 		    	a.setSecondBlock(Util.toVectorxyz(Integer.parseInt((data.get(i).split(":")[4])), Integer.parseInt((data.get(i).split(":")[5])), Integer.parseInt((data.get(i).split(":")[6]))));
 		    	a.setTpBlock();
+				a.createVolume();
+				a.getVolume().setCornerOne(a.getFirstBlock().toLocation(a.getWorld()).getBlock());
+				a.getVolume().setCornerTwo(a.getSecondBlock().toLocation(a.getWorld()).getBlock());
+				a.getVolume().saveBlocks();
 		    	plugin.nSpleefArenas.add(a);
 		    }
 		    Util.closefileread();

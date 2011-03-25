@@ -2,7 +2,7 @@ name: nSpleef
 
 main: com.niccholaspage.nSpleef.nSpleef
 
-version: 0.2
+version: 0.3
 
 commands:
   spleef:

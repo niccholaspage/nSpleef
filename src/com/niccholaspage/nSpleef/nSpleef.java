@@ -169,7 +169,7 @@ public class nSpleef extends JavaPlugin{
         PluginDescriptionFile pdfFile = this.getDescription();
         //Setup Permissions
         setupPermissions();
-        //Setup data(Yay!)
+        //Setup arenas
 	    Data.setupArrays();
 	    //Setup config
 	    readConfig();
