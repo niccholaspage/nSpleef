@@ -26,9 +26,7 @@ public class CommandHandler {
 		Player player = (Player) sender;
 			if (split.length >= 2){
 			if (split[1].equalsIgnoreCase("define")){
-			    if (!nSpleef.Permissions.has(player, "nSpleef.admin.define")) {
-			        return;
-			    }
+			    if (!nSpleef.Permissions.has(player, "nSpleef.admin.define")) return;
 			    if (!(split.length == 3)){
 			    	player.sendMessage(ChatColor.RED + "/spleef define arenaname");
 			    	return;
@@ -68,9 +66,7 @@ public class CommandHandler {
 				 return;
 			}
 			if (split[1].equalsIgnoreCase("join")){
-			    if (!nSpleef.Permissions.has(player, "nSpleef.member.join")) {
-			        return;
-			    }
+			    if (!nSpleef.Permissions.has(player, "nSpleef.member.join")) return;
 			    if (!(split.length == 3)){
 			    	player.sendMessage(ChatColor.RED + "/spleef join gamename");
 			    	return;
@@ -120,10 +116,8 @@ public class CommandHandler {
 				plugin.leave(player, true);
 			}
 			if (split[1].equalsIgnoreCase("list")){
-			    if (!nSpleef.Permissions.has(player, "nSpleef.member.list")) {
-			        return;
-			    }
-				 if (Util.exists() == false) {
+			    if (!nSpleef.Permissions.has(player, "nSpleef.member.list")) return;
+				 if (plugin.nSpleefArenas.size() == 0) {
 					 player.sendMessage(ChatColor.DARK_PURPLE + "No arenas!");
 					 return;
 				 }
@@ -141,9 +135,7 @@ public class CommandHandler {
 			    }
 			}
 			if (split[1].equalsIgnoreCase("deletegame")){
-			    if (!nSpleef.Permissions.has(player, "nSpleef.member.deletegame")) {
-			        return;
-			    }
+			    if (!nSpleef.Permissions.has(player, "nSpleef.member.deletegame")) return;
 			    if (plugin.nSpleefGames.size() == 0){
 			    	player.sendMessage(ChatColor.DARK_PURPLE + "No games exist.");
 			    	return;
@@ -179,9 +171,7 @@ public class CommandHandler {
 				 }
 			}
 			if (split[1].equalsIgnoreCase("creategame")){
-			    if (!nSpleef.Permissions.has(player, "nSpleef.member.creategame")) {
-			        return;
-			    }
+			    if (!nSpleef.Permissions.has(player, "nSpleef.member.creategame")) return;
 				 if (Util.exists() == false) {
 					 player.sendMessage(ChatColor.DARK_PURPLE + "No arenas!");						 
 					 return;
