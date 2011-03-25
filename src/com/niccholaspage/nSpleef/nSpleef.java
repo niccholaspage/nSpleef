@@ -64,9 +64,7 @@ public class nSpleef extends JavaPlugin{
 				nSpleefArenas.get(i).getVolume().resetBlocks();
 			}
 		}
-		if (new File("plugins/nSpleef/games.txt").exists()){
-			new File("plugins/nSpleef/games.txt").delete();
-		}
+		if (new File("plugins/nSpleef/games.txt").exists()) new File("plugins/nSpleef/games.txt").delete();
 		if (persistentgames){
 			if (nSpleefGames.size() > 0){
 				File file = new File("plugins/nSpleef/games.txt");
@@ -176,9 +174,7 @@ public class nSpleef extends JavaPlugin{
 	    //Setup config
 	    readConfig();
 	    //Read Games
-	    if (persistentgames){
-	    readGames();
-	    }
+	    if (persistentgames) readGames();
         //Print that the plugin has been enabled!
         System.out.println( pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!" );
 		
