@@ -50,7 +50,15 @@ public class nSpleef extends JavaPlugin{
 	@Override
 	//When the plugin is disabled this method is called.
 	public void onDisable() {
-		//Print "nSpleef Disabled" on the log.
+		for (int i = 0; i < nSpleefArenas.size(); i++){
+			if (nSpleefArenas.get(i).getPlayersIn().size() > 0){
+				System.out.println(nSpleefMessage("Restoring arena " + nSpleefArenas.get(i).getName()));
+				for (int j = 0; j < nSpleefArenas.get(i).getPlayersIn().size(); j++){
+					nSpleefArenas.get(i).getPlayersIn().get(j).teleportTo(nSpleefArenas.get(i).getPlayersLocation().get(j));
+				}
+				nSpleefArenas.get(i).getVolume().resetBlocks();
+			}
+		}
 		System.out.println("nSpleef Disabled");
 		
 	}

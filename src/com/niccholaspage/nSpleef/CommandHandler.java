@@ -33,6 +33,10 @@ public class CommandHandler {
 			    	player.sendMessage(ChatColor.RED + "/spleef define arenaname");
 			    	return;
 			    }
+				 if (split[2].contains(",")){
+					 player.sendMessage(ChatColor.DARK_PURPLE + "An arena name cannot contain a comma.");
+					 return;
+				 }
 			    b1loc = nSpleefBlockListener.b1loc;
 			    b2loc = nSpleefBlockListener.b2loc;
 				 if ((b1loc == null) || (b2loc == null)){
@@ -214,6 +218,10 @@ public class CommandHandler {
 						 return;
 					 }
 				 }
+				 }
+				 if (split[2].contains(",")){
+					 player.sendMessage(ChatColor.DARK_PURPLE + "A game name cannot contain a comma.");
+					 return;
 				 }
 				 plugin.nSpleefArenas.get(where).createVolume();
 				 Volume vol = plugin.nSpleefArenas.get(where).getVolume();
