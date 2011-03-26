@@ -1,6 +1,7 @@
 //The Package
 package com.niccholaspage.nSpleef;
 //All the imports
+import com.niccholaspage.nSpleef.commands.*;
 import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.bukkit.Permissions.Permissions;
 
@@ -47,6 +48,7 @@ public class nSpleef extends JavaPlugin{
     public final HashMap<Player, ArrayList<Block>> nSpleefUsers = new HashMap<Player, ArrayList<Block>>();
     //Create the games array
     public final ArrayList<String> nSpleefGames = new ArrayList<String>();
+    //Persistent games
     public Boolean persistentgames;
     //Create arena array
     public ArrayList<nSpleefArena> nSpleefArenas = new ArrayList<nSpleefArena>();
@@ -92,7 +94,7 @@ public class nSpleef extends JavaPlugin{
 		System.out.println("nSpleef Disabled");
 	}
 	
-	public void readGames(){
+	private void readGames(){
 		File file = new File("plugins/nSpleef/games.txt");
 		if (!(file.exists())) return;
 		BufferedReader in = null;
@@ -107,7 +109,7 @@ public class nSpleef extends JavaPlugin{
 		}
 	}
 	
-    public void readConfig() {
+    private void readConfig() {
 		File file = new File("plugins/nSpleef/");
 		if (!(file.exists())){
 			file.mkdir();
@@ -135,6 +137,14 @@ public class nSpleef extends JavaPlugin{
     	persistentgames = _config.getBoolean("nSpleef.persistentgames", false);
     	nSpleefBlockListener.setConfig(canplaceblocks);
         }
+    private void registerCommands(){
+    	commandHandler.registerExecutor("define", new DefineCommand(this));
+    	commandHandler.registerExecutor("join", new JoinCommand(this));
+    	commandHandler.registerExecutor("leave", new LeaveCommand(this));
+    	commandHandler.registerExecutor("list", new ListCommand(this));
+    	commandHandler.registerExecutor("deletegame", new DeleteGameCommand(this));
+    	commandHandler.registerExecutor("creategame", new CreateGameCommand(this));
+    }
     private void setupPermissions() {
         Plugin test = this.getServer().getPluginManager().getPlugin("Permissions");
 
@@ -175,6 +185,8 @@ public class nSpleef extends JavaPlugin{
 	    readConfig();
 	    //Read Games
 	    if (persistentgames) readGames();
+	    //Commands
+	    registerCommands();
         //Print that the plugin has been enabled!
         System.out.println( pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!" );
 		
@@ -202,7 +214,7 @@ public class nSpleef extends JavaPlugin{
 		 }
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-		commandHandler.performCommand(sender, cmd, commandLabel, args);
+		commandHandler.onCommand(sender, cmd, commandLabel, args);
 		return true;
 	}
 }
