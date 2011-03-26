@@ -6,7 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class CommandHandler {
+public class CommandHandler implements CommandExecutor {
 	 public static nSpleef plugin;
 	 //Thanks for the idea BigBrother (specifically N3X15)
 	 private HashMap<String, CommandExecutor> executors = new HashMap<String, CommandExecutor>();

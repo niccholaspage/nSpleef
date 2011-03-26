@@ -15,8 +15,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.bukkit.block.Block;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.Plugin;
@@ -138,6 +136,7 @@ public class nSpleef extends JavaPlugin{
     	nSpleefBlockListener.setConfig(canplaceblocks);
         }
     private void registerCommands(){
+    	getCommand("spleef").setExecutor(commandHandler);
     	commandHandler.registerExecutor("define", new DefineCommand(this));
     	commandHandler.registerExecutor("join", new JoinCommand(this));
     	commandHandler.registerExecutor("leave", new LeaveCommand(this));
@@ -212,9 +211,5 @@ public class nSpleef extends JavaPlugin{
 				 }
 			 }
 		 }
-	}
-	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-		commandHandler.onCommand(sender, cmd, commandLabel, args);
-		return true;
 	}
 }
