@@ -36,7 +36,7 @@ public class nSpleefPlayerListener extends PlayerListener{
 				 return;
 			 }
 			 player.setHealth(20);
-				 BlockVector theblock = new BlockVector();
+			 BlockVector theblock = new BlockVector();
 				    for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++) {
 						 if ((Util.returnBlockInArea(Util.toVector(loc.getBlock()), plugin.nSpleefArenas.get(i).getFirstBlock(), plugin.nSpleefArenas.get(i).getSecondBlock())) == true) {
 								 if (player.getWorld().toString().equals(plugin.nSpleefArenas.get(i).getWorld().toString())){
