@@ -33,8 +33,6 @@ import org.bukkit.util.config.Configuration;
 public class nSpleef extends JavaPlugin{
 	//Links the nSpleefPlayerListener
 	private final nSpleefPlayerListener playerListener = new nSpleefPlayerListener(this);
-	//Command Handler
-	private final CommandHandler commandHandler = new CommandHandler(this);
 	//Links the nSpleefBlockListener
     private final nSpleefBlockListener blockListener = new nSpleefBlockListener(this);
     //Links nSpleefMonsterListener
@@ -136,6 +134,7 @@ public class nSpleef extends JavaPlugin{
     	nSpleefBlockListener.setConfig(canplaceblocks);
         }
     private void registerCommands(){
+    	CommandHandler commandHandler = new CommandHandler(this);
     	getCommand("spleef").setExecutor(commandHandler);
     	commandHandler.registerExecutor("define", new DefineCommand(this));
     	commandHandler.registerExecutor("join", new JoinCommand(this));
