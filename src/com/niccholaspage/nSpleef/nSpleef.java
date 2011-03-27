@@ -143,6 +143,7 @@ public class nSpleef extends JavaPlugin{
     	commandHandler.registerExecutor("list", new ListCommand(this));
     	commandHandler.registerExecutor("deletegame", new DeleteGameCommand(this));
     	commandHandler.registerExecutor("creategame", new CreateGameCommand(this));
+    	commandHandler.registerExecutor("deletearena", new DeleteArenaCommand(this));
     }
     private void setupPermissions() {
         Plugin test = this.getServer().getPluginManager().getPlugin("Permissions");
@@ -165,7 +166,6 @@ public class nSpleef extends JavaPlugin{
 		//Create the pluginmanage pm.
 		PluginManager pm = getServer().getPluginManager();
 		//PlayerListener stuff
-	    //pm.registerEvent(Event.Type.PLAYER_COMMAND_PREPROCESS, this.playerListener, Event.Priority.Normal, this);
 	    pm.registerEvent(Event.Type.PLAYER_CHAT, this.playerListener, Event.Priority.Normal, this);
 	    pm.registerEvent(Event.Type.PLAYER_MOVE, this.playerListener, Event.Priority.Normal, this);
 	    pm.registerEvent(Event.Type.PLAYER_QUIT, this.playerListener, Event.Priority.Normal, this);

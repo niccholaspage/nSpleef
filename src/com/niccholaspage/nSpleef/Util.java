@@ -38,12 +38,7 @@ public class Util {
 		    return new BlockVector(x, y, z);
 	  }
 	  public static Boolean exists(){
-			File f = new File("plugins/nSpleef/arenas.txt");
-			if (f.exists()){
-				return true;
-			}else {
-				return false;
-			}
+			if (new File("plugins/nSpleef/arenas.txt").exists()) return true; else return false;
 	  }
 	  public static void openfileread(){
 			File f = new File("plugins/nSpleef/");

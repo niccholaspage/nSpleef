@@ -9,9 +9,9 @@ public class Data {
 	        plugin = instance;
 	    }
 	  public static void setupArrays(){
-		  if (Util.exists() == false) return;
 		    ArrayList<String> data = new ArrayList<String>();
 		    plugin.nSpleefArenas = new ArrayList<nSpleefArena>();
+		    if (Util.exists() == false) return;
 		    Util.openfileread();
 		    data = Util.filetoarray();
 		    for (int i = 0; i < data.size(); i++) {
