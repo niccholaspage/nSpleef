@@ -26,6 +26,16 @@ public class Util {
 				e.printStackTrace();
 			}
 	  }
+	  public static Boolean returnBlockInArea(BlockVector block, BlockVector b1, BlockVector b2){
+		  if ((block.getBlockX() >= b1.getBlockX()) && (block.getBlockX() <= b2.getBlockX()) || (block.getBlockX() >= b2.getBlockX()) && (block.getBlockX() <= b1.getBlockX())){
+			  if ((block.getBlockY() >= b1.getBlockY()) && (block.getBlockY() <= b2.getBlockY()) || (block.getBlockY() >= b2.getBlockY()) && (block.getBlockY() <= b1.getBlockY())){
+				  if ((block.getBlockZ() >= b1.getBlockZ()) && (block.getBlockZ() <= b2.getBlockZ()) || (block.getBlockZ() >= b2.getBlockZ()) && (block.getBlockZ() <= b1.getBlockZ())){
+					  return true;
+				  }
+			  }
+		  }
+	return false;
+	}
 	  public static BlockVector toVector(Block block)
 	  {
 		    return new BlockVector(block.getX(), block.getY(), block.getZ());

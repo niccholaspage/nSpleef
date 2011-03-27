@@ -24,19 +24,6 @@ public class nSpleefBlockListener extends BlockListener{
 	 public static void setConfig(Boolean c){
 		 canplaceblocks = c;
 	 }
-	 public static Boolean returnblockinarea(BlockVector block, BlockVector b1, BlockVector b2){
-		 if ((block.getBlockX() >= b1.getBlockX()) && (block.getBlockX() <= b2.getBlockX()) || 
-				 (block.getBlockX() >= b2.getBlockX()) && (block.getBlockX() <= b1.getBlockX())){
-			 if ((block.getBlockY() >= b1.getBlockY()) && (block.getBlockY() <= b2.getBlockY()) || 
-				(block.getBlockY() >= b2.getBlockY()) && (block.getBlockY() <= b1.getBlockY())){
-				 if ((block.getBlockZ() >= b1.getBlockZ()) && (block.getBlockZ() <= b2.getBlockZ()) ||
-				(block.getBlockZ() >= b2.getBlockZ()) && (block.getBlockZ() <= b1.getBlockZ())){
-					 return true;
-				 }
-			 }
-		 }
-		 return false;
-	 }
 	 public void onBlockPlace(BlockPlaceEvent event) {
 			Player player = event.getPlayer();
 			 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
@@ -71,7 +58,7 @@ public class nSpleefBlockListener extends BlockListener{
 			 return;
 		 }
 		    for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++) {
-				 if (!(returnblockinarea(Util.toVector(block), plugin.nSpleefArenas.get(i).getFirstBlock(), plugin.nSpleefArenas.get(i).getSecondBlock())) == true) {
+				 if (!(Util.returnBlockInArea(Util.toVector(block), plugin.nSpleefArenas.get(i).getFirstBlock(), plugin.nSpleefArenas.get(i).getSecondBlock())) == true) {
 						 if (player.getWorld().toString().equals(plugin.nSpleefArenas.get(i).getWorld().toString())){
 							 player.sendMessage(ChatColor.DARK_PURPLE + "You cannot mine outside the spleef zone!");
 							 event.setCancelled(true);
@@ -113,7 +100,7 @@ public class nSpleefBlockListener extends BlockListener{
 				 return;
 			 }
 			    for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++) {
-					 if ((returnblockinarea(Util.toVector(block), plugin.nSpleefArenas.get(i).getFirstBlock(), plugin.nSpleefArenas.get(i).getSecondBlock())) == true) {
+					 if ((Util.returnBlockInArea(Util.toVector(block), plugin.nSpleefArenas.get(i).getFirstBlock(), plugin.nSpleefArenas.get(i).getSecondBlock())) == true) {
 							 if (player.getWorld().toString().equals(plugin.nSpleefArenas.get(i).getWorld().toString())){
 								 if ((!(block.getTypeId() == 7))){
 									 block.setTypeId(0);
