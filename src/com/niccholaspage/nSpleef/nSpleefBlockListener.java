@@ -60,7 +60,6 @@ public class nSpleefBlockListener extends BlockListener{
 	 public void onBlockDamage(BlockDamageEvent event) {
 		 Player player = event.getPlayer();
 		 Block block = event.getBlock();
-		 //getDamageLevel seems to be vanished
 		 if ((player.getItemInHand().getTypeId() == 281)){
 			    if (!(nSpleef.Permissions.has(player, "nSpleef.admin"))) return;
 			    b1loc = Util.toVector(block);
