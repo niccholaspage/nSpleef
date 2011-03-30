@@ -27,9 +27,7 @@ public class nSpleefPlayerListener extends PlayerListener{
 			 Player player = event.getPlayer();
 			 Location loc = player.getLocation();
 			 Boolean pass = false;
-			 if (plugin.nSpleefArenas.size() == 0){
-				 return;
-			 }
+			 if (plugin.nSpleefArenas.size() == 0) return;
 			 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
 				 if (plugin.nSpleefArenas.get(i).getPlayers().contains(player)){
 					 pass = true;
@@ -96,12 +94,8 @@ public class nSpleefPlayerListener extends PlayerListener{
 			 }
 		 }
 		 public void onPlayerChat(PlayerChatEvent event){
-			 
 			 Player player = event.getPlayer();
-			 
-			 if (plugin.nSpleefGames.size() == 0){
-				 return;
-			 }
+			 if (plugin.nSpleefGames.size() == 0) return;
 			 if (event.getMessage().toLowerCase().contains("ready")){
 				 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
 					 if (plugin.nSpleefArenas.get(i).getPlayers().contains(player)){
