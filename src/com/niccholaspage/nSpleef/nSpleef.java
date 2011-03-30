@@ -142,7 +142,7 @@ public class nSpleef extends JavaPlugin{
     	commandHandler.registerExecutor("list", new ListCommand(this));
     	commandHandler.registerExecutor("deletegame", new DeleteGameCommand(this));
     	commandHandler.registerExecutor("creategame", new CreateGameCommand(this));
-    	commandHandler.registerExecutor("deletearena", new DeleteArenaCommand(this));
+    	//commandHandler.registerExecutor("deletearena", new DeleteArenaCommand(this));
     }
     private void setupPermissions() {
         Plugin test = this.getServer().getPluginManager().getPlugin("Permissions");
