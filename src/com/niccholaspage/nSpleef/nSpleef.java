@@ -57,7 +57,7 @@ public class nSpleef extends JavaPlugin{
 			if (nSpleefArenas.get(i).getPlayersIn().size() > 0){
 				System.out.println(nSpleefMessage("Restoring arena " + nSpleefArenas.get(i).getName()));
 				for (int j = 0; j < nSpleefArenas.get(i).getPlayersIn().size(); j++){
-					nSpleefArenas.get(i).getPlayersIn().get(j).teleportTo(nSpleefArenas.get(i).getPlayersLocation().get(j));
+					nSpleefArenas.get(i).getPlayersIn().get(j).teleport(nSpleefArenas.get(i).getPlayersLocation().get(j));
 				}
 				nSpleefArenas.get(i).getVolume().resetBlocks();
 			}
@@ -169,10 +169,11 @@ public class nSpleef extends JavaPlugin{
 	    pm.registerEvent(Event.Type.PLAYER_MOVE, this.playerListener, Event.Priority.Normal, this);
 	    pm.registerEvent(Event.Type.PLAYER_QUIT, this.playerListener, Event.Priority.Normal, this);
 	    //BlockListener stuff
-        pm.registerEvent(Event.Type.BLOCK_PLACED, blockListener, Event.Priority.Normal, this);
-        pm.registerEvent(Event.Type.BLOCK_DAMAGED, blockListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.BLOCK_PLACE, blockListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.BLOCK_DAMAGE, blockListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.BLOCK_BREAK, blockListener, Event.Priority.Normal, this);
-        pm.registerEvent(Event.Type.BLOCK_RIGHTCLICKED, blockListener, Event.Priority.Normal, this);
+        //pm.registerEvent(Event.Type.BLOCK_RIGHTCLICK, blockListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.PLAYER_INTERACT, playerListener, Event.Priority.Normal, this);
        //Get the infomation from the yml file.
         PluginDescriptionFile pdfFile = this.getDescription();
         //Setup Permissions
@@ -204,7 +205,7 @@ public class nSpleef extends JavaPlugin{
 					 	nSpleefArenas.get(i).getPlayerStatus().remove(j);
 					 	nSpleefArenas.get(i).getPlayersIn().remove(j);
 					 	nSpleefArenas.get(i).getPlayers().remove(player);
-					 	player.teleportTo(nSpleefArenas.get(i).getPlayersLocation().get(j));
+					 	player.teleport(nSpleefArenas.get(i).getPlayersLocation().get(j));
 					 	nSpleefArenas.get(i).getPlayersLocation().remove(j);
 						nSpleefArenas.get(i).leave(player);
 				 }

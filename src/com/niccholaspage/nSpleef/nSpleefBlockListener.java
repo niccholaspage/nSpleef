@@ -4,13 +4,11 @@ import com.niccholaspage.nSpleef.Util;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockDamageLevel;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.BlockListener;
-import org.bukkit.event.block.BlockRightClickEvent;
 import org.bukkit.util.BlockVector;
 public class nSpleefBlockListener extends BlockListener{
 	 public static nSpleef plugin;
@@ -32,18 +30,6 @@ public class nSpleefBlockListener extends BlockListener{
 					 player.sendMessage(ChatColor.DARK_PURPLE + "Cannot place blocks during spleef!");
 				 }  
 			}
-	 }
-	 public void onBlockRightClick(BlockRightClickEvent event){
-		 Player player = event.getPlayer();
-		 Block block = event.getBlock();
-			 if (player.getItemInHand().getTypeId() == 281){
-				    if (!nSpleef.Permissions.has(player, "nSpleef.admin")) {
-				        return;
-				    }
-				 b2loc = Util.toVector(block);
-				 world = block.getWorld();
-				 player.sendMessage(ChatColor.DARK_PURPLE + "Second point set.");
-		 }
 	 }
 	 public void onBlockBreak(BlockBreakEvent event){
 		 Player player = event.getPlayer();
@@ -74,14 +60,13 @@ public class nSpleefBlockListener extends BlockListener{
 	 public void onBlockDamage(BlockDamageEvent event) {
 		 Player player = event.getPlayer();
 		 Block block = event.getBlock();
-		 if ((player.getItemInHand().getTypeId() == 281) && (event.getDamageLevel() == BlockDamageLevel.STARTED)){
-			    if (!(nSpleef.Permissions.has(player, "nSpleef.admin")) && (!(event.getDamageLevel() == BlockDamageLevel.STARTED))) {
-			        return;
-			    }
-			 b1loc = Util.toVector(block);
-			 world = block.getWorld();
-			 player.sendMessage(ChatColor.DARK_PURPLE + "First point set.");
-			 return;
+		 //getDamageLevel seems to be vanished
+		 if ((player.getItemInHand().getTypeId() == 281)){
+			    if (!(nSpleef.Permissions.has(player, "nSpleef.admin"))) return;
+			    b1loc = Util.toVector(block);
+			    world = block.getWorld();
+			    player.sendMessage(ChatColor.DARK_PURPLE + "First point set.");
+			    return;
 		 }
 		 Boolean pass = false;
 		 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){

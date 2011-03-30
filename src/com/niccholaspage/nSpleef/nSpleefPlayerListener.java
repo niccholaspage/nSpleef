@@ -3,11 +3,14 @@ package com.niccholaspage.nSpleef;
 //All the imports
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerChatEvent;
-import org.bukkit.event.player.PlayerEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.util.BlockVector;
 import com.niccholaspage.nSpleef.Util;
 //Starts the class nSpleefPlayer listener
@@ -16,7 +19,7 @@ public class nSpleefPlayerListener extends PlayerListener{
 	  public nSpleefPlayerListener(nSpleef instance) {
 	        plugin = instance;
 	    }
-	  public void onPlayerQuit(PlayerEvent event){
+	  public void onPlayerQuit(PlayerQuitEvent event){
 		  Player player = event.getPlayer();
 		  plugin.leave(player, false);
 	  }
@@ -78,6 +81,19 @@ public class nSpleefPlayerListener extends PlayerListener{
 								 }
 				    	}
 				    }
+		 }
+		 public void onPlayerInteract(PlayerInteractEvent event){
+			 if (!(event.getAction().equals(Action.RIGHT_CLICK_BLOCK))) return;
+			 Player player = event.getPlayer();
+			 Block block = event.getClickedBlock();
+				 if (player.getItemInHand().getTypeId() == 281){
+					    if (!nSpleef.Permissions.has(player, "nSpleef.admin")) {
+					        return;
+					    }
+					 nSpleefBlockListener.b2loc = Util.toVector(block);
+					 nSpleefBlockListener.world = block.getWorld();
+					 player.sendMessage(ChatColor.DARK_PURPLE + "Second point set.");
+			 }
 		 }
 		 public void onPlayerChat(PlayerChatEvent event){
 			 

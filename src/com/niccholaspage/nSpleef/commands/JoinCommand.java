@@ -48,7 +48,7 @@ public class JoinCommand implements CommandExecutor {
 	    				plugin.nSpleefArenas.get(j).getPlayers().add(player);
 	    				plugin.nSpleefArenas.get(j).getPlayersIn().add(player);
 	    				plugin.nSpleefArenas.get(j).getPlayerStatus().add(false);
-	    				player.teleportTo(plugin.nSpleefArenas.get(j).getTpBlock().toLocation(plugin.nSpleefArenas.get(j).getWorld()));
+	    				player.teleport(plugin.nSpleefArenas.get(j).getTpBlock().toLocation(plugin.nSpleefArenas.get(j).getWorld()));
 	    				player.sendMessage(ChatColor.DARK_PURPLE + "Joined game " + name + ".");
 	    				player.sendMessage(ChatColor.DARK_PURPLE + "Type ready in the chat when you are ready.");
 	    				return true;
