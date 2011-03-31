@@ -35,6 +35,8 @@ public class nSpleef extends JavaPlugin{
 	private final nSpleefPlayerListener playerListener = new nSpleefPlayerListener(this);
 	//Links the nSpleefBlockListener
     private final nSpleefBlockListener blockListener = new nSpleefBlockListener(this);
+    //Entity Listener
+    private final nSpleefEntityListener entityListener = new nSpleefEntityListener(this);
     //Links nSpleefMonsterListener
     //private final nSpleefMonsterListener monsterListener = new nSpleefMonsterListener(this);
     //Links the Data class
@@ -173,6 +175,8 @@ public class nSpleef extends JavaPlugin{
         pm.registerEvent(Event.Type.BLOCK_DAMAGE, blockListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.BLOCK_BREAK, blockListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.PLAYER_INTERACT, playerListener, Event.Priority.Normal, this);
+        //EntityListener stuff
+        pm.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Event.Priority.Normal, this);
        //Get the infomation from the yml file.
         PluginDescriptionFile pdfFile = this.getDescription();
         //Setup Permissions
