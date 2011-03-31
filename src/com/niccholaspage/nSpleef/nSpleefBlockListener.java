@@ -22,6 +22,7 @@ public class nSpleefBlockListener extends BlockListener{
 	 public static void setConfig(Boolean c){
 		 canplaceblocks = c;
 	 }
+	 @Override
 	 public void onBlockPlace(BlockPlaceEvent event) {
 			Player player = event.getPlayer();
 			 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
@@ -31,6 +32,7 @@ public class nSpleefBlockListener extends BlockListener{
 				 }  
 			}
 	 }
+	 @Override
 	 public void onBlockBreak(BlockBreakEvent event){
 		 Player player = event.getPlayer();
 		 Block block = event.getBlock();
@@ -57,6 +59,7 @@ public class nSpleefBlockListener extends BlockListener{
 		    	}
 		    }
 	 }
+	 @Override
 	 public void onBlockDamage(BlockDamageEvent event) {
 		 Player player = event.getPlayer();
 		 Block block = event.getBlock();

@@ -19,10 +19,12 @@ public class nSpleefPlayerListener extends PlayerListener{
 	  public nSpleefPlayerListener(nSpleef instance) {
 	        plugin = instance;
 	    }
+	  @Override
 	  public void onPlayerQuit(PlayerQuitEvent event){
 		  Player player = event.getPlayer();
 		  plugin.leave(player, false);
 	  }
+	  @Override
 		 public void onPlayerMove(PlayerMoveEvent event){
 			 Player player = event.getPlayer();
 			 Location loc = player.getLocation();
@@ -80,6 +82,7 @@ public class nSpleefPlayerListener extends PlayerListener{
 				    	}
 				    }
 		 }
+	  @Override
 		 public void onPlayerInteract(PlayerInteractEvent event){
 			 if (!(event.getAction().equals(Action.RIGHT_CLICK_BLOCK))) return;
 			 Player player = event.getPlayer();
@@ -93,6 +96,7 @@ public class nSpleefPlayerListener extends PlayerListener{
 					 player.sendMessage(ChatColor.DARK_PURPLE + "Second point set.");
 			 }
 		 }
+	  @Override
 		 public void onPlayerChat(PlayerChatEvent event){
 			 Player player = event.getPlayer();
 			 if (plugin.nSpleefGames.size() == 0) return;
