@@ -28,7 +28,7 @@ public class PermissionHandler {
 			type = PermissionType.PERMISSIONS;
 			System.out.println("[nSpleef] Hooked into Permissions " + permissions.getDescription().getVersion());
 		}else {
-			System.out.println("[nSpleef] Could not find any permissions plugin. Only OP will be able to use admin commands.");
+			System.out.println("[nSpleef] Could not find any permissions plugin. Only OPs will be able to use admin commands.");
 		}
 	}
 	public static boolean has(Player player, String node){
