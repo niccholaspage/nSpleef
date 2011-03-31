@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.BlockVector;
 
 import com.niccholaspage.nSpleef.Data;
+import com.niccholaspage.nSpleef.PermissionHandler;
 import com.niccholaspage.nSpleef.Util;
 import com.niccholaspage.nSpleef.nSpleef;
 import com.niccholaspage.nSpleef.nSpleefBlockListener;
@@ -19,7 +20,7 @@ public class DefineCommand implements CommandExecutor {
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		Player player = (Player) sender;
-		if (!nSpleef.Permissions.has(player, "nSpleef.admin.define")) return true;
+		if (!(PermissionHandler.has(player, "nSpleef.admin.define"))) return true;
 		if (args.length < 2){
 			player.sendMessage(ChatColor.RED + "/spleef define arenaname");
 			return true;

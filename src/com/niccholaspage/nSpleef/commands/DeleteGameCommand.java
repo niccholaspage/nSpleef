@@ -6,6 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.niccholaspage.nSpleef.PermissionHandler;
 import com.niccholaspage.nSpleef.nSpleef;
 
 public class DeleteGameCommand implements CommandExecutor {
@@ -15,7 +16,7 @@ public class DeleteGameCommand implements CommandExecutor {
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		Player player = (Player) sender;
-	    if (!nSpleef.Permissions.has(player, "nSpleef.member.deletegame")) return true;
+	    if (!(PermissionHandler.has(player, "nSpleef.member.deletegame"))) return true;
 		 if (!(args.length == 2)){
 			 player.sendMessage(ChatColor.RED + "/spleef deletegame namehere");
 		     return true;
@@ -38,7 +39,7 @@ public class DeleteGameCommand implements CommandExecutor {
 			 player.sendMessage(ChatColor.DARK_PURPLE + "That game does not exist.");
 			 return true;
 		 }
-		 if ((name.equalsIgnoreCase(plugin.nSpleefGames.get(v).split(",")[2])) || (nSpleef.Permissions.has(player, "nSpleef.admin.deleteanygame"))){
+		 if ((name.equalsIgnoreCase(plugin.nSpleefGames.get(v).split(",")[2])) || (PermissionHandler.has(player, "nSpleef.admin.deleteanygame"))){
 			 for (int i = 0; i<=plugin.nSpleefArenas.size() - 1; i++){
 			 if (plugin.nSpleefGames.get(v).split(",")[1].equalsIgnoreCase(plugin.nSpleefArenas.get(i).getName())){
 				 plugin.nSpleefArenas.get(i).resetVars();

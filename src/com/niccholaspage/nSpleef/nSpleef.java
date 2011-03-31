@@ -2,8 +2,6 @@
 package com.niccholaspage.nSpleef;
 //All the imports
 import com.niccholaspage.nSpleef.commands.*;
-import com.nijiko.permissions.PermissionHandler;
-import com.nijikokun.bukkit.Permissions.Permissions;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -17,7 +15,6 @@ import java.util.HashMap;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.PluginManager;
@@ -50,8 +47,7 @@ public class nSpleef extends JavaPlugin{
     public Boolean persistentgames;
     //Create arena array
     public ArrayList<nSpleefArena> nSpleefArenas = new ArrayList<nSpleefArena>();
-
-    public static PermissionHandler Permissions;
+    
 	@Override
 	//When the plugin is disabled this method is called.
 	public void onDisable() {
@@ -146,18 +142,6 @@ public class nSpleef extends JavaPlugin{
     	commandHandler.registerExecutor("creategame", new CreateGameCommand(this));
     	//commandHandler.registerExecutor("deletearena", new DeleteArenaCommand(this));
     }
-    private void setupPermissions() {
-        Plugin test = this.getServer().getPluginManager().getPlugin("Permissions");
-
-        if (nSpleef.Permissions == null) {
-            if (test != null) {
-                nSpleef.Permissions = ((Permissions)test).getHandler();
-            } else {
-            	System.out.println(nSpleefMessage("Permissions not detected, disabling nSpleef."));
-            	getPluginLoader().disablePlugin(this);
-            }
-        }
-    }
     public String nSpleefMessage(String message){
     	return "[nSpleef] " + message;
     }
@@ -179,14 +163,14 @@ public class nSpleef extends JavaPlugin{
         pm.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Event.Priority.Normal, this);
        //Get the infomation from the yml file.
         PluginDescriptionFile pdfFile = this.getDescription();
-        //Setup Permissions
-        setupPermissions();
         //Setup arenas
 	    Data.setupArrays();
 	    //Setup config
 	    readConfig();
 	    //Read Games
 	    if (persistentgames) readGames();
+        //Setup Permissions
+        PermissionHandler.init(getServer());
 	    //Commands
 	    registerCommands();
         //Print that the plugin has been enabled!
@@ -195,9 +179,7 @@ public class nSpleef extends JavaPlugin{
 	}
 	public void leave(Player player,Boolean checkPermissions){
 		if (checkPermissions){
-	    if (!Permissions.has(player, "nSpleef.member.leave")) {
-	        return;
-	    }
+	    if (!(PermissionHandler.has(player, "nSpleef.member.leave"))) return;
 		}
 	    if (nSpleefArenas.size() == 0){
 	    	return;

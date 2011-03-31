@@ -10,6 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.niccholaspage.nSpleef.Data;
+import com.niccholaspage.nSpleef.PermissionHandler;
 import com.niccholaspage.nSpleef.Util;
 import com.niccholaspage.nSpleef.nSpleef;
 
@@ -20,7 +21,7 @@ public class DeleteArenaCommand implements CommandExecutor {
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		Player player = (Player) sender;
-		if (!nSpleef.Permissions.has(player, "nSpleef.admin.deletearena")) return true;
+		if (!(PermissionHandler.has(player, "nSpleef.admin.deletearena"))) return true;
 		if (args.length < 2){
 			player.sendMessage(ChatColor.RED + "/spleef deletearena arenaname");
 			return true;

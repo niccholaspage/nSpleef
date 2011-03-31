@@ -88,9 +88,7 @@ public class nSpleefPlayerListener extends PlayerListener{
 			 Player player = event.getPlayer();
 			 Block block = event.getClickedBlock();
 				 if (player.getItemInHand().getTypeId() == 281){
-					    if (!nSpleef.Permissions.has(player, "nSpleef.admin")) {
-					        return;
-					    }
+					    if (!(PermissionHandler.has(player, "nSpleef.admin.define"))) return;
 					 nSpleefBlockListener.b2loc = Util.toVector(block);
 					 nSpleefBlockListener.world = block.getWorld();
 					 player.sendMessage(ChatColor.DARK_PURPLE + "Second point set.");

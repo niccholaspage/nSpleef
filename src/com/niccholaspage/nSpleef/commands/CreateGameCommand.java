@@ -6,6 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.niccholaspage.nSpleef.PermissionHandler;
 import com.niccholaspage.nSpleef.Util;
 import com.niccholaspage.nSpleef.Volume;
 import com.niccholaspage.nSpleef.nSpleef;
@@ -17,7 +18,7 @@ public class CreateGameCommand implements CommandExecutor {
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		Player player = (Player) sender;
-	    if (!nSpleef.Permissions.has(player, "nSpleef.member.creategame")) return true;
+	    if (!(PermissionHandler.has(player, "nSpleef.member.creategame"))) return true;
 		 if (!(args.length == 3)){
 			 player.sendMessage(ChatColor.RED + "/spleef creategame gamename arena");
 		     return true;
