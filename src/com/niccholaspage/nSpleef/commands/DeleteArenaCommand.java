@@ -22,10 +22,7 @@ public class DeleteArenaCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		Player player = (Player) sender;
 		if (!(PermissionHandler.has(player, "nSpleef.admin.deletearena"))) return true;
-		if (args.length < 2){
-			player.sendMessage(ChatColor.RED + "/spleef deletearena arenaname");
-			return true;
-		}
+		if (args.length < 2) return false;
 		if (Util.exists() == false) {
 			player.sendMessage(ChatColor.DARK_PURPLE + "No arenas!");						 
 			return true;

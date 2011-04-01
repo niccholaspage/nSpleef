@@ -19,10 +19,7 @@ public class CreateGameCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		Player player = (Player) sender;
 	    if (!(PermissionHandler.has(player, "nSpleef.member.creategame"))) return true;
-		 if (!(args.length == 3)){
-			 player.sendMessage(ChatColor.RED + "/spleef creategame gamename arena");
-		     return true;
-		 }
+		 if (args.length < 3) return false;
 		 if (Util.exists() == false) {
 			 player.sendMessage(ChatColor.DARK_PURPLE + "No arenas!");						 
 			 return true;

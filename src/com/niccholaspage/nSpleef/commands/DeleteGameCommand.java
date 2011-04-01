@@ -17,10 +17,7 @@ public class DeleteGameCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		Player player = (Player) sender;
 	    if (!(PermissionHandler.has(player, "nSpleef.member.deletegame"))) return true;
-		 if (!(args.length == 2)){
-			 player.sendMessage(ChatColor.RED + "/spleef deletegame namehere");
-		     return true;
-		 }
+		 if (args.length < 2) return false;
 	    if (plugin.nSpleefGames.size() == 0){
 	    	player.sendMessage(ChatColor.DARK_PURPLE + "No games exist.");
 	    	return true;

@@ -134,12 +134,12 @@ public class nSpleef extends JavaPlugin{
     private void registerCommands(){
     	CommandHandler commandHandler = new CommandHandler(this);
     	getCommand("spleef").setExecutor(commandHandler);
-    	commandHandler.registerExecutor("define", new DefineCommand(this));
-    	commandHandler.registerExecutor("join", new JoinCommand(this));
-    	commandHandler.registerExecutor("leave", new LeaveCommand(this));
-    	commandHandler.registerExecutor("list", new ListCommand(this));
-    	commandHandler.registerExecutor("deletegame", new DeleteGameCommand(this));
-    	commandHandler.registerExecutor("creategame", new CreateGameCommand(this));
+    	commandHandler.registerExecutor("define", new DefineCommand(this), "/spleef define arena");
+    	commandHandler.registerExecutor("join", new JoinCommand(this), "/spleef join game");
+    	commandHandler.registerExecutor("leave", new LeaveCommand(this), "/spleef leave");
+    	commandHandler.registerExecutor("list", new ListCommand(this), "/spleef list");
+    	commandHandler.registerExecutor("deletegame", new DeleteGameCommand(this), "/spleef deletegame name");
+    	commandHandler.registerExecutor("creategame", new CreateGameCommand(this), "/spleef creategame name arena");
     	//commandHandler.registerExecutor("deletearena", new DeleteArenaCommand(this));
     }
     public String nSpleefMessage(String message){

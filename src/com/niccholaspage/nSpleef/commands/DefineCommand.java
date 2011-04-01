@@ -21,10 +21,7 @@ public class DefineCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		Player player = (Player) sender;
 		if (!(PermissionHandler.has(player, "nSpleef.admin.define"))) return true;
-		if (args.length < 2){
-			player.sendMessage(ChatColor.RED + "/spleef define arenaname");
-			return true;
-		}
+		if (args.length < 2) return false;
 		if (args[1].contains(",")){
 			 player.sendMessage(ChatColor.DARK_PURPLE + "An arena name cannot contain a comma.");
 			 return true;
