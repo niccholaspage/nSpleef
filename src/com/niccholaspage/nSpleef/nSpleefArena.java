@@ -142,11 +142,7 @@ public class nSpleefArena {
 		if (players.size() == 0){
 			ingame = 0;
 			vol.resetBlocks();
-			for (int i = 0; i <= plugin.nSpleefGames.size() - 1; i++){
-				if (plugin.nSpleefGames.get(i).split(",")[1].equalsIgnoreCase(this.name)){
-					plugin.nSpleefGames.remove(i);
-				}
-			}
+			plugin.nSpleefGames.remove(plugin.nSpleefGames.indexOf(getGame()));
 			resetVars();
 		}
 	}
@@ -156,14 +152,7 @@ public class nSpleefArena {
 			for (int i = 0; i <= playersin.size() - 1; i++){
 				playersin.get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] " + players.get(0).getDisplayName() + " has won the game!");
 			}
-			Integer i;
-			for (i = 0; i <= plugin.nSpleefGames.size() - 1; i++){
-				if (plugin.nSpleefGames.get(i).split(",")[1].equalsIgnoreCase(this.name)){
-					if (plugin.nSpleefGames.get(i).split(",").length > 3){
-					EconomyHandler.addMoney(players.get(0), Integer.parseInt(plugin.nSpleefGames.get(i).split(",")[3]) * playersin.size());
-					}
-				}
-			}
+			if (getGame().split(",").length > 3) EconomyHandler.addMoney(players.get(0), Integer.parseInt(getGame().split(",")[3]) * playersin.size());
 			players.remove(0);
 			checkLeave();
 			return;
