@@ -171,6 +171,8 @@ public class nSpleef extends JavaPlugin{
 	    if (persistentgames) readGames();
         //Setup Permissions
         PermissionHandler.init(getServer());
+        //Setup economy
+        EconomyHandler.init(getServer());
 	    //Commands
 	    registerCommands();
         //Print that the plugin has been enabled!

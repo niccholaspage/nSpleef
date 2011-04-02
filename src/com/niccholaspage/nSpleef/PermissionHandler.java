@@ -28,6 +28,7 @@ public class PermissionHandler {
 			type = PermissionType.PERMISSIONS;
 			System.out.println("[nSpleef] Hooked into Permissions " + permissions.getDescription().getVersion());
 		}else {
+			type = PermissionType.NONE;
 			System.out.println("[nSpleef] Could not find any permissions plugin. Only OPs will be able to use admin commands.");
 		}
 	}
