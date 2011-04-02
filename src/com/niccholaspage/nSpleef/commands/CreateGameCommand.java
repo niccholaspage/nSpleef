@@ -76,7 +76,7 @@ public class CreateGameCommand implements CommandExecutor {
 		 player.sendMessage(ChatColor.DARK_PURPLE + "Game " + args[1] + " has been created.");
 		 if (args.length > 3){
 			 if (plugin.isInt(args[3])){
-				 if (EconomyHandler.type.equals(EconomyType.ICONOMY)){
+				 if (!(EconomyHandler.type.equals(EconomyType.NONE))){
 				 player.sendMessage(ChatColor.DARK_PURPLE + "Everyone who joins game " + args[1] + " must pay " + args[3] + " " + EconomyHandler.getCurrencyName() + ".");
 				 }
 			 }
