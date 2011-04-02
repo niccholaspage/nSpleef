@@ -39,4 +39,10 @@ public class EconomyHandler {
 		}
 		return null;
 	}
+	public static String getCurrencyName(){
+		if (type.equals(EconomyType.ICONOMY)){
+			return iConomy.getBank().getCurrency() + "s";
+		}
+		return "";
+	}
 }

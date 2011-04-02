@@ -12,7 +12,6 @@ import com.niccholaspage.nSpleef.PermissionHandler;
 import com.niccholaspage.nSpleef.Util;
 import com.niccholaspage.nSpleef.Volume;
 import com.niccholaspage.nSpleef.nSpleef;
-import com.nijiko.coelho.iConomy.iConomy;
 
 public class CreateGameCommand implements CommandExecutor {
 	public static nSpleef plugin;
@@ -78,7 +77,7 @@ public class CreateGameCommand implements CommandExecutor {
 		 if (args.length > 3){
 			 if (plugin.isInt(args[3])){
 				 if (EconomyHandler.type.equals(EconomyType.ICONOMY)){
-				 player.sendMessage(ChatColor.DARK_PURPLE + "Everyone who joins game " + args[1] + " must pay " + args[3] + " " + iConomy.getBank().getCurrency() + "s.");
+				 player.sendMessage(ChatColor.DARK_PURPLE + "Everyone who joins game " + args[1] + " must pay " + args[3] + " " + EconomyHandler.getCurrencyName() + ".");
 				 }
 			 }
 		 }

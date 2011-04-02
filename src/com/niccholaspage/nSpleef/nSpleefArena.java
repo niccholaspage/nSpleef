@@ -152,7 +152,11 @@ public class nSpleefArena {
 			for (int i = 0; i <= playersin.size() - 1; i++){
 				playersin.get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] " + players.get(0).getDisplayName() + " has won the game!");
 			}
-			if (getGame().split(",").length > 3) EconomyHandler.addMoney(players.get(0), Integer.parseInt(getGame().split(",")[3]) * playersin.size());
+			if (getGame().split(",").length > 3){
+				Integer amount = Integer.parseInt(getGame().split(",")[3]) * playersin.size();
+				EconomyHandler.addMoney(players.get(0), amount);
+				players.get(0).sendMessage(ChatColor.DARK_PURPLE + "You just won " + amount + " " + EconomyHandler.getCurrencyName());
+			}
 			players.remove(0);
 			checkLeave();
 			return;
