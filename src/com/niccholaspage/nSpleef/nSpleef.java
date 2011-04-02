@@ -145,6 +145,14 @@ public class nSpleef extends JavaPlugin{
     public String nSpleefMessage(String message){
     	return "[nSpleef] " + message;
     }
+    public boolean isInt(String i){
+    	try {
+    		Integer.parseInt(i);
+    		return true;
+    	} catch(NumberFormatException nfe){
+    		return false;
+    	}
+    }
 	@Override
 	//When the plugin is enabled this method is called.
 	public void onEnable() {

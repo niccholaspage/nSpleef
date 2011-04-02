@@ -6,6 +6,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.niccholaspage.nSpleef.EconomyHandler;
+import com.niccholaspage.nSpleef.EconomyHandler.EconomyType;
 import com.niccholaspage.nSpleef.PermissionHandler;
 import com.niccholaspage.nSpleef.Util;
 import com.niccholaspage.nSpleef.Volume;
@@ -62,8 +64,15 @@ public class CreateGameCommand implements CommandExecutor {
 		 vol.setCornerOne(plugin.getServer().getWorld(plugin.nSpleefArenas.get(where).getWorld().getName()).getBlockAt(plugin.nSpleefArenas.get(where).getFirstBlock().getBlockX(), plugin.nSpleefArenas.get(where).getFirstBlock().getBlockY(), plugin.nSpleefArenas.get(where).getFirstBlock().getBlockZ()));
 		 vol.setCornerTwo(plugin.getServer().getWorld(plugin.nSpleefArenas.get(where).getWorld().getName()).getBlockAt(plugin.nSpleefArenas.get(where).getSecondBlock().getBlockX(), plugin.nSpleefArenas.get(where).getSecondBlock().getBlockY(), plugin.nSpleefArenas.get(where).getSecondBlock().getBlockZ()));
 		 vol.saveBlocks();
+		 if (!(EconomyHandler.type.equals(EconomyType.NONE))){
+			 if (args.length > 3){
+				 if (plugin.isInt(args[3])){
+					 name += "," + args[3];
+				 }
+			 }
+			 }
 		 plugin.nSpleefGames.add(name);
-		 plugin.nSpleefArenas.get(where).setMyGame(plugin.nSpleefGames.size());
+		 plugin.nSpleefArenas.get(where).setMyGame(plugin.nSpleefGames.size() - 1);
 		 player.sendMessage(ChatColor.DARK_PURPLE + "Game " + args[1] + " has been created.");
 		return true;
 	}

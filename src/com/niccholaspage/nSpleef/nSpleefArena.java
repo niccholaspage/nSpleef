@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.BlockVector;
 
 public class nSpleefArena {
+	private final nSpleef plugin;
 	private final String name;
 	private World world;
 	private ArrayList<Player> players = new ArrayList<Player>();
@@ -21,9 +22,10 @@ public class nSpleefArena {
 	private Volume vol = null;
 	private Integer ingame = 0;
 	private Integer mygame = null;
-	  public nSpleefArena(String name, World world){
+	  public nSpleefArena(String name, World world, nSpleef plugin){
 		  this.name = name;
 		  this.world = world;
+		  this.plugin = plugin;
 	  }
 	  public String getName(){
 		  return this.name;
@@ -140,9 +142,9 @@ public class nSpleefArena {
 		if (players.size() == 0){
 			ingame = 0;
 			vol.resetBlocks();
-			for (int i = 0; i <= nSpleefPlayerListener.plugin.nSpleefGames.size() - 1; i++){
-				if (nSpleefPlayerListener.plugin.nSpleefGames.get(i).split(",")[1].equalsIgnoreCase(this.name)){
-					nSpleefPlayerListener.plugin.nSpleefGames.remove(i);
+			for (int i = 0; i <= plugin.nSpleefGames.size() - 1; i++){
+				if (plugin.nSpleefGames.get(i).split(",")[1].equalsIgnoreCase(this.name)){
+					plugin.nSpleefGames.remove(i);
 				}
 			}
 			resetVars();
@@ -153,6 +155,14 @@ public class nSpleefArena {
 			ingame = 0;
 			for (int i = 0; i <= playersin.size() - 1; i++){
 				playersin.get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] " + players.get(0).getDisplayName() + " has won the game!");
+			}
+			Integer i;
+			for (i = 0; i <= plugin.nSpleefGames.size() - 1; i++){
+				if (plugin.nSpleefGames.get(i).split(",")[1].equalsIgnoreCase(this.name)){
+					if (plugin.nSpleefGames.get(i).split(",").length > 3){
+					EconomyHandler.addMoney(players.get(0), Integer.parseInt(plugin.nSpleefGames.get(i).split(",")[3]) * playersin.size());
+					}
+				}
 			}
 			players.remove(0);
 			checkLeave();

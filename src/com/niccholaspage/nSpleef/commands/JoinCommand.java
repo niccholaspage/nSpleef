@@ -6,6 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.niccholaspage.nSpleef.EconomyHandler;
 import com.niccholaspage.nSpleef.PermissionHandler;
 import com.niccholaspage.nSpleef.Util;
 import com.niccholaspage.nSpleef.nSpleef;
@@ -42,6 +43,13 @@ public class JoinCommand implements CommandExecutor {
 	    				if (plugin.nSpleefArenas.get(j).getInGame() > 0){
 	    					player.sendMessage(ChatColor.DARK_PURPLE + "A game is in progress in that arena.");
 	    					return true;
+	    				}
+	    				if (plugin.nSpleefGames.get(i).split(",").length > 3){
+	    					if (EconomyHandler.getMoney(player) < Integer.parseInt(plugin.nSpleefGames.get(i).split(",")[3])){
+	    						player.sendMessage(ChatColor.DARK_PURPLE + "You do not have enough money to join that game.");
+	    						return true;
+	    					}
+		    				EconomyHandler.removeMoney(player, Integer.parseInt(plugin.nSpleefGames.get(i).split(",")[3]));
 	    				}
 	    				plugin.nSpleefArenas.get(j).getPlayersLocation().add(player.getLocation().clone());
 	    				plugin.nSpleefArenas.get(j).getPlayers().add(player);

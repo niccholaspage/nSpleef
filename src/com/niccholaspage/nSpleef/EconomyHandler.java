@@ -7,11 +7,11 @@ import org.bukkit.plugin.Plugin;
 import com.nijiko.coelho.iConomy.iConomy;
 
 public class EconomyHandler {
-	private enum EconomyType {
+	public enum EconomyType {
 		ICONOMY,
 		NONE
 	}
-	private static EconomyType type;
+	public static EconomyType type;
 	
 	public static void init(Server server){
 		Plugin iconomy = server.getPluginManager().getPlugin("iConomy");
@@ -23,12 +23,12 @@ public class EconomyHandler {
 			System.out.println("[nSpleef] No economy plugin found.");
 		}
 	}
-	public static void addMoney(Player player, Double amount){
+	public static void addMoney(Player player, Integer amount){
 		if (type.equals(EconomyType.ICONOMY)){
 			iConomy.getBank().getAccount(player.getName()).add(amount);
 		}
 	}
-	public static void removeMoney(Player player, Double amount){
+	public static void removeMoney(Player player, Integer amount){
 		if (type.equals(EconomyType.ICONOMY)){
 			iConomy.getBank().getAccount(player.getName()).subtract(amount);
 		}
