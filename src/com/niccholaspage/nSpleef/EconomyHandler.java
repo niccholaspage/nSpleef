@@ -33,9 +33,9 @@ public class EconomyHandler {
 			iConomy.getBank().getAccount(player.getName()).subtract(amount);
 		}
 	}
-	public static Double getMoney(Player player){
+	public static Integer getMoney(Player player){
 		if (type.equals(EconomyType.ICONOMY)){
-			return iConomy.getBank().getAccount(player.getName()).getBalance();
+			return (int)iConomy.getBank().getAccount(player.getName()).getBalance();
 		}
 		return null;
 	}

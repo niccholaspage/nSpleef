@@ -113,18 +113,7 @@ public class nSpleef extends JavaPlugin{
     	_config.load();
 		file = new File("plugins/nSpleef/config.yml");
     	if (!file.exists()){
-    	      try{
-    	    	    // Create file 
-    	    	    FileWriter fstream = new FileWriter("plugins/nSpleef/config.yml");
-    	    	    BufferedWriter out = new BufferedWriter(fstream);
-    	    	    out.write("nSpleef:\n");
-    	    	    out.write("    canplaceblocks: false\n");
-    	    	    out.write("    persistentgames: false\n");
-    	    	    //Close the output stream
-    	    	    out.close();
-    	    	    }catch (Exception e){//Catch exception if any
-    	    	      System.out.println("nSpleef could not write the default config file.");
-    	    	    }
+    		Util.createDefaultConfig();
     	}
     	// Reading from yml file
     	Boolean canplaceblocks = _config.getBoolean("nSpleef.canplaceblocks", false);

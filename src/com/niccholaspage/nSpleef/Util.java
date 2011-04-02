@@ -153,4 +153,18 @@ public class Util {
 			{
 			}
 		}
+		public static void createDefaultConfig(){
+  	      try{
+	    	    // Create file 
+	    	    FileWriter fstream = new FileWriter("plugins/nSpleef/config.yml");
+	    	    BufferedWriter out = new BufferedWriter(fstream);
+	    	    out.write("nSpleef:\n");
+	    	    out.write("    canplaceblocks: false\n");
+	    	    out.write("    persistentgames: false\n");
+	    	    //Close the output stream
+	    	    out.close();
+  	      }catch (Exception e){//Catch exception if any
+  	    	  System.out.println("[nSpleef] Could not write the default config file.");
+  	      }
+		}
 }
