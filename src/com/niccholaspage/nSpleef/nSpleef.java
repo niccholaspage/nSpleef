@@ -45,6 +45,10 @@ public class nSpleef extends JavaPlugin{
     public final ArrayList<String> nSpleefGames = new ArrayList<String>();
     //Persistent games
     public Boolean persistentgames;
+    //Give money on leave
+    public boolean giveMoneyOnLeave;
+    //Give money on disconnect
+    public boolean giveMoneyOnDisconnect;
     //Create arena array
     public ArrayList<nSpleefArena> nSpleefArenas = new ArrayList<nSpleefArena>();
     
@@ -118,6 +122,8 @@ public class nSpleef extends JavaPlugin{
     	// Reading from yml file
     	Boolean canplaceblocks = _config.getBoolean("nSpleef.canplaceblocks", false);
     	persistentgames = _config.getBoolean("nSpleef.persistentgames", false);
+    	giveMoneyOnLeave = _config.getBoolean("nSpleef.givemoneyonleave", false);
+    	giveMoneyOnDisconnect = _config.getBoolean("nSpleef.givemoneyondisconnect", false);
     	nSpleefBlockListener.setConfig(canplaceblocks);
         }
     private void registerCommands(){
@@ -180,9 +186,7 @@ public class nSpleef extends JavaPlugin{
 		if (checkPermissions){
 	    if (!(PermissionHandler.has(player, "nSpleef.member.leave"))) return;
 		}
-	    if (nSpleefArenas.size() == 0){
-	    	return;
-	    }
+	    if (nSpleefArenas.size() == 0) return;
 		 for (int i = 0; i <= nSpleefArenas.size() - 1; i++){
 			 for (int j = 0; j <= nSpleefArenas.get(i).getPlayersIn().size() - 1; j++){
 				 if (player.equals(nSpleefArenas.get(i).getPlayersIn().get(j))){
@@ -191,6 +195,14 @@ public class nSpleef extends JavaPlugin{
 					 	nSpleefArenas.get(i).getPlayers().remove(player);
 					 	player.teleport(nSpleefArenas.get(i).getPlayersLocation().get(j));
 					 	nSpleefArenas.get(i).getPlayersLocation().remove(j);
+						if (nSpleefArenas.get(i).getGame().split(",").length > 3){
+							if ((checkPermissions) && (giveMoneyOnLeave)){
+								EconomyHandler.addMoney(player, Integer.parseInt(nSpleefArenas.get(i).getGame().split(",")[3]));
+							}
+							if (!(checkPermissions) && (giveMoneyOnDisconnect)){
+								EconomyHandler.addMoney(player, Integer.parseInt(nSpleefArenas.get(i).getGame().split(",")[3]));
+							}
+						}
 						nSpleefArenas.get(i).leave(player);
 				 }
 			 }

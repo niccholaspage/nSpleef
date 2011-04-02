@@ -186,4 +186,12 @@ public class nSpleefArena {
 	public Integer getInGame() {
 		return ingame;
 	}
+	public String getGame(){
+		for (int i = 0; i < plugin.nSpleefGames.size(); i++){
+			if (plugin.nSpleefGames.get(i).split(",")[1].equalsIgnoreCase(this.name)){
+				return plugin.nSpleefGames.get(i);
+			}
+		}
+		return null;
+	}
 }
