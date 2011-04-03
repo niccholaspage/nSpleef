@@ -15,18 +15,15 @@ public class nSpleefBlockListener extends BlockListener{
 	 public static BlockVector b1loc;
 	 public static BlockVector b2loc;
 	 public static World world;
-	  static Boolean canplaceblocks;
+	  //static Boolean canplaceblocks;
 	 public nSpleefBlockListener(nSpleef instance) {
     	 plugin = instance;
     }
-	 public static void setConfig(Boolean c){
-		 canplaceblocks = c;
-	 }
 	 @Override
 	 public void onBlockPlace(BlockPlaceEvent event) {
 			Player player = event.getPlayer();
 			 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
-				 if ((plugin.nSpleefArenas.get(i).getPlayers().contains(player)) && (canplaceblocks == false)){
+				 if ((plugin.nSpleefArenas.get(i).getPlayers().contains(player)) && (plugin.canplaceblocks == false)){
 					 event.setCancelled(true);
 					 player.sendMessage(ChatColor.DARK_PURPLE + "Cannot place blocks during spleef!");
 				 }  

@@ -34,8 +34,6 @@ public class nSpleef extends JavaPlugin{
     private final nSpleefBlockListener blockListener = new nSpleefBlockListener(this);
     //Entity Listener
     private final nSpleefEntityListener entityListener = new nSpleefEntityListener(this);
-    //Links nSpleefMonsterListener
-    //private final nSpleefMonsterListener monsterListener = new nSpleefMonsterListener(this);
     //Links the Data class
     @SuppressWarnings("unused")
 	private final Data data = new Data(this);
@@ -49,6 +47,8 @@ public class nSpleef extends JavaPlugin{
     public boolean giveMoneyOnLeave;
     //Give money on disconnect
     public boolean giveMoneyOnDisconnect;
+    //Can the player place blocks during spleef?
+    public boolean canplaceblocks;
     //Create arena array
     public ArrayList<nSpleefArena> nSpleefArenas = new ArrayList<nSpleefArena>();
     
@@ -120,11 +120,10 @@ public class nSpleef extends JavaPlugin{
     		Util.createDefaultConfig();
     	}
     	// Reading from yml file
-    	Boolean canplaceblocks = _config.getBoolean("nSpleef.canplaceblocks", false);
+    	canplaceblocks = _config.getBoolean("nSpleef.canplaceblocks", false);
     	persistentgames = _config.getBoolean("nSpleef.persistentgames", false);
     	giveMoneyOnLeave = _config.getBoolean("nSpleef.givemoneyonleave", false);
     	giveMoneyOnDisconnect = _config.getBoolean("nSpleef.givemoneyondisconnect", false);
-    	nSpleefBlockListener.setConfig(canplaceblocks);
         }
     private void registerCommands(){
     	CommandHandler commandHandler = new CommandHandler(this);
@@ -135,7 +134,6 @@ public class nSpleef extends JavaPlugin{
     	commandHandler.registerExecutor("list", new ListCommand(this), "/spleef list");
     	commandHandler.registerExecutor("deletegame", new DeleteGameCommand(this), "/spleef deletegame name");
     	commandHandler.registerExecutor("creategame", new CreateGameCommand(this), "/spleef creategame name arena");
-    	//commandHandler.registerExecutor("deletearena", new DeleteArenaCommand(this));
     }
     public String nSpleefMessage(String message){
     	return "[nSpleef] " + message;
