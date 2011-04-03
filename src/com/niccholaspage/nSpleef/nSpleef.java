@@ -34,9 +34,7 @@ public class nSpleef extends JavaPlugin{
     private final nSpleefBlockListener blockListener = new nSpleefBlockListener(this);
     //Entity Listener
     private final nSpleefEntityListener entityListener = new nSpleefEntityListener(this);
-    //Links the Data class
-    @SuppressWarnings("unused")
-	private final Data data = new Data(this);
+    
     //Create the hashmap "nSpleefUsers"
     public final HashMap<Player, ArrayList<Block>> nSpleefUsers = new HashMap<Player, ArrayList<Block>>();
     //Create the games array
@@ -164,6 +162,8 @@ public class nSpleef extends JavaPlugin{
         pm.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Event.Priority.Normal, this);
        //Get the infomation from the yml file.
         PluginDescriptionFile pdfFile = this.getDescription();
+        //Init Data
+        Data.init(this);
         //Setup arenas
 	    Data.setupArrays();
 	    //Setup config

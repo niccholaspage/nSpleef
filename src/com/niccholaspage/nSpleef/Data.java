@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public class Data {
 	public ArrayList<String> data;
 	public static nSpleef plugin;
-	  public Data(nSpleef instance) {
-	        plugin = instance;
-	    }
+	  public static void init (nSpleef instance){
+		  plugin = instance;
+	  }
 	  public static void setupArrays(){
 		    ArrayList<String> data = new ArrayList<String>();
 		    plugin.nSpleefArenas = new ArrayList<nSpleefArena>();
