@@ -34,10 +34,10 @@ public class DeleteArenaCommand implements CommandExecutor {
 	    Boolean pass = false;
 	    for (int i = 0; i < plugin.nSpleefArenas.size(); i++){
 	    	if (plugin.nSpleefArenas.get(i).getName().equalsIgnoreCase(args[1])){
-	    		if (!(plugin.nSpleefArenas.get(i).getName() == null)) plugin.nSpleefGames.remove(plugin.nSpleefArenas.get(i).getGame());
 	    		for (int j = 0; j < plugin.nSpleefArenas.get(i).getPlayersIn().size(); j++){
 	    			plugin.leave(plugin.nSpleefArenas.get(i).getPlayersIn().get(j), 2);
 	    		}
+	    		if (!(plugin.nSpleefArenas.get(i).getName() == null)) plugin.nSpleefGames.remove(plugin.nSpleefArenas.get(i).getGame());
 	    		data.remove(i);
 	    		pass = true;
 	    		break;
