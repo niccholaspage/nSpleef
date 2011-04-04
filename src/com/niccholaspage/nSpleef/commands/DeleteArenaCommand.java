@@ -36,7 +36,7 @@ public class DeleteArenaCommand implements CommandExecutor {
 	    	if (plugin.nSpleefArenas.get(i).getName().equalsIgnoreCase(args[1])){
 	    		if (!(plugin.nSpleefArenas.get(i).getName() == null)) plugin.nSpleefGames.remove(plugin.nSpleefArenas.get(i).getGame());
 	    		for (int j = 0; j < plugin.nSpleefArenas.get(i).getPlayersIn().size(); j++){
-	    			plugin.leave(player, 2);
+	    			plugin.leave(plugin.nSpleefArenas.get(i).getPlayersIn().get(j), 2);
 	    		}
 	    		data.remove(i);
 	    		pass = true;
