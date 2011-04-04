@@ -131,7 +131,7 @@ public class nSpleef extends JavaPlugin{
     	commandHandler.registerExecutor("leave", new LeaveCommand(this), "/spleef leave");
     	commandHandler.registerExecutor("list", new ListCommand(this), "/spleef list");
     	commandHandler.registerExecutor("deletegame", new DeleteGameCommand(this), "/spleef deletegame name");
-    	commandHandler.registerExecutor("creategame", new CreateGameCommand(this), "/spleef creategame name arena <moneytojoin>");
+    	commandHandler.registerExecutor("creategame", new CreateGameCommand(this), "/spleef creategame name arena <money>");
     	commandHandler.registerExecutor("deletearena", new DeleteArenaCommand(this), "/spleef deletearena arena");
     }
     public String nSpleefMessage(String message){
