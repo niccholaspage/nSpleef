@@ -14,7 +14,7 @@ public class LeaveCommand implements CommandExecutor {
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		Player player = (Player) sender;
-		plugin.leave(player, true);
+		plugin.leave(player, 1);
 		return true;
 	}
 }

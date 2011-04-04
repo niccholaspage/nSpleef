@@ -131,7 +131,8 @@ public class nSpleef extends JavaPlugin{
     	commandHandler.registerExecutor("leave", new LeaveCommand(this), "/spleef leave");
     	commandHandler.registerExecutor("list", new ListCommand(this), "/spleef list");
     	commandHandler.registerExecutor("deletegame", new DeleteGameCommand(this), "/spleef deletegame name");
-    	commandHandler.registerExecutor("creategame", new CreateGameCommand(this), "/spleef creategame name arena");
+    	commandHandler.registerExecutor("creategame", new CreateGameCommand(this), "/spleef creategame name arena <moneytojoin>");
+    	commandHandler.registerExecutor("deletearena", new DeleteArenaCommand(this), "/spleef deletearena arena");
     }
     public String nSpleefMessage(String message){
     	return "[nSpleef] " + message;
@@ -180,10 +181,11 @@ public class nSpleef extends JavaPlugin{
         System.out.println( pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!" );
 		
 	}
-	public void leave(Player player,Boolean checkPermissions){
-		if (checkPermissions){
-	    if (!(PermissionHandler.has(player, "nSpleef.member.leave"))) return;
-		}
+	public void leave(Player player, Integer mode){
+		//Mode 0: Disconnect
+		//Mode 1: Leave
+		//Mode 2: Deleted arena
+		if (mode == 1) if (!(PermissionHandler.has(player, "nSpleef.member.leave"))) return;
 	    if (nSpleefArenas.size() == 0) return;
 		 for (int i = 0; i <= nSpleefArenas.size() - 1; i++){
 			 for (int j = 0; j <= nSpleefArenas.get(i).getPlayersIn().size() - 1; j++){
@@ -194,12 +196,8 @@ public class nSpleef extends JavaPlugin{
 					 	player.teleport(nSpleefArenas.get(i).getPlayersLocation().get(j));
 					 	nSpleefArenas.get(i).getPlayersLocation().remove(j);
 						if (nSpleefArenas.get(i).getGame().split(",").length > 3){
-							if ((checkPermissions) && (giveMoneyOnLeave)){
-								EconomyHandler.addMoney(player, Integer.parseInt(nSpleefArenas.get(i).getGame().split(",")[3]));
-							}
-							if (!(checkPermissions) && (giveMoneyOnDisconnect)){
-								EconomyHandler.addMoney(player, Integer.parseInt(nSpleefArenas.get(i).getGame().split(",")[3]));
-							}
+							if ((mode == 1) && (giveMoneyOnLeave)) EconomyHandler.addMoney(player, Integer.parseInt(nSpleefArenas.get(i).getGame().split(",")[3]));
+							if ((mode == 0) && (giveMoneyOnDisconnect)) EconomyHandler.addMoney(player, Integer.parseInt(nSpleefArenas.get(i).getGame().split(",")[3]));
 						}
 						nSpleefArenas.get(i).leave(player);
 				 }

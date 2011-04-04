@@ -32,13 +32,11 @@ public class DeleteArenaCommand implements CommandExecutor {
 	    data = Util.filetoarray();
 	    Util.closefileread();
 	    Boolean pass = false;
-	    for (int i = 0; i < data.size(); i++){
-	    	if (data.get(i).split(":")[0].equalsIgnoreCase(args[1])){
-	    		for (int j = 0; j < plugin.nSpleefGames.size(); j++){
-	    			if (plugin.nSpleefGames.get(j).split(",")[1].equalsIgnoreCase(data.get(i).split(":")[0])){
-	    				plugin.nSpleefGames.remove(j);
-	    				break;
-	    			}
+	    for (int i = 0; i < plugin.nSpleefArenas.size(); i++){
+	    	if (plugin.nSpleefArenas.get(i).getName().equalsIgnoreCase(args[1])){
+	    		if (!(plugin.nSpleefArenas.get(i).getName() == null)) plugin.nSpleefGames.remove(plugin.nSpleefArenas.get(i).getGame());
+	    		for (int j = 0; j < plugin.nSpleefArenas.get(i).getPlayersIn().size(); j++){
+	    			plugin.leave(player, 2);
 	    		}
 	    		data.remove(i);
 	    		pass = true;
