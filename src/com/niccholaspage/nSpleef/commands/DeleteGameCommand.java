@@ -6,8 +6,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.niccholaspage.nSpleef.Filter;
 import com.niccholaspage.nSpleef.PermissionHandler;
 import com.niccholaspage.nSpleef.nSpleef;
+import com.niccholaspage.nSpleef.nSpleefArena;
 
 public class DeleteGameCommand implements CommandExecutor {
 	public static nSpleef plugin;
@@ -22,30 +24,20 @@ public class DeleteGameCommand implements CommandExecutor {
 	    	player.sendMessage(ChatColor.DARK_PURPLE + "No games exist.");
 	    	return true;
 	    }
-		 String game = args[1];
 		 String name = player.getName();
-		 Boolean did = false;
-		 Integer v = 0;
-		 for (int i = 0; i<= plugin.nSpleefGames.size() - 1; i++){
-			 if (game.equalsIgnoreCase(plugin.nSpleefGames.get(i).split(",")[0])){
-				 did = true;
-				 v = i;
-			 }
-		 }
-		 if (did == false){
+		 //Integer v = 0;
+		 String game = Filter.getGameByName(args[1]);
+		 if (game == null){
 			 player.sendMessage(ChatColor.DARK_PURPLE + "That game does not exist.");
 			 return true;
 		 }
-		 if ((name.equalsIgnoreCase(plugin.nSpleefGames.get(v).split(",")[2])) || (PermissionHandler.has(player, "nSpleef.admin.deleteanygame"))){
-			 for (int i = 0; i < plugin.nSpleefArenas.size(); i++){
-			 if (plugin.nSpleefGames.get(v).split(",")[1].equalsIgnoreCase(plugin.nSpleefArenas.get(i).getName())){
-				 for (int j = 0; j < plugin.nSpleefArenas.get(i).getPlayersIn().size(); j++){
-					 plugin.leave(plugin.nSpleefArenas.get(i).getPlayersIn().get(j), 2);
+		 if ((name.equalsIgnoreCase(game.split(",")[2])) || (PermissionHandler.has(player, "nSpleef.admin.deleteanygame"))){
+			 nSpleefArena arena = Filter.getArenaByGame(game);
+				 for (int j = 0; j < arena.getPlayersIn().size(); j++){
+					 plugin.leave(arena.getPlayersIn().get(j), 2);
 				 }
-				 if (!(plugin.nSpleefArenas.get(i).getName() == null)) plugin.nSpleefGames.remove(plugin.nSpleefArenas.get(i).getGame());
-				 plugin.nSpleefArenas.get(i).resetVars();
-			 }
-			 }
+				 if (!(arena.getGame() == null)) plugin.nSpleefGames.remove(arena.getGame());
+				 arena.resetVars();
 			 player.sendMessage(ChatColor.DARK_PURPLE + "Deleted game.");
 		 }else {
 			 player.sendMessage(ChatColor.DARK_PURPLE + "You did not create that game!");
