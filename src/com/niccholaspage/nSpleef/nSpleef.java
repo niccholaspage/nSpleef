@@ -127,13 +127,13 @@ public class nSpleef extends JavaPlugin{
     private void registerCommands(){
     	CommandHandler commandHandler = new CommandHandler(this);
     	getCommand("spleef").setExecutor(commandHandler);
-    	commandHandler.registerExecutor("define", new DefineCommand(this), "/spleef define arena");
-    	commandHandler.registerExecutor("join", new JoinCommand(this), "/spleef join game");
-    	commandHandler.registerExecutor("leave", new LeaveCommand(this), "/spleef leave");
-    	commandHandler.registerExecutor("list", new ListCommand(this), "/spleef list");
-    	commandHandler.registerExecutor("deletegame", new DeleteGameCommand(this), "/spleef deletegame name");
-    	commandHandler.registerExecutor("creategame", new CreateGameCommand(this), "/spleef creategame name arena <money>");
-    	commandHandler.registerExecutor("deletearena", new DeleteArenaCommand(this), "/spleef deletearena arena");
+    	commandHandler.registerExecutor("define", new DefineCommand(this), "/spleef define arena", "nSpleef.admin.define");
+    	commandHandler.registerExecutor("join", new JoinCommand(this), "/spleef join game", "nSpleef.member.join");
+    	commandHandler.registerExecutor("leave", new LeaveCommand(this), "/spleef leave", "nSpleef.member.leave");
+    	commandHandler.registerExecutor("list", new ListCommand(this), "/spleef list", "nSpleef.member.list");
+    	commandHandler.registerExecutor("deletegame", new DeleteGameCommand(this), "/spleef deletegame name", "nSpleef.member.deletegame");
+    	commandHandler.registerExecutor("creategame", new CreateGameCommand(this), "/spleef creategame name arena <money>", "nSpleef.member.creategame");
+    	commandHandler.registerExecutor("deletearena", new DeleteArenaCommand(this), "/spleef deletearena arena", "nSpleef.admin.deletearena");
     }
     public String nSpleefMessage(String message){
     	return "[nSpleef] " + message;
@@ -188,7 +188,6 @@ public class nSpleef extends JavaPlugin{
 		//Mode 0: Disconnect
 		//Mode 1: Leave
 		//Mode 2: Deleted arena or game
-		if (mode == 1) if (!(PermissionHandler.has(player, "nSpleef.member.leave"))) return;
 	    if (nSpleefArenas.size() == 0) return;
 		 for (int i = 0; i <= nSpleefArenas.size() - 1; i++){
 			 for (int j = 0; j <= nSpleefArenas.get(i).getPlayersIn().size() - 1; j++){

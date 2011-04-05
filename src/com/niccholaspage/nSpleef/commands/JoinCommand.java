@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 
 import com.niccholaspage.nSpleef.EconomyHandler;
 import com.niccholaspage.nSpleef.Filter;
-import com.niccholaspage.nSpleef.PermissionHandler;
 import com.niccholaspage.nSpleef.Util;
 import com.niccholaspage.nSpleef.nSpleef;
 import com.niccholaspage.nSpleef.nSpleefArena;
@@ -20,7 +19,6 @@ public class JoinCommand implements CommandExecutor {
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		Player player = (Player) sender;
-	    if (!(PermissionHandler.has(player, "nSpleef.member.join"))) return true;
 	    if (!(args.length == 2)) return false;
 	    if (plugin.nSpleefArenas.size() == 0) return true;
 		 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
