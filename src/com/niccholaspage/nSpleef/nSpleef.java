@@ -198,7 +198,7 @@ public class nSpleef extends JavaPlugin{
 					 	player.teleport(nSpleefArenas.get(i).getPlayersLocation().get(j));
 					 	nSpleefArenas.get(i).getPlayersLocation().remove(j);
 						if (nSpleefArenas.get(i).getGame().split(",").length > 3){
-							if ((mode == 2) && (giveMoneyOnLeave)) EconomyHandler.addMoney(player, Integer.parseInt(nSpleefArenas.get(i).getGame().split(",")[3]));
+							if (mode == 2) EconomyHandler.addMoney(player, Integer.parseInt(nSpleefArenas.get(i).getGame().split(",")[3]));
 							if ((mode == 1) && (giveMoneyOnLeave)) EconomyHandler.addMoney(player, Integer.parseInt(nSpleefArenas.get(i).getGame().split(",")[3]));
 							if ((mode == 0) && (giveMoneyOnDisconnect)) EconomyHandler.addMoney(player, Integer.parseInt(nSpleefArenas.get(i).getGame().split(",")[3]));
 						}
