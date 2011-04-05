@@ -132,6 +132,13 @@ public class nSpleefArena {
 		}
 		go();
 	}
+	public void join(Player player){
+		getPlayersLocation().add(player.getLocation().clone());
+		getPlayers().add(player);
+		getPlayersIn().add(player);
+		getPlayerStatus().add(false);
+		player.teleport(getTpBlock().toLocation(getWorld()));
+	}
 	public void leave(Player player){
 		player.sendMessage(ChatColor.DARK_PURPLE + "You've left the spleef game.");
 		if (players.size() == 1){

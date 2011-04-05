@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.BlockVector;
 
 import com.niccholaspage.nSpleef.Data;
+import com.niccholaspage.nSpleef.Filter;
 import com.niccholaspage.nSpleef.PermissionHandler;
 import com.niccholaspage.nSpleef.Util;
 import com.niccholaspage.nSpleef.nSpleef;
@@ -32,11 +33,9 @@ public class DefineCommand implements CommandExecutor {
 			 player.sendMessage(ChatColor.DARK_PURPLE + "Positions aren't set.");
 			 return true;
 		 }
-		 for (int i = 0; i<= plugin.nSpleefArenas.size() - 1; i++){
-			 if (args[1].equalsIgnoreCase(plugin.nSpleefArenas.get(i).getName())){
-				 player.sendMessage(ChatColor.DARK_PURPLE + "An arena with that name already exists.");
-				 return true;
-			 }
+		 if (!(Filter.getArenaByName(args[1]) == null)){
+			 player.sendMessage(ChatColor.DARK_PURPLE + "An arena with that name already exists.");
+			 return true;
 		 }
 		 String name = args[1];
 		 if (b1loc.getBlockY() == b2loc.getBlockY()){
