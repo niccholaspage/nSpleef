@@ -165,6 +165,8 @@ public class nSpleef extends JavaPlugin{
         PluginDescriptionFile pdfFile = this.getDescription();
         //Init Data
         Data.init(this);
+        //Init Filter
+        Filter.init(this);
         //Setup arenas
 	    Data.setupArrays();
 	    //Setup config

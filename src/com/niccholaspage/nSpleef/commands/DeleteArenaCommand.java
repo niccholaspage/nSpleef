@@ -10,9 +10,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.niccholaspage.nSpleef.Data;
+import com.niccholaspage.nSpleef.Filter;
 import com.niccholaspage.nSpleef.PermissionHandler;
 import com.niccholaspage.nSpleef.Util;
 import com.niccholaspage.nSpleef.nSpleef;
+import com.niccholaspage.nSpleef.nSpleefArena;
 
 public class DeleteArenaCommand implements CommandExecutor {
 	public static nSpleef plugin;
@@ -31,22 +33,16 @@ public class DeleteArenaCommand implements CommandExecutor {
 	    Util.openfileread();
 	    data = Util.filetoarray();
 	    Util.closefileread();
-	    Boolean pass = false;
-	    for (int i = 0; i < plugin.nSpleefArenas.size(); i++){
-	    	if (plugin.nSpleefArenas.get(i).getName().equalsIgnoreCase(args[1])){
-	    		for (int j = 0; j < plugin.nSpleefArenas.get(i).getPlayersIn().size(); j++){
-	    			plugin.leave(plugin.nSpleefArenas.get(i).getPlayersIn().get(j), 2);
-	    		}
-	    		if (!(plugin.nSpleefArenas.get(i).getName() == null)) plugin.nSpleefGames.remove(plugin.nSpleefArenas.get(i).getGame());
-	    		data.remove(i);
-	    		pass = true;
-	    		break;
-	    	}
-	    }
-	    if (pass == false){
+	    nSpleefArena arena = Filter.getArenaByName(args[1]);
+	    if (arena == null){
 	    	player.sendMessage(ChatColor.DARK_PURPLE + "No arena with that name exists!");
 	    	return true;
 	    }
+	    for (int i = 0; i < arena.getPlayersIn().size(); i++){
+	    	plugin.leave(arena.getPlayersIn().get(i), 2);
+	    }
+	    if (!(arena.getGame() == null)) plugin.nSpleefGames.remove(arena.getGame());
+	    data.remove(Filter.getArenaIndex(arena).intValue());
 	    new File("plugins/nSpleef/arenas.txt").delete();
 	    if (!(data.size() == 0)){
 	    Util.openfile();
