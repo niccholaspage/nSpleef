@@ -1,5 +1,5 @@
 //The Package
-package com.niccholaspage.nSpleef;
+package com.niccholaspage.nSpleef.listeners;
 //All the imports
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -12,7 +12,10 @@ import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.util.BlockVector;
+
+import com.niccholaspage.nSpleef.PermissionHandler;
 import com.niccholaspage.nSpleef.Util;
+import com.niccholaspage.nSpleef.nSpleef;
 //Starts the class nSpleefPlayer listener
 public class nSpleefPlayerListener extends PlayerListener{
 	 public static nSpleef plugin;

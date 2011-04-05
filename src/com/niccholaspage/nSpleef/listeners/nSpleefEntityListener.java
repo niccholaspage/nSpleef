@@ -1,7 +1,10 @@
-package com.niccholaspage.nSpleef;
+package com.niccholaspage.nSpleef.listeners;
 
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityListener;
+
+import com.niccholaspage.nSpleef.Util;
+import com.niccholaspage.nSpleef.nSpleef;
 
 public class nSpleefEntityListener extends EntityListener {
 	public static nSpleef plugin;

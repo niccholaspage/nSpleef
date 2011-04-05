@@ -1,6 +1,9 @@
 //The package
-package com.niccholaspage.nSpleef;
+package com.niccholaspage.nSpleef.listeners;
+import com.niccholaspage.nSpleef.PermissionHandler;
 import com.niccholaspage.nSpleef.Util;
+import com.niccholaspage.nSpleef.nSpleef;
+
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.block.Block;

@@ -12,7 +12,7 @@ import com.niccholaspage.nSpleef.Filter;
 import com.niccholaspage.nSpleef.PermissionHandler;
 import com.niccholaspage.nSpleef.Util;
 import com.niccholaspage.nSpleef.nSpleef;
-import com.niccholaspage.nSpleef.nSpleefBlockListener;
+import com.niccholaspage.nSpleef.listeners.nSpleefBlockListener;
 
 public class DefineCommand implements CommandExecutor {
 	public static nSpleef plugin;
