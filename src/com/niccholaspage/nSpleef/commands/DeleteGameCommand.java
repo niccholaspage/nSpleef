@@ -25,7 +25,6 @@ public class DeleteGameCommand implements CommandExecutor {
 	    	return true;
 	    }
 		 String name = player.getName();
-		 //Integer v = 0;
 		 String game = Filter.getGameByName(args[1]);
 		 if (game == null){
 			 player.sendMessage(ChatColor.DARK_PURPLE + "That game does not exist.");
