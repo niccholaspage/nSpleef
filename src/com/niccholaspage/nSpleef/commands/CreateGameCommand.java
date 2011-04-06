@@ -13,6 +13,7 @@ import com.niccholaspage.nSpleef.PermissionHandler;
 import com.niccholaspage.nSpleef.Util;
 import com.niccholaspage.nSpleef.Volume;
 import com.niccholaspage.nSpleef.nSpleef;
+import com.niccholaspage.nSpleef.nSpleefArena;
 
 public class CreateGameCommand implements CommandExecutor {
 	public static nSpleef plugin;
@@ -35,8 +36,8 @@ public class CreateGameCommand implements CommandExecutor {
 		 }
 		 }
 		 String name = args[1] + "," + args[2].toLowerCase() + "," + player.getName();
-		 Integer where = 0;
-		 if (Filter.getArenaByName(args[2]) == null){
+		 nSpleefArena arena = Filter.getArenaByName(args[2]);
+		 if (arena == null){
 			 player.sendMessage(ChatColor.DARK_PURPLE + "The arena does not exist.");
 			 return true; 
 		 }
@@ -50,10 +51,10 @@ public class CreateGameCommand implements CommandExecutor {
 			 player.sendMessage(ChatColor.DARK_PURPLE + "A game name cannot contain a comma.");
 			 return true;
 		 }
-		 plugin.nSpleefArenas.get(where).createVolume();
-		 Volume vol = plugin.nSpleefArenas.get(where).getVolume();
-		 vol.setCornerOne(plugin.getServer().getWorld(plugin.nSpleefArenas.get(where).getWorld().getName()).getBlockAt(plugin.nSpleefArenas.get(where).getFirstBlock().getBlockX(), plugin.nSpleefArenas.get(where).getFirstBlock().getBlockY(), plugin.nSpleefArenas.get(where).getFirstBlock().getBlockZ()));
-		 vol.setCornerTwo(plugin.getServer().getWorld(plugin.nSpleefArenas.get(where).getWorld().getName()).getBlockAt(plugin.nSpleefArenas.get(where).getSecondBlock().getBlockX(), plugin.nSpleefArenas.get(where).getSecondBlock().getBlockY(), plugin.nSpleefArenas.get(where).getSecondBlock().getBlockZ()));
+		 arena.createVolume();
+		 Volume vol = arena.getVolume();
+		 vol.setCornerOne(plugin.getServer().getWorld(arena.getWorld().getName()).getBlockAt(arena.getFirstBlock().getBlockX(), arena.getFirstBlock().getBlockY(), arena.getFirstBlock().getBlockZ()));
+		 vol.setCornerTwo(plugin.getServer().getWorld(arena.getWorld().getName()).getBlockAt(arena.getSecondBlock().getBlockX(), arena.getSecondBlock().getBlockY(), arena.getSecondBlock().getBlockZ()));
 		 vol.saveBlocks();
 		 if (!(EconomyHandler.type.equals(EconomyType.NONE))){
 			 if (args.length > 3){
@@ -63,7 +64,7 @@ public class CreateGameCommand implements CommandExecutor {
 			 }
 			 }
 		 plugin.nSpleefGames.add(name);
-		 plugin.nSpleefArenas.get(where).setMyGame(plugin.nSpleefGames.size() - 1);
+		 arena.setMyGame(plugin.nSpleefGames.size() - 1);
 		 player.sendMessage(ChatColor.DARK_PURPLE + "Game " + args[1] + " has been created.");
 		 if (args.length > 3){
 			 if (PermissionHandler.has(player, "nSpleef.member.wager")){
