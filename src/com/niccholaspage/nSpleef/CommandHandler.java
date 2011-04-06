@@ -29,7 +29,7 @@ public class CommandHandler implements CommandExecutor {
 		}
 		if (args.length < 1) return true;
 		if (!(executors.containsKey(args[0]))) return true;
-		if (!(PermissionHandler.has((Player)sender, permissions.get(args[0])))) return true;
+		if (!(permissions.get(args[0]).equals(""))) if (!(PermissionHandler.has((Player)sender, permissions.get(args[0])))) return true;
 		if (executors.get(args[0]).onCommand(sender, cmd, commandLabel, args) == false){
 			sender.sendMessage(ChatColor.RED + help.get(args[0]));
 		}
