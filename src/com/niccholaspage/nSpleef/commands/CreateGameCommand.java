@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import com.niccholaspage.nSpleef.EconomyHandler;
 import com.niccholaspage.nSpleef.EconomyHandler.EconomyType;
 import com.niccholaspage.nSpleef.Filter;
+import com.niccholaspage.nSpleef.PermissionHandler;
 import com.niccholaspage.nSpleef.Util;
 import com.niccholaspage.nSpleef.Volume;
 import com.niccholaspage.nSpleef.nSpleef;
@@ -65,10 +66,12 @@ public class CreateGameCommand implements CommandExecutor {
 		 plugin.nSpleefArenas.get(where).setMyGame(plugin.nSpleefGames.size() - 1);
 		 player.sendMessage(ChatColor.DARK_PURPLE + "Game " + args[1] + " has been created.");
 		 if (args.length > 3){
+			 if (PermissionHandler.has(player, "nSpleef.member.wager")){
 			 if (plugin.isInt(args[3])){
 				 if (!(EconomyHandler.type.equals(EconomyType.NONE))){
 				 player.sendMessage(ChatColor.DARK_PURPLE + "Everyone who joins game " + args[1] + " must pay " + args[3] + " " + EconomyHandler.getCurrencyName() + ".");
 				 }
+			 }
 			 }
 		 }
 		return true;
