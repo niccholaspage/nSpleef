@@ -27,6 +27,11 @@ public class CommandHandler implements CommandExecutor {
 			sender.sendMessage("You are not a player!");
 			return true;
 		}
+		if (cmd.getName().equalsIgnoreCase("ready")){
+			Player player = (Player) sender;
+			player.chat("/spleef ready");
+			return true;
+		}
 		if (args.length < 1) return true;
 		if (!(executors.containsKey(args[0]))) return true;
 		if (!(permissions.get(args[0]).equals(""))) if (!(PermissionHandler.has((Player)sender, permissions.get(args[0])))) return true;
