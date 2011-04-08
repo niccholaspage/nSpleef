@@ -215,6 +215,8 @@ public class nSpleef extends JavaPlugin{
 						switch (mode){
 							case 3:
 								player.sendMessage(ChatColor.DARK_PURPLE + "You were kicked from the spleef game!"); break;
+							case 2:
+								player.sendMessage(ChatColor.DARK_PURPLE + "The game/arena you were playing on has been deleted!"); break;
 							default:
 								player.sendMessage(ChatColor.DARK_PURPLE + "You've left the spleef game."); break;
 						}
