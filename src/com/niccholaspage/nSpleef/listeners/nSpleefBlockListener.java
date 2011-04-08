@@ -25,7 +25,7 @@ public class nSpleefBlockListener extends BlockListener{
 	 public void onBlockPlace(BlockPlaceEvent event) {
 			Player player = event.getPlayer();
 			 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
-				 if ((plugin.nSpleefArenas.get(i).getPlayersIn().contains(player)) && (plugin.canplaceblocks == false)){
+				 if ((plugin.nSpleefArenas.get(i).getPlayersIn().contains(player)) && (plugin.canPlaceBlocks == false)){
 					 event.setCancelled(true);
 					 player.sendMessage(ChatColor.DARK_PURPLE + "Cannot place blocks during spleef!");
 				 }  

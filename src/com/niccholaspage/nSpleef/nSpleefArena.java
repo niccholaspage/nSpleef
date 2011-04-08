@@ -138,9 +138,19 @@ public class nSpleefArena {
 		getPlayersIn().add(player);
 		getPlayerStatus().add(false);
 		player.teleport(getTpBlock().toLocation(getWorld()));
+		final Player pl = player;
+		if (!(plugin.joinKickerTime == 0)){
+		new Thread(new Runnable(){
+			public void run(){
+				Util.waitMS(plugin.joinKickerTime * 1000);
+				if (getPlayerStatus().get(getPlayers().indexOf(pl)) == false){
+					plugin.leave(pl, 3);
+				}
+			}
+		}).start();
+		}
 	}
 	public void leave(Player player){
-		player.sendMessage(ChatColor.DARK_PURPLE + "You've left the spleef game.");
 		if (players.size() == 1){
 			ingame = 0;
 			players.get(0).sendMessage(ChatColor.DARK_PURPLE + "Everyone else has left. If you would like to leave, type /spleef leave.");

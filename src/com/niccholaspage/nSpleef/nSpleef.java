@@ -13,6 +13,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -41,13 +43,17 @@ public class nSpleef extends JavaPlugin{
     //Create the games array
     public final ArrayList<String> nSpleefGames = new ArrayList<String>();
     //Persistent games
-    public Boolean persistentgames;
+    public Boolean persistentGames;
     //Give money on leave
     public boolean giveMoneyOnLeave;
     //Give money on disconnect
     public boolean giveMoneyOnDisconnect;
+    //Give money on kick
+    public boolean giveMoneyOnKick;
     //Can the player place blocks during spleef?
-    public boolean canplaceblocks;
+    public boolean canPlaceBlocks;
+    //How long until the player gets booted after joining?
+    public int joinKickerTime;
     //Create arena array
     public ArrayList<nSpleefArena> nSpleefArenas = new ArrayList<nSpleefArena>();
     
@@ -64,7 +70,7 @@ public class nSpleef extends JavaPlugin{
 			}
 		}
 		if (new File("plugins/nSpleef/games.txt").exists()) new File("plugins/nSpleef/games.txt").delete();
-		if (persistentgames){
+		if (persistentGames){
 			if (nSpleefGames.size() > 0){
 				File file = new File("plugins/nSpleef/games.txt");
 				BufferedWriter out = null;
@@ -115,14 +121,14 @@ public class nSpleef extends JavaPlugin{
 
     	_config.load();
 		file = new File("plugins/nSpleef/config.yml");
-    	if (!file.exists()){
-    		Util.createDefaultConfig();
-    	}
+    	if (!file.exists()) Util.createDefaultConfig();
     	// Reading from yml file
-    	canplaceblocks = _config.getBoolean("nSpleef.canplaceblocks", false);
-    	persistentgames = _config.getBoolean("nSpleef.persistentgames", false);
+    	canPlaceBlocks = _config.getBoolean("nSpleef.canplaceblocks", false);
+    	persistentGames = _config.getBoolean("nSpleef.persistentgames", false);
     	giveMoneyOnLeave = _config.getBoolean("nSpleef.givemoneyonleave", false);
     	giveMoneyOnDisconnect = _config.getBoolean("nSpleef.givemoneyondisconnect", false);
+    	giveMoneyOnKick = _config.getBoolean("nSpleef.givemoneyonkick", false);
+    	joinKickerTime = _config.getInt("nSpleef.joinkickertime", 0);
         }
     private void registerCommands(){
     	CommandHandler commandHandler = new CommandHandler(this);
@@ -175,7 +181,7 @@ public class nSpleef extends JavaPlugin{
 	    //Setup config
 	    readConfig();
 	    //Read Games
-	    if (persistentgames) readGames();
+	    if (persistentGames) readGames();
         //Setup Permissions
         PermissionHandler.init(getServer());
         //Setup economy
@@ -190,6 +196,7 @@ public class nSpleef extends JavaPlugin{
 		//Mode 0: Disconnect
 		//Mode 1: Leave
 		//Mode 2: Deleted arena or game
+		//Mode 3: Kicked
 	    if (nSpleefArenas.size() == 0) return;
 		 for (int i = 0; i <= nSpleefArenas.size() - 1; i++){
 			 for (int j = 0; j <= nSpleefArenas.get(i).getPlayersIn().size() - 1; j++){
@@ -203,6 +210,13 @@ public class nSpleef extends JavaPlugin{
 							if (mode == 2) EconomyHandler.addMoney(player, Integer.parseInt(nSpleefArenas.get(i).getGame().split(",")[3]));
 							if ((mode == 1) && (giveMoneyOnLeave)) EconomyHandler.addMoney(player, Integer.parseInt(nSpleefArenas.get(i).getGame().split(",")[3]));
 							if ((mode == 0) && (giveMoneyOnDisconnect)) EconomyHandler.addMoney(player, Integer.parseInt(nSpleefArenas.get(i).getGame().split(",")[3]));
+							if ((mode == 3) && (giveMoneyOnKick)) EconomyHandler.addMoney(player, Integer.parseInt(nSpleefArenas.get(i).getGame().split(",")[3]));
+						}
+						switch (mode){
+							case 3:
+								player.sendMessage(ChatColor.DARK_PURPLE + "You were kicked from the spleef game!"); break;
+							default:
+								player.sendMessage(ChatColor.DARK_PURPLE + "You've left the spleef game."); break;
 						}
 						nSpleefArenas.get(i).leave(player);
 				 }
