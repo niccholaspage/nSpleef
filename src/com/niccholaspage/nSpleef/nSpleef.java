@@ -143,9 +143,6 @@ public class nSpleef extends JavaPlugin{
     	commandHandler.registerExecutor("ready", new ReadyCommand(this), "/spleef ready", "");
     	commandHandler.registerExecutor("forceready", new ForceReadyCommand(this), "/spleef forceready", "nSpleef.admin.forceready");
     }
-    public String nSpleefMessage(String message){
-    	return "[nSpleef] " + message;
-    }
     public boolean isInt(String i){
     	try {
     		Integer.parseInt(i);
