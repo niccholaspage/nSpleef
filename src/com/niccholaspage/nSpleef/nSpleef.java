@@ -62,7 +62,7 @@ public class nSpleef extends JavaPlugin{
 	public void onDisable() {
 		for (int i = 0; i < nSpleefArenas.size(); i++){
 			if (nSpleefArenas.get(i).getPlayersIn().size() > 0){
-				System.out.println(nSpleefMessage("Restoring arena " + nSpleefArenas.get(i).getName()));
+				System.out.println("[nSpleef] Restoring arena " + nSpleefArenas.get(i).getName());
 				for (int j = 0; j < nSpleefArenas.get(i).getPlayersIn().size(); j++){
 					nSpleefArenas.get(i).getPlayersIn().get(j).teleport(nSpleefArenas.get(i).getPlayersLocation().get(j));
 				}
