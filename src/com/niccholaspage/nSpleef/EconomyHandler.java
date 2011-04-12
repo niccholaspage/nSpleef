@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import com.nijiko.coelho.iConomy.iConomy;
+import com.spikensbror.bukkit.mineconomy.MineConomy;
 
 import cosine.boseconomy.BOSEconomy;
 
@@ -12,24 +13,27 @@ public class EconomyHandler {
 	public enum EconomyType {
 		ICONOMY,
 		BOSECONOMY,
+		MINECONOMY,
 		NONE
 	}
 	public static EconomyType type;
-	private static Plugin economyPlugin;
 	private static BOSEconomy bosecon;
+	private static MineConomy mineConomy;
 	
 	public static void init(Server server){
 		Plugin iconomy = server.getPluginManager().getPlugin("iConomy");
 		Plugin boseconomy = server.getPluginManager().getPlugin("BOSEconomy");
 		if (iconomy != null){
 			type = EconomyType.ICONOMY;
-			economyPlugin = iconomy;
 			System.out.println("[nSpleef] Hooked into iConomy " + iconomy.getDescription().getVersion());
 		}else if (boseconomy != null){
 			type = EconomyType.BOSECONOMY;
-			economyPlugin = boseconomy;
-			bosecon = (BOSEconomy)economyPlugin;
+			bosecon = (BOSEconomy)boseconomy;
 			System.out.println("[nSpleef] Hooked into BOSEconomy " + boseconomy.getDescription().getVersion());
+		}else if (mineConomy != null){
+			type = EconomyType.MINECONOMY;
+			mineConomy = (MineConomy)mineConomy;
+			System.out.println("[nSpleef] Hooked into MineConomy " + mineConomy.getDescription().getVersion());
 		}else {
 			type = EconomyType.NONE;
 			System.out.println("[nSpleef] No economy plugin found.");
@@ -38,21 +42,22 @@ public class EconomyHandler {
 	public static void addMoney(Player player, Integer amount){
 		switch (type){
 			case ICONOMY: iConomy.getBank().getAccount(player.getName()).add(amount); break;
-			case BOSECONOMY:
-				bosecon.addPlayerMoney(player.getName(), amount, false);
-				break;
-				}
+			case BOSECONOMY: bosecon.addPlayerMoney(player.getName(), amount, false); break;
+			case MINECONOMY: mineConomy.getBank().add(player.getName(), amount); break;
+		}
 		}
 	public static void removeMoney(Player player, Integer amount){
 		switch (type){
 		case ICONOMY: iConomy.getBank().getAccount(player.getName()).subtract(amount); break;
 		case BOSECONOMY: bosecon.setPlayerMoney(player.getName(), bosecon.getPlayerMoney(player.getName()) - amount, false); break;
+		case MINECONOMY: mineConomy.getBank().subtract(player.getName(), amount);
 		}
 	}
 	public static Integer getMoney(Player player){
 		switch (type){
 		case ICONOMY: return (int)iConomy.getBank().getAccount(player.getName()).getBalance();
 		case BOSECONOMY: return bosecon.getPlayerMoney(player.getName());
+		case MINECONOMY: return (int)mineConomy.getBank().getTotal(player.getName());
 		default: return null;
 		}
 	}
@@ -60,6 +65,7 @@ public class EconomyHandler {
 		switch (type){
 		case ICONOMY: return iConomy.getBank().getCurrency() + "s";
 		case BOSECONOMY: return bosecon.getMoneyNamePlural();
+		case MINECONOMY: return "coin";
 		default: return null;
 		}
 	}
