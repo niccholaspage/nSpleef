@@ -65,7 +65,7 @@ public class EconomyHandler {
 		switch (type){
 		case ICONOMY: return iConomy.getBank().getCurrency() + "s";
 		case BOSECONOMY: return bosecon.getMoneyNamePlural();
-		case MINECONOMY: return "coin";
+		case MINECONOMY: return "coins";
 		default: return null;
 		}
 	}
