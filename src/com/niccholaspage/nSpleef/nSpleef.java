@@ -112,7 +112,7 @@ public class nSpleef extends JavaPlugin{
 			split = data.get(i).split(",");
 			nSpleefGame game = new nSpleefGame(split[0], split[1], split[2]);
 			nSpleefGames.add(game);
-			if (split.length > 3) nSpleefGames.get(i).setMoney(Integer.parseInt(split[3]));
+			if (split.length > 3) game.setMoney(Integer.parseInt(split[3]));
 		}
 	}
 	
