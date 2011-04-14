@@ -25,7 +25,7 @@ public class ListCommand implements CommandExecutor {
 	    if (!(plugin.nSpleefGames.size() == 0)){
 	    	player.sendMessage(ChatColor.DARK_PURPLE + "Games:");
 			 for (int i = 0; i<= plugin.nSpleefGames.size() - 1; i++){
-				 player.sendMessage(ChatColor.DARK_PURPLE + plugin.nSpleefGames.get(i).split(",")[0] + " in arena " + plugin.nSpleefGames.get(i).split(",")[1]);
+				 player.sendMessage(ChatColor.DARK_PURPLE + plugin.nSpleefGames.get(i).getName() + " in arena " + plugin.nSpleefGames.get(i).getArena());
 			 }
 	    }else {
 	    	player.sendMessage(ChatColor.DARK_PURPLE + "No games.");

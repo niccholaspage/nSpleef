@@ -11,6 +11,7 @@ import com.niccholaspage.nSpleef.Filter;
 import com.niccholaspage.nSpleef.Util;
 import com.niccholaspage.nSpleef.nSpleef;
 import com.niccholaspage.nSpleef.nSpleefArena;
+import com.niccholaspage.nSpleef.nSpleefGame;
 
 public class JoinCommand implements CommandExecutor {
 	public static nSpleef plugin;
@@ -36,7 +37,7 @@ public class JoinCommand implements CommandExecutor {
 			 return true;
 		 }
 		String name = args[1];
-		String game = Filter.getGameByName(name);
+		nSpleefGame game = Filter.getGameByName(name);
 		if (game == null){
 		    player.sendMessage(ChatColor.DARK_PURPLE + "The game " + name + " does not exist.");
 			return true;
@@ -46,12 +47,12 @@ public class JoinCommand implements CommandExecutor {
 			player.sendMessage(ChatColor.DARK_PURPLE + "A game is in progress in that arena.");
 			return true;
 		}
-		if (game.split(",").length > 3){
-			if (EconomyHandler.getMoney(player) < Integer.parseInt(game.split(",")[3])){
+		if (game.getMoney() > 0){
+			if (EconomyHandler.getMoney(player) < game.getMoney()){
 				player.sendMessage(ChatColor.DARK_PURPLE + "You do not have enough money to join that game.");
 				return true;
 			}
-			EconomyHandler.removeMoney(player, Integer.parseInt(game.split(",")[3]));
+			EconomyHandler.removeMoney(player, game.getMoney());
 		}
 		arena.join(player);
 		player.sendMessage(ChatColor.DARK_PURPLE + "Joined game " + name + ".");

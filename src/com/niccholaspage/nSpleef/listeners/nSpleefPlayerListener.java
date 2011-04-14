@@ -46,7 +46,7 @@ public class nSpleefPlayerListener extends PlayerListener{
 								 if (player.getWorld().toString().equals(plugin.nSpleefArenas.get(i).getWorld().toString())){
 									 Boolean con = false;
 									 for (int j = 0; j<= plugin.nSpleefGames.size() - 1; j++){
-										 if (plugin.nSpleefGames.get(j).split(",")[1].equalsIgnoreCase(plugin.nSpleefArenas.get(i).getName())){
+										 if (plugin.nSpleefGames.get(j).getArena().equalsIgnoreCase(plugin.nSpleefArenas.get(i).getName())){
 											 con = true;
 											 break;
 										 }

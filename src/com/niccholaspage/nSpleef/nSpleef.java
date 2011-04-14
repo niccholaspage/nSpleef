@@ -40,8 +40,6 @@ public class nSpleef extends JavaPlugin{
     
     //Create the hashmap "nSpleefUsers"
     public final HashMap<Player, ArrayList<Block>> nSpleefUsers = new HashMap<Player, ArrayList<Block>>();
-    //Create the games array
-    public final ArrayList<String> nSpleefGames = new ArrayList<String>();
     //Persistent games
     public Boolean persistentGames;
     //Give money on leave
@@ -56,6 +54,8 @@ public class nSpleef extends JavaPlugin{
     public int joinKickerTime;
     //Create arena array
     public ArrayList<nSpleefArena> nSpleefArenas = new ArrayList<nSpleefArena>();
+    //Create the games array
+    public final ArrayList<nSpleefGame> nSpleefGames = new ArrayList<nSpleefGame>();
     
 	@Override
 	//When the plugin is disabled this method is called.
@@ -108,7 +108,11 @@ public class nSpleef extends JavaPlugin{
 		}
 		ArrayList<String> data = Util.filetoarray(in);
 		for (int i = 0; i < data.size(); i++){
-			nSpleefGames.add(data.get(i));
+			String[] split;
+			split = data.get(i).split(",");
+			nSpleefGame game = new nSpleefGame(split[0], split[1], split[2]);
+			nSpleefGames.add(game);
+			if (split.length > 3) nSpleefGames.get(i).setMoney(Integer.parseInt(split[3]));
 		}
 	}
 	
@@ -204,11 +208,12 @@ public class nSpleef extends JavaPlugin{
 					 	nSpleefArenas.get(i).getPlayers().remove(player);
 					 	player.teleport(nSpleefArenas.get(i).getPlayersLocation().get(j));
 					 	nSpleefArenas.get(i).getPlayersLocation().remove(j);
-						if (nSpleefArenas.get(i).getGame().split(",").length > 3){
-							if (mode == 2) EconomyHandler.addMoney(player, Integer.parseInt(nSpleefArenas.get(i).getGame().split(",")[3]));
-							if ((mode == 1) && (giveMoneyOnLeave)) EconomyHandler.addMoney(player, Integer.parseInt(nSpleefArenas.get(i).getGame().split(",")[3]));
-							if ((mode == 0) && (giveMoneyOnDisconnect)) EconomyHandler.addMoney(player, Integer.parseInt(nSpleefArenas.get(i).getGame().split(",")[3]));
-							if ((mode == 3) && (giveMoneyOnKick)) EconomyHandler.addMoney(player, Integer.parseInt(nSpleefArenas.get(i).getGame().split(",")[3]));
+						if (nSpleefArenas.get(i).getGame().getMoney() > 0){
+							int money = nSpleefArenas.get(i).getGame().getMoney();
+							if (mode == 2) EconomyHandler.addMoney(player, money);
+							if ((mode == 1) && (giveMoneyOnLeave)) EconomyHandler.addMoney(player, money);
+							if ((mode == 0) && (giveMoneyOnDisconnect)) EconomyHandler.addMoney(player, money);
+							if ((mode == 3) && (giveMoneyOnKick)) EconomyHandler.addMoney(player, money);
 						}
 						switch (mode){
 							case 3:

@@ -13,9 +13,9 @@ public class Filter {
 		}
 		return null;
 	}
-	public static nSpleefArena getArenaByGame(String game){
+	public static nSpleefArena getArenaByGame(nSpleefGame game){
 		for (int i = 0; i < plugin.nSpleefArenas.size(); i++){
-			if (plugin.nSpleefArenas.get(i).getName().equalsIgnoreCase(game.split(",")[1])){
+			if (plugin.nSpleefArenas.get(i).getName().equalsIgnoreCase(game.getArena())){
 				return plugin.nSpleefArenas.get(i);
 			}
 		}
@@ -29,9 +29,9 @@ public class Filter {
 		}
 		return null;
 	}
-	public static String getGameByName(String name){
+	public static nSpleefGame getGameByName(String name){
 		for (int i = 0; i < plugin.nSpleefGames.size(); i++){
-			if (plugin.nSpleefGames.get(i).split(",")[0].equalsIgnoreCase(name)){
+			if (plugin.nSpleefGames.get(i).getName().equalsIgnoreCase(name)){
 				return plugin.nSpleefGames.get(i);
 			}
 		}

@@ -10,6 +10,7 @@ import com.niccholaspage.nSpleef.Filter;
 import com.niccholaspage.nSpleef.PermissionHandler;
 import com.niccholaspage.nSpleef.nSpleef;
 import com.niccholaspage.nSpleef.nSpleefArena;
+import com.niccholaspage.nSpleef.nSpleefGame;
 
 public class DeleteGameCommand implements CommandExecutor {
 	public static nSpleef plugin;
@@ -24,12 +25,12 @@ public class DeleteGameCommand implements CommandExecutor {
 	    	return true;
 	    }
 		 String name = player.getName();
-		 String game = Filter.getGameByName(args[1]);
+		 nSpleefGame game = Filter.getGameByName(args[1]);
 		 if (game == null){
 			 player.sendMessage(ChatColor.DARK_PURPLE + "That game does not exist.");
 			 return true;
 		 }
-		 if ((name.equalsIgnoreCase(game.split(",")[2])) || (PermissionHandler.has(player, "nSpleef.admin.deleteanygame"))){
+		 if ((name.equalsIgnoreCase(game.getOwner())) || (PermissionHandler.has(player, "nSpleef.admin.deleteanygame"))){
 			 nSpleefArena arena = Filter.getArenaByGame(game);
 				 for (int j = 0; j < arena.getPlayersIn().size(); j++){
 					 plugin.leave(arena.getPlayersIn().get(j), 2);
