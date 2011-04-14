@@ -27,7 +27,7 @@ public class JoinCommand implements CommandExecutor {
 				 return true;
 			 }
 		 }
-		 if (Util.exists() == false) {
+		 if (Util.exists("arenas.txt") == false) {
 			 player.sendMessage(ChatColor.DARK_PURPLE + "No arenas!");
 			 return true;
 		 }

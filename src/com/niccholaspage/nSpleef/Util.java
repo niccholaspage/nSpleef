@@ -47,16 +47,16 @@ public class Util {
 	  {
 		    return new BlockVector(x, y, z);
 	  }
-	  public static Boolean exists(){
-			if (new File("plugins/nSpleef/arenas.txt").exists()) return true; else return false;
+	  public static Boolean exists(String name){
+			if (new File("plugins/nSpleef/" + name).exists()) return true; else return false;
 	  }
-	  public static void openfileread(){
+	  public static void openfileread(String name){
 			File f = new File("plugins/nSpleef/");
 			if (!(f.exists())){
 				f.mkdir();
 			}
 	      try{
-	    	    FileReader fstream = new FileReader("plugins/nSpleef/arenas.txt");
+	    	    FileReader fstream = new FileReader("plugins/nSpleef/" + name);
 	    	    in = new BufferedReader(fstream);
 	    	    }catch (Exception e){//Catch exception if any
 	    	      System.out.println("");
@@ -69,14 +69,14 @@ public class Util {
 			{
 			}
 		}
-		public static void openfile(){
+		public static void openfile(String name){
 			File f = new File("plugins/nSpleef/");
 			if (!(f.exists())){
 				f.mkdir();
 			}
 		      try{
 		    	    // Create file 
-		    	    FileWriter fstream = new FileWriter("plugins/nSpleef/arenas.txt",true);
+		    	    FileWriter fstream = new FileWriter("plugins/nSpleef/" + name,true);
 		    	    out = new BufferedWriter(fstream);
 		    	    }catch (Exception e){//Catch exception if any
 		    	    }

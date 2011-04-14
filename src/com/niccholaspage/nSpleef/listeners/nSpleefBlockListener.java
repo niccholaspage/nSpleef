@@ -81,7 +81,7 @@ public class nSpleefBlockListener extends BlockListener{
 		 if (pass == false){
 			 return;
 		 }
-			 if (Util.exists() == false) {
+			 if (Util.exists("arenas.txt") == false) {
 				 player.sendMessage(ChatColor.DARK_PURPLE + "No arenas!");
 				 return;
 			 }

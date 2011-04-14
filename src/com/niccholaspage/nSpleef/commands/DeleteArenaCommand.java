@@ -23,12 +23,12 @@ public class DeleteArenaCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		Player player = (Player) sender;
 		if (args.length < 2) return false;
-		if (Util.exists() == false) {
+		if (Util.exists("arenas.txt") == false) {
 			player.sendMessage(ChatColor.DARK_PURPLE + "No arenas!");						 
 			return true;
 		}
 	    ArrayList<String> data = new ArrayList<String>();
-	    Util.openfileread();
+	    Util.openfileread("arenas.txt");
 	    data = Util.filetoarray();
 	    Util.closefileread();
 	    nSpleefArena arena = Filter.getArenaByName(args[1]);
@@ -43,7 +43,7 @@ public class DeleteArenaCommand implements CommandExecutor {
 	    data.remove(Filter.getArenaIndex(arena).intValue());
 	    new File("plugins/nSpleef/arenas.txt").delete();
 	    if (!(data.size() == 0)){
-	    Util.openfile();
+	    Util.openfile("arenas.txt");
 	    for (int i = 0; i < data.size(); i++){
 	    	Util.writefile(data.get(i) + "\n");
 	    }

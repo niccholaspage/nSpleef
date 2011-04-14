@@ -40,7 +40,7 @@ public class DefineCommand implements CommandExecutor {
 			 player.sendMessage(ChatColor.DARK_PURPLE + "Both blocks cannot be on the same level. If you want a one level spleef arena, make the second point 2 or more blocks below the arena.");
 			 return true;
 		 }
-		 Util.openfile();
+		 Util.openfile("arenas.txt");
 		 if (b1loc.getBlockY() > b2loc.getBlockY()){
 			 Util.writefile(name + ":" + b1loc.getBlockX() + ":" + b1loc.getBlockY() + ":" + b1loc.getBlockZ()
 					 + ":" + b2loc.getBlockX() + ":" + (b2loc.getBlockY() + 1) + ":" + b2loc.getBlockZ() + ":" + nSpleefBlockListener.world.getName() + "\n");

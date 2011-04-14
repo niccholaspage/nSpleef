@@ -11,8 +11,8 @@ public class Data {
 	  public static void setupArrays(){
 		    ArrayList<String> data = new ArrayList<String>();
 		    plugin.nSpleefArenas = new ArrayList<nSpleefArena>();
-		    if (Util.exists() == false) return;
-		    Util.openfileread();
+		    if (Util.exists("arenas.txt") == false) return;
+		    Util.openfileread("arenas.txt");
 		    data = Util.filetoarray();
 		    for (int i = 0; i < data.size(); i++) {
 		    	nSpleefArena a = new nSpleefArena(data.get(i).split(":")[0],plugin.getServer().getWorld(data.get(i).split(":")[7]), plugin);

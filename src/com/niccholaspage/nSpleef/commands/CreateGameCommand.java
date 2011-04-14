@@ -23,7 +23,7 @@ public class CreateGameCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		Player player = (Player) sender;
 		 if (args.length < 3) return false;
-		 if (Util.exists() == false) {
+		 if (Util.exists("arenas.txt") == false) {
 			 player.sendMessage(ChatColor.DARK_PURPLE + "No arenas!");						 
 			 return true;
 		 }
