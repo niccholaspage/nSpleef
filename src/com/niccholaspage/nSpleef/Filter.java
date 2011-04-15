@@ -31,6 +31,14 @@ public class Filter {
 		}
 		return null;
 	}
+	public static nSpleefArena getArenaByPlayerIn(Player player){
+		for (int i = 0; i < plugin.nSpleefArenas.size(); i++){
+			if (plugin.nSpleefArenas.get(i).getPlayers().contains(player)){
+				return plugin.nSpleefArenas.get(i);
+			}
+		}
+		return null;
+	}
 	public static Integer getArenaIndex(nSpleefArena arena){
 		for (int i = 0; i < plugin.nSpleefArenas.size(); i++){
 			if (plugin.nSpleefArenas.get(i).equals(arena)){
