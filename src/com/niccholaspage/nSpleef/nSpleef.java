@@ -57,8 +57,6 @@ public class nSpleef extends JavaPlugin{
     //Create the games array
     public final ArrayList<nSpleefGame> nSpleefGames = new ArrayList<nSpleefGame>();
     
-	@Override
-	//When the plugin is disabled this method is called.
 	public void onDisable() {
 		for (int i = 0; i < nSpleefArenas.size(); i++){
 			if (nSpleefArenas.get(i).getPlayersIn().size() > 0){
@@ -155,8 +153,7 @@ public class nSpleef extends JavaPlugin{
     		return false;
     	}
     }
-	@Override
-	//When the plugin is enabled this method is called.
+
 	public void onEnable() {
 		//Create the pluginmanage pm.
 		PluginManager pm = getServer().getPluginManager();
