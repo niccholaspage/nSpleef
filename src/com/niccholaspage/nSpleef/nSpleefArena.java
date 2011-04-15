@@ -122,9 +122,7 @@ public class nSpleefArena {
 		}).start();
 	}
 	public void checkReady(){
-		if (players.size() == 1){
-			return;
-		}
+		if (players.size() == 1) return;
 		for (int i = 0; i<= playerstatus.size() - 1; i++){
 			if (playerstatus.get(i) == false){
 				return;

@@ -65,17 +65,11 @@ public class nSpleefPlayerListener extends PlayerListener{
 	  @Override
 		 public void onPlayerChat(PlayerChatEvent event){
 			 Player player = event.getPlayer();
-			 if (plugin.nSpleefGames.size() == 0) return;
-			 if (event.getMessage().toLowerCase().contains("ready")){
-				 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
-					 if (plugin.nSpleefArenas.get(i).getPlayers().contains(player)){
-						 if (plugin.nSpleefArenas.get(i).getInGame() == 0){
-							 Integer where = plugin.nSpleefArenas.get(i).getPlayers().indexOf(player);
-							 plugin.nSpleefArenas.get(i).getPlayerStatus().set(where, true);
-							 plugin.nSpleefArenas.get(i).checkReady();
-						 }
-					 }
-				 }
-			 }
+			 nSpleefArena arena = Filter.getArenaByPlayerIn(player);
+			 if (arena == null) return;
+			 if (arena.getInGame() > 0) return;
+			 if (!(event.getMessage().toLowerCase().contains("ready"))) return;
+			 arena.getPlayerStatus().set(arena.getPlayers().indexOf(player), true);
+			 arena.checkReady();
 		 }
 }
