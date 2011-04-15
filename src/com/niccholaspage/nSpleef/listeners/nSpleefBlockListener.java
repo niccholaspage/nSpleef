@@ -26,11 +26,10 @@ public class nSpleefBlockListener extends BlockListener{
 	 @Override
 	 public void onBlockPlace(BlockPlaceEvent event) {
 			Player player = event.getPlayer();
-			 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
-				 if ((plugin.nSpleefArenas.get(i).getPlayersIn().contains(player)) && (plugin.canPlaceBlocks == false)){
-					 event.setCancelled(true);
-					 player.sendMessage(ChatColor.DARK_PURPLE + "Cannot place blocks during spleef!");
-				 }  
+			if (Filter.getArenaByPlayer(player) == null) return;
+			if (plugin.canPlaceBlocks == false){
+				 event.setCancelled(true);
+				 player.sendMessage(ChatColor.DARK_PURPLE + "Cannot place blocks during spleef!");				
 			}
 	 }
 	 @Override
@@ -38,6 +37,7 @@ public class nSpleefBlockListener extends BlockListener{
 		 Player player = event.getPlayer();
 		 Block block = event.getBlock();
 		 nSpleefArena arena = Filter.getArenaByPlayer(player);
+		 if (arena == null) return;
 		 if (!(player.getWorld() == arena.getWorld())) return;
 		 if (!(Util.returnBlockInArea(Util.toVector(block), arena.getFirstBlock(), arena.getSecondBlock()))){
 			 player.sendMessage(ChatColor.DARK_PURPLE + "You cannot mine outside the spleef zone!");
@@ -51,7 +51,7 @@ public class nSpleefBlockListener extends BlockListener{
 	 public void onBlockDamage(BlockDamageEvent event) {
 		 Player player = event.getPlayer();
 		 Block block = event.getBlock();
-		 if ((player.getItemInHand().getTypeId() == 281)){
+		 if (player.getItemInHand().getTypeId() == 281){
 			    if (!(PermissionHandler.has(player, "nSpleef.admin.define"))) return;
 			    b1loc = Util.toVector(block);
 			    world = block.getWorld();
