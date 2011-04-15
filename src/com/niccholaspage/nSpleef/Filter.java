@@ -1,5 +1,7 @@
 package com.niccholaspage.nSpleef;
 
+import org.bukkit.entity.Player;
+
 public class Filter {
 	public static nSpleef plugin;
 	public static void init (nSpleef instance){
@@ -16,6 +18,14 @@ public class Filter {
 	public static nSpleefArena getArenaByGame(nSpleefGame game){
 		for (int i = 0; i < plugin.nSpleefArenas.size(); i++){
 			if (plugin.nSpleefArenas.get(i).getName().equalsIgnoreCase(game.getArena())){
+				return plugin.nSpleefArenas.get(i);
+			}
+		}
+		return null;
+	}
+	public static nSpleefArena getArenaByPlayer(Player player){
+		for (int i = 0; i < plugin.nSpleefArenas.size(); i++){
+			if (plugin.nSpleefArenas.get(i).getPlayersIn().contains(player)){
 				return plugin.nSpleefArenas.get(i);
 			}
 		}

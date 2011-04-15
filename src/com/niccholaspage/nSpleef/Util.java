@@ -36,8 +36,7 @@ public class Util {
 		  }
 	return false;
 	}
-	  public static BlockVector toVector(Block block)
-	  {
+	  public static BlockVector toVector(Block block){
 		    return new BlockVector(block.getX(), block.getY(), block.getZ());
 	  }
 	  public static BlockVector toBlockVector(Vector block){

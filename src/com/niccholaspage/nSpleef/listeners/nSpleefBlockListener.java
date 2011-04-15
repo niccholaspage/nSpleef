@@ -1,8 +1,10 @@
 //The package
 package com.niccholaspage.nSpleef.listeners;
+import com.niccholaspage.nSpleef.Filter;
 import com.niccholaspage.nSpleef.PermissionHandler;
 import com.niccholaspage.nSpleef.Util;
 import com.niccholaspage.nSpleef.nSpleef;
+import com.niccholaspage.nSpleef.nSpleefArena;
 
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -35,28 +37,15 @@ public class nSpleefBlockListener extends BlockListener{
 	 public void onBlockBreak(BlockBreakEvent event){
 		 Player player = event.getPlayer();
 		 Block block = event.getBlock();
-		 Boolean pass = false;
-		 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
-			 if (plugin.nSpleefArenas.get(i).getPlayersIn().contains(player)){
-				 pass = true;
-			 }
+		 nSpleefArena arena = Filter.getArenaByPlayer(player);
+		 if (!(player.getWorld() == arena.getWorld())) return;
+		 if (!(Util.returnBlockInArea(Util.toVector(block), arena.getFirstBlock(), arena.getSecondBlock()))){
+			 player.sendMessage(ChatColor.DARK_PURPLE + "You cannot mine outside the spleef zone!");
+			 event.setCancelled(true);
+		 }else {
+ 			player.sendMessage(ChatColor.DARK_PURPLE + "You cannot mine blocks if the game hasn't started yet!");
+			event.setCancelled(true);
 		 }
-		 if (pass == false){
-			 return;
-		 }
-		    for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++) {
-				 if (!(Util.returnBlockInArea(Util.toVector(block), plugin.nSpleefArenas.get(i).getFirstBlock(), plugin.nSpleefArenas.get(i).getSecondBlock())) == true) {
-						 if (player.getWorld().toString().equals(plugin.nSpleefArenas.get(i).getWorld().toString())){
-							 player.sendMessage(ChatColor.DARK_PURPLE + "You cannot mine outside the spleef zone!");
-							 event.setCancelled(true);
-						 }
-		    	}else {
-		    		if ((player.getWorld().toString().equals(plugin.nSpleefArenas.get(i).getWorld().toString())) && plugin.nSpleefArenas.get(i).getInGame() < 2){
-		    			player.sendMessage(ChatColor.DARK_PURPLE + "You cannot mine blocks if the game hasn't started yet!");
-		    			event.setCancelled(true);
-		    		}
-		    	}
-		    }
 	 }
 	 @Override
 	 public void onBlockDamage(BlockDamageEvent event) {
