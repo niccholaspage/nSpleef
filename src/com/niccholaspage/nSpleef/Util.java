@@ -101,8 +101,7 @@ public class Util {
 			    data.add(line);
 			   }
 			  }catch(FileNotFoundException fN) {
-			  }
-			  catch(IOException e) {
+			  }catch(IOException e) {
 			  }
 			  return data;
 		}
