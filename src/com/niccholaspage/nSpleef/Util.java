@@ -120,15 +120,6 @@ public class Util {
 			  }
 			  return data;
 		}
-		public static void replaceFile(ArrayList<String> s){
-			try {
-			for (int i = 0; i<= s.size() - 1; i++){
-				out.write(s.get(i));
-			}
-			}catch (Exception e){
-				
-			}
-		}
 		public static void writefile(String j){
 			try{
     	    out.write(j);
