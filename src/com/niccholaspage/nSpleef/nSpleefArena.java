@@ -14,9 +14,9 @@ public class nSpleefArena {
 	private World world;
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private ArrayList<Player> playersin = new ArrayList<Player>();
-	//Dirty workaround :)
 	private ArrayList<Boolean> playerstatus = new ArrayList<Boolean>();
 	private ArrayList<Location> playerslocation = new ArrayList<Location>();
+	private ArrayList<DyeColor> playersteams = new ArrayList<DyeColor>();
 	private ArrayList<DyeColor> teams = new ArrayList<DyeColor>();
 	private BlockVector block1;
 	private BlockVector block2;
@@ -97,6 +97,9 @@ public class nSpleefArena {
 	  public ArrayList<DyeColor> getTeams(){
 		  return teams;
 	  }
+	  public ArrayList<DyeColor> getPlayersTeams(){
+		  return playersteams;
+	  }
 	  public Volume getVolume(){
 		  return this.vol;
 	  }
@@ -135,11 +138,12 @@ public class nSpleefArena {
 		}
 		go();
 	}
-	public void join(Player player){
+	public void join(Player player,DyeColor color){
 		getPlayersLocation().add(player.getLocation().clone());
 		getPlayers().add(player);
 		getPlayersIn().add(player);
 		getPlayerStatus().add(false);
+		getPlayersTeams().add(color);
 		player.teleport(getTpBlock().toLocation(getWorld()));
 		final Player pl = player;
 		if (!(plugin.joinKickerTime == 0)){

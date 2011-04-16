@@ -209,6 +209,7 @@ public class nSpleef extends JavaPlugin{
 					 	nSpleefArenas.get(i).getPlayerStatus().remove(j);
 					 	nSpleefArenas.get(i).getPlayersIn().remove(j);
 					 	nSpleefArenas.get(i).getPlayers().remove(player);
+					 	nSpleefArenas.get(i).getPlayersTeams().remove(j);
 					 	player.teleport(nSpleefArenas.get(i).getPlayersLocation().get(j));
 					 	nSpleefArenas.get(i).getPlayersLocation().remove(j);
 						if (nSpleefArenas.get(i).getGame().getMoney() > 0){

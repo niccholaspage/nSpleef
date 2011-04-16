@@ -1,6 +1,7 @@
 package com.niccholaspage.nSpleef.commands;
 
 import org.bukkit.ChatColor;
+import org.bukkit.DyeColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -20,7 +21,7 @@ public class JoinCommand implements CommandExecutor {
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		Player player = (Player) sender;
-	    if (!(args.length == 2)) return false;
+	    if (args.length < 2) return false;
 	    if (plugin.nSpleefArenas.size() == 0) return true;
 		 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
 			 if (plugin.nSpleefArenas.get(i).getPlayersIn().contains(player)){
@@ -54,7 +55,13 @@ public class JoinCommand implements CommandExecutor {
 			}
 			EconomyHandler.removeMoney(player, game.getMoney());
 		}
-		arena.join(player);
+		DyeColor color = null;
+		for (int i = 0; i < arena.getTeams().size(); i++){
+			if (args[2].equalsIgnoreCase(arena.getTeams().get(i).name())){
+				color = arena.getTeams().get(i);
+			}
+		}
+		arena.join(player, color);
 		player.sendMessage(ChatColor.DARK_PURPLE + "Joined game " + name + ".");
 		player.sendMessage(ChatColor.DARK_PURPLE + "Type ready in the chat when you are ready.");
 		return true;
