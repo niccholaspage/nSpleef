@@ -38,7 +38,7 @@ public class CreateGameCommand implements CommandExecutor {
 		 }
 		 nSpleefArena arena = Filter.getArenaByName(args[2]);
 		 if (arena == null){
-			 player.sendMessage(ChatColor.DARK_PURPLE + "The arena does not exist.");
+			 player.sendMessage(ChatColor.DARK_PURPLE + "That arena does not exist.");
 			 return true; 
 		 }
 		 if (!(Filter.getGameByName(args[1]) == null)){
