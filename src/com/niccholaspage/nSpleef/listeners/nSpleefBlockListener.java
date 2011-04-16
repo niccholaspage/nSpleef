@@ -62,6 +62,7 @@ public class nSpleefBlockListener extends BlockListener{
 		 nSpleefArena arena = Filter.getArenaByPlayerIn(player);
 		 if (arena == null) return;
 		 if (arena.getInGame() < 2) return;
+		 if (!(player.getWorld() == arena.getWorld())) return;
 		 if (Util.returnBlockInArea(Util.toVector(block), arena.getFirstBlock(), arena.getSecondBlock())) block.setTypeId(0);
 	 }
 	 }
