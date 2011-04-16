@@ -2,7 +2,6 @@ package com.niccholaspage.nSpleef;
 
 import java.util.ArrayList;
 import org.bukkit.ChatColor;
-import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -16,8 +15,6 @@ public class nSpleefArena {
 	private ArrayList<Player> playersin = new ArrayList<Player>();
 	private ArrayList<Boolean> playerstatus = new ArrayList<Boolean>();
 	private ArrayList<Location> playerslocation = new ArrayList<Location>();
-	private ArrayList<DyeColor> playersteams = new ArrayList<DyeColor>();
-	private ArrayList<DyeColor> teams = new ArrayList<DyeColor>();
 	private BlockVector block1;
 	private BlockVector block2;
 	private BlockVector tpblock = new BlockVector(0,0,0);
@@ -94,12 +91,6 @@ public class nSpleefArena {
 	  public ArrayList<Location> getPlayersLocation(){
 		  return playerslocation;
 	  }
-	  public ArrayList<DyeColor> getTeams(){
-		  return teams;
-	  }
-	  public ArrayList<DyeColor> getPlayersTeams(){
-		  return playersteams;
-	  }
 	  public Volume getVolume(){
 		  return this.vol;
 	  }
@@ -138,12 +129,11 @@ public class nSpleefArena {
 		}
 		go();
 	}
-	public void join(Player player,DyeColor color){
+	public void join(Player player){
 		getPlayersLocation().add(player.getLocation().clone());
 		getPlayers().add(player);
 		getPlayersIn().add(player);
 		getPlayerStatus().add(false);
-		getPlayersTeams().add(color);
 		player.teleport(getTpBlock().toLocation(getWorld()));
 		final Player pl = player;
 		if (!(plugin.joinKickerTime == 0)){

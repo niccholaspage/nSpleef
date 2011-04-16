@@ -2,8 +2,6 @@ package com.niccholaspage.nSpleef;
 
 import java.util.ArrayList;
 
-import org.bukkit.DyeColor;
-
 public class Data {
 	public ArrayList<String> data;
 	public static nSpleef plugin;
@@ -27,20 +25,6 @@ public class Data {
 				a.getVolume().setCornerTwo(a.getSecondBlock().toLocation(a.getWorld()).getBlock());
 				a.getVolume().saveBlocks();
 		    	plugin.nSpleefArenas.add(a);
-		    }
-		    if (Util.exists("teams.txt") == false) return;
-		    Util.openfileread("teams.txt");
-		    data = Util.filetoarray();
-		    Util.closefileread();
-		    for (int i = 0; i < data.size(); i++){
-		    	String[] split = data.get(i).split(",");
-		    	DyeColor color = null;
-		    	for (int j = 0; j < DyeColor.values().length; j++){
-		    		if (DyeColor.values()[j].name().equalsIgnoreCase(split[1])){
-		    			color = DyeColor.values()[j];
-		    		}
-		    	}
-		    	Filter.getArenaByName(split[0]).getTeams().add(color);
 		    }
 	  }
 }

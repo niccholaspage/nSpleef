@@ -147,9 +147,6 @@ public class nSpleef extends JavaPlugin{
     	commandHandler.registerExecutor("deletearena", new DeleteArenaCommand(this), "/spleef deletearena arena", "nSpleef.admin.deletearena");
     	commandHandler.registerExecutor("ready", new ReadyCommand(this), "/spleef ready", "");
     	commandHandler.registerExecutor("forceready", new ForceReadyCommand(this), "/spleef forceready", "nSpleef.admin.forceready");
-    	commandHandler.registerExecutor("createteam", new CreateTeamCommand(), "/spleef createteam arena team", "nSpleef.admin.createteam");
-    	commandHandler.registerExecutor("listteams", new ListTeamsCommand(), "/spleef listteams arena", "nSpleef.member.listteams");
-    	commandHandler.registerExecutor("deleteteam", new DeleteTeamCommand(), "/spleef deleteteam arena team", "nSpleef.admin.deleteteam");
     }
     public boolean isInt(String i){
     	try {
@@ -209,7 +206,6 @@ public class nSpleef extends JavaPlugin{
 					 	nSpleefArenas.get(i).getPlayerStatus().remove(j);
 					 	nSpleefArenas.get(i).getPlayersIn().remove(j);
 					 	nSpleefArenas.get(i).getPlayers().remove(player);
-					 	nSpleefArenas.get(i).getPlayersTeams().remove(j);
 					 	player.teleport(nSpleefArenas.get(i).getPlayersLocation().get(j));
 					 	nSpleefArenas.get(i).getPlayersLocation().remove(j);
 						if (nSpleefArenas.get(i).getGame().getMoney() > 0){

@@ -1,7 +1,6 @@
 package com.niccholaspage.nSpleef.commands;
 
 import org.bukkit.ChatColor;
-import org.bukkit.DyeColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -55,13 +54,7 @@ public class JoinCommand implements CommandExecutor {
 			}
 			EconomyHandler.removeMoney(player, game.getMoney());
 		}
-		DyeColor color = null;
-		for (int i = 0; i < arena.getTeams().size(); i++){
-			if (args[2].equalsIgnoreCase(arena.getTeams().get(i).name())){
-				color = arena.getTeams().get(i);
-			}
-		}
-		arena.join(player, color);
+		arena.join(player);
 		player.sendMessage(ChatColor.DARK_PURPLE + "Joined game " + name + ".");
 		player.sendMessage(ChatColor.DARK_PURPLE + "Type ready in the chat when you are ready.");
 		return true;
