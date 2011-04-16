@@ -98,11 +98,9 @@ public class Util {
 			  ArrayList<String> data = new ArrayList<String>();
 			  try {
 			   while((line = in.readLine()) != null) {
-			 
 			    data.add(line);
 			   }
-			  }
-			  catch(FileNotFoundException fN) {
+			  }catch(FileNotFoundException fN) {
 			  }
 			  catch(IOException e) {
 			  }
