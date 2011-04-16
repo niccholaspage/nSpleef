@@ -49,41 +49,19 @@ public class nSpleefBlockListener extends BlockListener{
 		 }
 	 }
 	 @Override
-	 public void onBlockDamage(BlockDamageEvent event) {
+	 public void onBlockDamage(BlockDamageEvent event){
 		 Player player = event.getPlayer();
 		 Block block = event.getBlock();
 		 if (player.getItemInHand().getTypeId() == 281){
-			    if (!(PermissionHandler.has(player, "nSpleef.admin.define"))) return;
-			    b1loc = Util.toVector(block);
-			    world = block.getWorld();
-			    player.sendMessage(ChatColor.DARK_PURPLE + "First point set.");
-			    return;
-		 }
-		 Boolean pass = false;
-		 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
-			 if (plugin.nSpleefArenas.get(i).getPlayers().contains(player)){
-				 pass = true;
-				 if ((plugin.nSpleefArenas.get(i).getInGame() == 0) || (plugin.nSpleefArenas.get(i).getInGame() == 1)){
-					 return;
-				 }
-			 }
-		 }
-		 if (pass == false){
+			 if (!(PermissionHandler.has(player, "nSpleef.admin.define"))) return;
+			 b1loc = Util.toVector(block);
+			 world = block.getWorld();
+			 player.sendMessage(ChatColor.DARK_PURPLE + "First point set.");
 			 return;
 		 }
-			 if (Util.exists("arenas.txt") == false) {
-				 player.sendMessage(ChatColor.DARK_PURPLE + "No arenas!");
-				 return;
-			 }
-			    for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++) {
-					 if ((Util.returnBlockInArea(Util.toVector(block), plugin.nSpleefArenas.get(i).getFirstBlock(), plugin.nSpleefArenas.get(i).getSecondBlock())) == true) {
-							 if (player.getWorld().toString().equals(plugin.nSpleefArenas.get(i).getWorld().toString())){
-								 if ((!(block.getTypeId() == 7))){
-									 block.setTypeId(0);
-								 }
-								 return;
-							 }
-			    	}
-			    }
+		 nSpleefArena arena = Filter.getArenaByPlayerIn(player);
+		 if (arena == null) return;
+		 if (arena.getInGame() < 2) return;
+		 if (Util.returnBlockInArea(Util.toVector(block), arena.getFirstBlock(), arena.getSecondBlock())) block.setTypeId(0);
 	 }
 	 }
