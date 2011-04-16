@@ -147,7 +147,9 @@ public class nSpleef extends JavaPlugin{
     	commandHandler.registerExecutor("deletearena", new DeleteArenaCommand(this), "/spleef deletearena arena", "nSpleef.admin.deletearena");
     	commandHandler.registerExecutor("ready", new ReadyCommand(this), "/spleef ready", "");
     	commandHandler.registerExecutor("forceready", new ForceReadyCommand(this), "/spleef forceready", "nSpleef.admin.forceready");
-    	commandHandler.registerExecutor("createteam", new CreateTeamCommand(), "/spleef createteam arena color", "nSpleef.admin.createteam");
+    	commandHandler.registerExecutor("createteam", new CreateTeamCommand(), "/spleef createteam arena team", "nSpleef.admin.createteam");
+    	commandHandler.registerExecutor("listteams", new ListTeamsCommand(), "/spleef listteams arena", "nSpleef.member.listteams");
+    	commandHandler.registerExecutor("deleteteam", new DeleteTeamCommand(), "/spleef deleteteam arena team", "nSpleef.admin.deleteteam");
     }
     public boolean isInt(String i){
     	try {

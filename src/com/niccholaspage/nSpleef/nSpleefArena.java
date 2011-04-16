@@ -2,6 +2,7 @@ package com.niccholaspage.nSpleef;
 
 import java.util.ArrayList;
 import org.bukkit.ChatColor;
+import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -16,6 +17,7 @@ public class nSpleefArena {
 	//Dirty workaround :)
 	private ArrayList<Boolean> playerstatus = new ArrayList<Boolean>();
 	private ArrayList<Location> playerslocation = new ArrayList<Location>();
+	private ArrayList<DyeColor> teams = new ArrayList<DyeColor>();
 	private BlockVector block1;
 	private BlockVector block2;
 	private BlockVector tpblock = new BlockVector(0,0,0);
@@ -91,6 +93,9 @@ public class nSpleefArena {
 	  }
 	  public ArrayList<Location> getPlayersLocation(){
 		  return playerslocation;
+	  }
+	  public ArrayList<DyeColor> getTeams(){
+		  return teams;
 	  }
 	  public Volume getVolume(){
 		  return this.vol;
