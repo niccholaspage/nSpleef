@@ -40,8 +40,10 @@ public class nSpleef extends JavaPlugin{
     
     //Create the hashmap "nSpleefUsers"
     public final HashMap<Player, ArrayList<Block>> nSpleefUsers = new HashMap<Player, ArrayList<Block>>();
+    //Is instant mining enabled?
+    public boolean instantMine;
     //Persistent games
-    public Boolean persistentGames;
+    public boolean persistentGames;
     //Give money on leave
     public boolean giveMoneyOnLeave;
     //Give money on disconnect
@@ -125,6 +127,7 @@ public class nSpleef extends JavaPlugin{
 		file = new File("plugins/nSpleef/config.yml");
     	if (!file.exists()) Util.createDefaultConfig();
     	// Reading from yml file
+    	instantMine = _config.getBoolean("nSpleef.instantmine", true);
     	canPlaceBlocks = _config.getBoolean("nSpleef.canplaceblocks", false);
     	persistentGames = _config.getBoolean("nSpleef.persistentgames", false);
     	giveMoneyOnLeave = _config.getBoolean("nSpleef.givemoneyonleave", false);
