@@ -12,10 +12,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 import org.bukkit.ChatColor;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -37,9 +36,6 @@ public class nSpleef extends JavaPlugin{
     private final nSpleefBlockListener blockListener = new nSpleefBlockListener(this);
     //Entity Listener
     private final nSpleefEntityListener entityListener = new nSpleefEntityListener(this);
-    
-    //Create the hashmap "nSpleefUsers"
-    public final HashMap<Player, ArrayList<Block>> nSpleefUsers = new HashMap<Player, ArrayList<Block>>();
     //Is instant mining enabled?
     public boolean instantMine;
     //Persistent games
@@ -55,9 +51,9 @@ public class nSpleef extends JavaPlugin{
     //How long until the player gets booted after joining?
     public int joinKickerTime;
     //Create arena array
-    public ArrayList<nSpleefArena> nSpleefArenas = new ArrayList<nSpleefArena>();
+    public List<nSpleefArena> nSpleefArenas = new ArrayList<nSpleefArena>();
     //Create the games array
-    public final ArrayList<nSpleefGame> nSpleefGames = new ArrayList<nSpleefGame>();
+    public final List<nSpleefGame> nSpleefGames = new ArrayList<nSpleefGame>();
     
 	public void onDisable() {
 		for (int i = 0; i < nSpleefArenas.size(); i++){
@@ -106,7 +102,7 @@ public class nSpleef extends JavaPlugin{
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		ArrayList<String> data = Util.filetoarray(in);
+		List<String> data = Util.filetoarray(in);
 		for (int i = 0; i < data.size(); i++){
 			String[] split;
 			split = data.get(i).split(",");

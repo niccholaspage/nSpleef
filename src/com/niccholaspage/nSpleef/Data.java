@@ -1,15 +1,15 @@
 package com.niccholaspage.nSpleef;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Data {
-	public ArrayList<String> data;
 	public static nSpleef plugin;
 	  public static void init (nSpleef instance){
 		  plugin = instance;
 	  }
 	  public static void setupArrays(){
-		    ArrayList<String> data = new ArrayList<String>();
+		    List<String> data = new ArrayList<String>();
 		    plugin.nSpleefArenas = new ArrayList<nSpleefArena>();
 		    if (Util.exists("arenas.txt") == false) return;
 		    Util.openfileread("arenas.txt");
