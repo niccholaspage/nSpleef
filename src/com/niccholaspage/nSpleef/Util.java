@@ -144,7 +144,7 @@ public class Util {
   	      try{
 	    	    BufferedWriter out = new BufferedWriter(new FileWriter("plugins/nSpleef/config.yml"));
 	    	    out.write("nSpleef:\n");
-	    	    out.write("    instantmine: false\n");
+	    	    out.write("    instantmine: true\n");
 	    	    out.write("    canplaceblocks: false\n");
 	    	    out.write("    persistentgames: false\n");
 	    	    out.write("    givemoneyonleave: false\n");
