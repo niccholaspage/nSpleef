@@ -15,7 +15,6 @@ public class BlockInfo {
 	private int z;
 	private int type;
 	private byte data;
-	//private String[] signLines;
 
 	public static Block getBlock(World world, BlockInfo info) {
 		return world.getBlockAt(info.getX(), info.getY(), info.getZ());
