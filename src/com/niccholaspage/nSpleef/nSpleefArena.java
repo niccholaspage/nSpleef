@@ -101,7 +101,7 @@ public class nSpleefArena {
 	}
 	public void go(){
 		ingame = 1;
-		new Thread(new Runnable(){
+		plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable(){
 			public void run(){
 				for (int i = 0; i <= players.size() - 1; i++){
 					players.get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] 3");
@@ -120,7 +120,7 @@ public class nSpleefArena {
 				}
 				ingame = 2;
 			}
-		}).start();
+		});
 	}
 	public void checkReady(){
 		if (players.size() == 1) return;
@@ -139,14 +139,14 @@ public class nSpleefArena {
 		player.teleport(getTpBlock().toLocation(getWorld()));
 		final Player pl = player;
 		if (!(plugin.joinKickerTime == 0)){
-		new Thread(new Runnable(){
+		plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable(){
 			public void run(){
 				Util.waitMS(plugin.joinKickerTime * 1000);
 				if (getPlayerStatus().get(getPlayers().indexOf(pl)) == false){
 					plugin.leave(pl, 3);
 				}
 			}
-		}).start();
+		});
 		}
 	}
 	public void leave(Player player){

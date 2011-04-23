@@ -145,11 +145,21 @@ public class nSpleef extends JavaPlugin{
     	commandHandler.registerExecutor("ready", new ReadyCommand(this), "/spleef ready", "");
     	commandHandler.registerExecutor("forceready", new ForceReadyCommand(this), "/spleef forceready", "nSpleef.admin.forceready");
     }
+    
     public boolean isInt(String i){
     	try {
     		Integer.parseInt(i);
     		return true;
     	} catch(NumberFormatException nfe){
+    		return false;
+    	}
+    }
+    
+    public boolean isBoolean(String b){
+    	try {
+    		Boolean.parseBoolean(b);
+    		return true;
+    	}catch(NumberFormatException nfe) {
     		return false;
     	}
     }

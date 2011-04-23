@@ -64,7 +64,12 @@ public class CreateGameCommand implements CommandExecutor {
 					 game.setMoney(Integer.parseInt(args[3]));
 				 }
 			 }
+		 }
+		 if (args.length > 4){
+			 if (plugin.isBoolean(args[4])){
+				 game.setThunder(Boolean.parseBoolean(args[4]));
 			 }
+		 }
 		 arena.setMyGame(plugin.nSpleefGames.size() - 1);
 		 player.sendMessage(ChatColor.DARK_PURPLE + "Game " + args[1] + " has been created.");
 		 if (args.length > 3){
