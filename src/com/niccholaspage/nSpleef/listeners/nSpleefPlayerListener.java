@@ -44,7 +44,6 @@ public class nSpleefPlayerListener extends PlayerListener{
 			  }
 			  if (arena.getPlayers().size() == 1){
 				  event.setFrom(arena.getPlayersLocation().get(arena.getPlayersIn().indexOf(player)));
-				  event.setTo(arena.getPlayersLocation().get(arena.getPlayersIn().indexOf(player)));
 			  }
 			  arena.getPlayers().remove(player);
 			  arena.checkLeave();

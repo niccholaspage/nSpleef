@@ -133,6 +133,7 @@ public class Volume {
 		int currentBlockId = 0;
 		int oldBlockType = 0;
 		clearBlocksThatDontFloat();
+		//nicc start This should finally stop all fire
 		try {
 			if(hasTwoCorners() && getBlockTypes() != null) {
 				x = getMinX();
@@ -153,15 +154,56 @@ public class Volume {
 													|| oldBlockType == Material.CHEST.getId() || oldBlockType == Material.DISPENSER.getId())
 									)
 								) {
-									//nicc start <-- Stop fire (Thunder spleef)
-									if (world.getBlockAt(x, y, z).getType() == Material.FIRE) world.getBlockAt(x, y, z).setTypeId(0);
-									if (world.getBlockAt(x+1, y, z).getType() == Material.FIRE) world.getBlockAt(x+1, y, z).setTypeId(0);
-									if (world.getBlockAt(x-1, y, z).getType() == Material.FIRE) world.getBlockAt(x-1, y, z).setTypeId(0);
-									if (world.getBlockAt(x, y+1, z).getType() == Material.FIRE) world.getBlockAt(x, y+1, z).setTypeId(0);
-									if (world.getBlockAt(x, y-1, z).getType() == Material.FIRE) world.getBlockAt(x, y-1, z).setTypeId(0);
-									if (world.getBlockAt(x, y, z+1).getType() == Material.FIRE) world.getBlockAt(x, y, z+1).setTypeId(0);
-									if (world.getBlockAt(x, y, z-1).getType() == Material.FIRE) world.getBlockAt(x, y, z-1).setTypeId(0);
-									//nicc end
+										// regular block
+										Material type = world.getBlockAt(x, y + 1, z).getType();
+										if (type == Material.FIRE) type = Material.AIR;
+										world.getBlockAt(x, y + 1, z).setType(Material.STONE);
+										world.getBlockAt(x, y + 1, z).setType(type);
+										currentBlock.setType(Material.STONE);
+									}
+									noOfResetBlocks++;
+								visitedBlocks++;
+							} catch (Exception e) {
+								System.out.println("Failed to reset block in arena " + getName() + ". Visited blocks so far:" + visitedBlocks 
+										+ ". Blocks reset: "+ noOfResetBlocks + 
+										". Error at x:" + x + " y:" + y + " z:" + z + ". Exception:" + e.getClass().toString() + " " + e.getMessage());
+								e.printStackTrace();
+							} finally {
+								z++;
+							}
+						}
+						y++;
+					}
+					x++;
+				}
+			}		
+		} catch (Exception e) {
+			System.out.println("Failed to reset arena " + getName() + " blocks. Blocks visited: " + visitedBlocks 
+					+ ". Blocks reset: "+ noOfResetBlocks + ". Error at x:" + x + " y:" + y + " z:" + z 
+					+ ". Current block: " + currentBlockId + ". Old block: " + oldBlockType + ". Exception: " + e.getClass().toString() + " " + e.getMessage());
+			e.printStackTrace();
+		}
+		//nicc end
+		try {
+			if(hasTwoCorners() && getBlockTypes() != null) {
+				x = getMinX();
+				for(int i = 0; i < getSizeX(); i++){
+					y = getMinY();
+					for(int j = 0; j < getSizeY(); j++){
+						z = getMinZ();
+						for(int k = 0;k < getSizeZ(); k++) {
+							try {
+								oldBlockType = getBlockTypes()[i][j][k];
+								byte oldBlockData = getBlockDatas()[i][j][k];
+								Block currentBlock = getWorld().getBlockAt(x, y, z);
+								currentBlockId = currentBlock.getTypeId();
+								if(currentBlockId != oldBlockType ||
+									(currentBlockId == oldBlockType && currentBlock.getData() != oldBlockData ) ||
+									(currentBlockId == oldBlockType && currentBlock.getData() == oldBlockData &&
+											(oldBlockType == Material.WALL_SIGN.getId() || oldBlockType == Material.SIGN_POST.getId() 
+													|| oldBlockType == Material.CHEST.getId() || oldBlockType == Material.DISPENSER.getId())
+									)
+								) {
 										// regular block
 										currentBlock.setType(Material.getMaterial(oldBlockType));
 										currentBlock.setData(oldBlockData);
