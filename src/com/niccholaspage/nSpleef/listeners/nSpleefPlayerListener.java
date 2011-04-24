@@ -43,11 +43,8 @@ public class nSpleefPlayerListener extends PlayerListener{
 				  arena.getPlayersIn().get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] " + player.getDisplayName() + " is out!");
 			  }
 			  if (arena.getPlayers().size() == 1){
-				  plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable(){
-					 public void run(){
-						 player.teleport(arena.getPlayersLocation().get(arena.getPlayersIn().indexOf(player)));
-					 }
-				  }, 5);
+				  event.setFrom(arena.getPlayersLocation().get(arena.getPlayersIn().indexOf(player)));
+				  event.setTo(arena.getPlayersLocation().get(arena.getPlayersIn().indexOf(player)));
 			  }
 			  arena.getPlayers().remove(player);
 			  arena.checkLeave();
