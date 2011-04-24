@@ -66,8 +66,8 @@ public class CreateGameCommand implements CommandExecutor {
 			 }
 		 }
 		 if (args.length > 4){
-			 if (plugin.isBoolean(args[4])){
-				 game.setThunder(Boolean.parseBoolean(args[4]));
+			 if (args[4].equalsIgnoreCase("on")){
+				 game.setThunder(true);
 			 }
 		 }
 		 arena.setMyGame(plugin.nSpleefGames.size() - 1);

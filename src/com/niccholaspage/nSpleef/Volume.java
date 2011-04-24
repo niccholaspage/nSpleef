@@ -129,9 +129,6 @@ public class Volume {
 	}
 	
 	public int resetBlocks() {
-//		BlockResetJob job = new BlockResetJob(this);
-//		war.getServer().getScheduler().scheduleSyncDelayedTask(war, job);
-//		return 0;
 		int visitedBlocks = 0, noOfResetBlocks = 0, x = 0, y = 0, z = 0;
 		int currentBlockId = 0;
 		int oldBlockType = 0;
@@ -156,6 +153,10 @@ public class Volume {
 													|| oldBlockType == Material.CHEST.getId() || oldBlockType == Material.DISPENSER.getId())
 									)
 								) {
+									//nicc start <-- Stop fire (Thunder spleef)
+									if (world.getBlockAt(x, y, z).getType() == Material.FIRE) world.getBlockAt(x, y, z).setTypeId(0);
+									if (world.getBlockAt(x, y+1, z).getType() == Material.FIRE) world.getBlockAt(x, y+1, z).setTypeId(0);
+									//nicc end
 										// regular block
 										currentBlock.setType(Material.getMaterial(oldBlockType));
 										currentBlock.setData(oldBlockData);

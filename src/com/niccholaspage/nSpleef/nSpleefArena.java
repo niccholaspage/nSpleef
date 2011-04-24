@@ -2,6 +2,7 @@ package com.niccholaspage.nSpleef;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -121,6 +122,17 @@ public class nSpleefArena {
 				ingame = 2;
 			}
 		});
+		if (getGame().getThunder() == true){
+			plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable(){
+				public void run(){
+					Util.waitMS(4000);
+					while (ingame == 2){
+						Util.waitMS(3000);
+						world.strikeLightning(players.get(new Random().nextInt(players.size())).getLocation());
+					}
+				}
+			});
+		}
 	}
 	public void checkReady(){
 		if (players.size() == 1) return;

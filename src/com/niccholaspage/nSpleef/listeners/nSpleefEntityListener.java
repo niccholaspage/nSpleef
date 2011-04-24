@@ -29,6 +29,7 @@ public class nSpleefEntityListener extends EntityListener {
 	 public void onEntityDamage(EntityDamageEvent event){
 		 if (!(event.getEntity() instanceof Player)) return;
 		 if (Filter.getArenaByPlayer((Player)event.getEntity()) == null) return;
+		 ((Player)event.getEntity()).setFireTicks(0);
 		 event.setCancelled(true);
 	 }
 }
