@@ -155,7 +155,12 @@ public class Volume {
 								) {
 									//nicc start <-- Stop fire (Thunder spleef)
 									if (world.getBlockAt(x, y, z).getType() == Material.FIRE) world.getBlockAt(x, y, z).setTypeId(0);
+									if (world.getBlockAt(x+1, y, z).getType() == Material.FIRE) world.getBlockAt(x+1, y, z).setTypeId(0);
+									if (world.getBlockAt(x-1, y, z).getType() == Material.FIRE) world.getBlockAt(x-1, y, z).setTypeId(0);
 									if (world.getBlockAt(x, y+1, z).getType() == Material.FIRE) world.getBlockAt(x, y+1, z).setTypeId(0);
+									if (world.getBlockAt(x, y-1, z).getType() == Material.FIRE) world.getBlockAt(x, y-1, z).setTypeId(0);
+									if (world.getBlockAt(x, y, z+1).getType() == Material.FIRE) world.getBlockAt(x, y, z+1).setTypeId(0);
+									if (world.getBlockAt(x, y, z-1).getType() == Material.FIRE) world.getBlockAt(x, y, z-1).setTypeId(0);
 									//nicc end
 										// regular block
 										currentBlock.setType(Material.getMaterial(oldBlockType));
