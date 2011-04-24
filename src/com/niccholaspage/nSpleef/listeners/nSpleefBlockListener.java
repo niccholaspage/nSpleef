@@ -12,7 +12,6 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDamageEvent;
-import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.BlockListener;
 import org.bukkit.util.BlockVector;
@@ -66,14 +65,5 @@ public class nSpleefBlockListener extends BlockListener{
 		 if (arena.getInGame() < 2) return;
 		 if (!(player.getWorld() == arena.getWorld())) return;
 		 if (Util.returnBlockInArea(Util.toVector(block), arena.getFirstBlock(), arena.getSecondBlock())) block.setTypeId(0);
-	 }
-	 @Override
-	 public void onBlockIgnite(BlockIgniteEvent event){
-		 for (int i = 0; i < plugin.nSpleefArenas.size(); i++){
-			 if (plugin.nSpleefArenas.get(i).getVolume().restore){
-				 System.out.println("SIDJFSDJF");
-				 event.setCancelled(true);
-			 }
-		 }
 	 }
 	 }

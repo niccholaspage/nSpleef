@@ -29,7 +29,6 @@ public class Volume {
 	private BlockInfo cornerTwo;
 	private int[][][] blockTypes = null;
 	private byte[][][] blockDatas = null;
-	public boolean restore;
 	private HashMap<String, String[]> signLines = new HashMap<String, String[]>();
 	private HashMap<String, List<ItemStack>> invBlockContents = new HashMap<String, List<ItemStack>>();
 
@@ -133,7 +132,6 @@ public class Volume {
 		int visitedBlocks = 0, noOfResetBlocks = 0, x = 0, y = 0, z = 0;
 		int currentBlockId = 0;
 		int oldBlockType = 0;
-		restore = true;
 		clearBlocksThatDontFloat();
 		try {
 			if(hasTwoCorners() && getBlockTypes() != null) {
@@ -190,7 +188,6 @@ public class Volume {
 					+ ". Current block: " + currentBlockId + ". Old block: " + oldBlockType + ". Exception: " + e.getClass().toString() + " " + e.getMessage());
 			e.printStackTrace();
 		}
-		restore = false;
 		return noOfResetBlocks;
 	}
 

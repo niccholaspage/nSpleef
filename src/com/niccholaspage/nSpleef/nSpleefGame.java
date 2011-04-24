@@ -5,7 +5,7 @@ public class nSpleefGame {
 	private final String arena;
 	private final String owner;
 	private int money = 0;
-	private boolean thunder = false;
+	private int mode = 0;
 	public nSpleefGame(String name, String arena, String owner){
 		this.name = name;
 		this.arena = arena;
@@ -26,13 +26,13 @@ public class nSpleefGame {
 	public void setMoney(int money){
 		this.money = money;
 	}
-	public boolean getThunder(){
-		return thunder;
+	public int getMode(){
+		return mode;
 	}
-	public void setThunder(boolean thunder){
-		this.thunder = thunder;
+	public void setMode(int mode){
+		this.mode = mode;
 	}
 	public String toString(){
-		return name + "," + arena + "," + owner + "," + money + "," + thunder;
+		return name + "," + arena + "," + owner + "," + money + "," + mode;
 	}
 }

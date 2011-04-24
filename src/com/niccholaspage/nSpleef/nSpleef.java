@@ -109,7 +109,7 @@ public class nSpleef extends JavaPlugin{
 			nSpleefGame game = new nSpleefGame(split[0], split[1], split[2]);
 			nSpleefGames.add(game);
 			if (split.length > 3) game.setMoney(Integer.parseInt(split[3]));
-			if (split.length > 4) game.setThunder(Boolean.parseBoolean(split[4]));
+			if (split.length > 4) game.setMode(Integer.parseInt(split[4]));
 		}
 	}
 	
@@ -176,7 +176,6 @@ public class nSpleef extends JavaPlugin{
         pm.registerEvent(Event.Type.BLOCK_PLACE, blockListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.BLOCK_DAMAGE, blockListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.BLOCK_BREAK, blockListener, Event.Priority.Normal, this);
-        pm.registerEvent(Event.Type.BLOCK_IGNITE, blockListener, Event.Priority.Normal, this);
         //EntityListener stuff
         pm.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Event.Priority.Normal, this);

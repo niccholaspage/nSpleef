@@ -122,7 +122,7 @@ public class nSpleefArena {
 				ingame = 2;
 			}
 		});
-		if (getGame().getThunder() == true){
+		if (getGame().getMode() == 1){//1 is Thunder
 			plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable(){
 				public void run(){
 					Util.waitMS(4000);
