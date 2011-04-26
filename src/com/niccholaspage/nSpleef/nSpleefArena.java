@@ -108,9 +108,7 @@ public class nSpleefArena {
 					messagePlayersIn(ChatColor.DARK_PURPLE + "[nSpleef] " + i);
 					Util.waitMS(1000);
 				}
-				for (int i = 0; i < players.size(); i++){
-					players.get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] Go!");
-				}
+				messagePlayersIn(ChatColor.DARK_PURPLE + "[nSpleef] Go!");
 				ingame = 2;
 			}
 		});
