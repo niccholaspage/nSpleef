@@ -104,19 +104,11 @@ public class nSpleefArena {
 		ingame = 1;
 		plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable(){
 			public void run(){
-				for (int i = 0; i <= players.size() - 1; i++){
-					players.get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] 3");
+				for (int i = 3; i > 0; i--){
+					messagePlayersIn(ChatColor.DARK_PURPLE + "[nSpleef] " + i);
+					Util.waitMS(1000);
 				}
-				Util.waitMS(1000);
-				for (int i = 0; i <= players.size() - 1; i++){
-					players.get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] 2");
-				}
-				Util.waitMS(1000);
-				for (int i = 0; i <= players.size() - 1; i++){
-					players.get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] 1");
-				}
-				Util.waitMS(1000);
-				for (int i = 0; i <= players.size() - 1; i++){
+				for (int i = 0; i < players.size(); i++){
 					players.get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] Go!");
 				}
 				ingame = 2;
@@ -213,5 +205,10 @@ public class nSpleefArena {
 			}
 		}
 		return null;
+	}
+	public void messagePlayersIn(String message){
+		for (int i = 0; i < playersin.size(); i++){
+			playersin.get(i).sendMessage(message);
+		}
 	}
 }
