@@ -170,7 +170,6 @@ public class nSpleefArena {
 		if (players.size() == 0){
 			ingame = 0;
 			vol.resetBlocks();
-			plugin.nSpleefGames.remove(plugin.nSpleefGames.indexOf(getGame()));
 			resetVars();
 		}
 	}
