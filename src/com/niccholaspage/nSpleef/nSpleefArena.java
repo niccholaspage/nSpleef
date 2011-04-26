@@ -166,9 +166,7 @@ public class nSpleefArena {
 	public void checkLeave(){
 		if (players.size() == 1){
 			ingame = 0;
-			for (int i = 0; i <= playersin.size() - 1; i++){
-				playersin.get(i).sendMessage(ChatColor.DARK_PURPLE + "[nSpleef] " + players.get(0).getDisplayName() + " has won the game!");
-			}
+			messagePlayersIn(ChatColor.DARK_PURPLE + "[nSpleef] " + players.get(0).getDisplayName() + " has won the game!");
 			if (getGame().getMoney() > 0){
 				Integer amount = getGame().getMoney() * playersin.size();
 				EconomyHandler.addMoney(players.get(0), amount);
@@ -197,16 +195,11 @@ public class nSpleefArena {
 		return ingame;
 	}
 	public nSpleefGame getGame(){
-		for (int i = 0; i < plugin.nSpleefGames.size(); i++){
-			if (plugin.nSpleefGames.get(i).getArena().equalsIgnoreCase(this.name)){
-				return plugin.nSpleefGames.get(i);
-			}
-		}
 		return null;
 	}
 	public void messagePlayersIn(String message){
-		for (int i = 0; i < playersin.size(); i++){
-			playersin.get(i).sendMessage(message);
+		for (Player player : playersin){
+			player.sendMessage(message);
 		}
 	}
 }

@@ -40,13 +40,15 @@ public class nSpleefPlayerListener extends PlayerListener{
 		  if (arena.getFirstBlock().getY() < arena.getSecondBlock().getY()) theblock = arena.getFirstBlock();
 		  if (loc.getBlockY() + 1 <= theblock.getBlockY() + 1){
 			  arena.messagePlayersIn(ChatColor.DARK_PURPLE + "[nSpleef] " + player.getDisplayName() + " is out!");
-			  if (arena.getPlayers().size() == 1){
-				  event.setFrom(arena.getPlayersLocation().get(arena.getPlayersIn().indexOf(player)));
-				  event.setTo(arena.getPlayersLocation().get(arena.getPlayersIn().indexOf(player)));
-			  }
+
 			  arena.getPlayers().remove(player);
 			  arena.checkLeave();
 			  player.setFireTicks(0);
+			  if (arena.getPlayers().size() == 1){
+				  event.setTo(arena.getPlayersLocation().get(arena.getPlayersIn().indexOf(player)));
+				  event.setFrom(arena.getPlayersLocation().get(arena.getPlayersIn().indexOf(player)));
+				  event.setCancelled(true);
+			  }
 		  }
 	  }
 	  @Override
