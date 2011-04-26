@@ -195,6 +195,11 @@ public class nSpleefArena {
 		return ingame;
 	}
 	public nSpleefGame getGame(){
+		for (nSpleefGame game : plugin.nSpleefGames){
+			if (game.getArena().equalsIgnoreCase(name)){
+				return game;
+			}
+		}
 		return null;
 	}
 	public void messagePlayersIn(String message){
