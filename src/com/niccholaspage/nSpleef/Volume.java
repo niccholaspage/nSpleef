@@ -128,6 +128,12 @@ public class Volume {
 		return noOfSavedBlocks;
 	}
 	
+	public void stopFire(Block block, Material type){
+		if (type == Material.FIRE) type = Material.AIR;
+		block.setType(Material.STONE);
+		block.setType(type);
+	}
+	
 	public int resetBlocks() {
 		int visitedBlocks = 0, noOfResetBlocks = 0, x = 0, y = 0, z = 0;
 		int currentBlockId = 0;
@@ -154,11 +160,16 @@ public class Volume {
 													|| oldBlockType == Material.CHEST.getId() || oldBlockType == Material.DISPENSER.getId())
 									)
 								) {
-										// regular block
-										Material type = world.getBlockAt(x, y + 1, z).getType();
-										if (type == Material.FIRE) type = Material.AIR;
-										world.getBlockAt(x, y + 1, z).setType(Material.STONE);
-										world.getBlockAt(x, y + 1, z).setType(type);
+										Block block;
+										Material type;
+										block = world.getBlockAt(x, y + 1, z);
+										type = block.getType();
+										stopFire(block, type);
+
+										block = world.getBlockAt(x, y - 1, z);
+										type = block.getType();
+										stopFire(block, type);
+										
 										currentBlock.setType(Material.STONE);
 									}
 									noOfResetBlocks++;

@@ -178,7 +178,7 @@ public class nSpleefArena {
 		}
 		if (players.size() == 0){
 			ingame = 0;
-			for (int i = 0; i <= playersin.size() - 1; i++){
+			for (int i = 0; i < playersin.size(); i++){
 				playersin.get(i).teleport(playerslocation.get(i));
 			}
 			vol.resetBlocks();
