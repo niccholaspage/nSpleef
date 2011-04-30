@@ -51,9 +51,7 @@ public class Util {
 	  }
 	  public static void openfileread(String name){
 			File f = new File("plugins/nSpleef/");
-			if (!(f.exists())){
-				f.mkdir();
-			}
+			if (!(f.exists())) f.mkdir();
 	      try{
 	    	    FileReader fstream = new FileReader("plugins/nSpleef/" + name);
 	    	    in = new BufferedReader(fstream);
@@ -70,9 +68,7 @@ public class Util {
 		}
 		public static void openfile(String name){
 			File f = new File("plugins/nSpleef/");
-			if (!(f.exists())){
-				f.mkdir();
-			}
+			if (!(f.exists())) f.mkdir();
 		      try{
 		    	    // Create file 
 		    	    FileWriter fstream = new FileWriter("plugins/nSpleef/" + name,true);
