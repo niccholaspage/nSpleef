@@ -139,62 +139,6 @@ public class Volume {
 		int currentBlockId = 0;
 		int oldBlockType = 0;
 		clearBlocksThatDontFloat();
-		//nicc start This should finally stop all fire
-		try {
-			if(hasTwoCorners() && getBlockTypes() != null) {
-				x = getMinX();
-				for(int i = 0; i < getSizeX(); i++){
-					y = getMinY();
-					for(int j = 0; j < getSizeY(); j++){
-						z = getMinZ();
-						for(int k = 0;k < getSizeZ(); k++) {
-							try {
-								oldBlockType = getBlockTypes()[i][j][k];
-								byte oldBlockData = getBlockDatas()[i][j][k];
-								Block currentBlock = getWorld().getBlockAt(x, y, z);
-								currentBlockId = currentBlock.getTypeId();
-								if(currentBlockId != oldBlockType ||
-									(currentBlockId == oldBlockType && currentBlock.getData() != oldBlockData ) ||
-									(currentBlockId == oldBlockType && currentBlock.getData() == oldBlockData &&
-											(oldBlockType == Material.WALL_SIGN.getId() || oldBlockType == Material.SIGN_POST.getId() 
-													|| oldBlockType == Material.CHEST.getId() || oldBlockType == Material.DISPENSER.getId())
-									)
-								) {
-										Block block;
-										Material type;
-										block = world.getBlockAt(x, y + 1, z);
-										type = block.getType();
-										stopFire(block, type);
-
-										block = world.getBlockAt(x, y - 1, z);
-										type = block.getType();
-										stopFire(block, type);
-										
-										currentBlock.setType(Material.STONE);
-									}
-									noOfResetBlocks++;
-								visitedBlocks++;
-							} catch (Exception e) {
-								System.out.println("Failed to reset block in arena " + getName() + ". Visited blocks so far:" + visitedBlocks 
-										+ ". Blocks reset: "+ noOfResetBlocks + 
-										". Error at x:" + x + " y:" + y + " z:" + z + ". Exception:" + e.getClass().toString() + " " + e.getMessage());
-								e.printStackTrace();
-							} finally {
-								z++;
-							}
-						}
-						y++;
-					}
-					x++;
-				}
-			}		
-		} catch (Exception e) {
-			System.out.println("Failed to reset arena " + getName() + " blocks. Blocks visited: " + visitedBlocks 
-					+ ". Blocks reset: "+ noOfResetBlocks + ". Error at x:" + x + " y:" + y + " z:" + z 
-					+ ". Current block: " + currentBlockId + ". Old block: " + oldBlockType + ". Exception: " + e.getClass().toString() + " " + e.getMessage());
-			e.printStackTrace();
-		}
-		//nicc end
 		try {
 			if(hasTwoCorners() && getBlockTypes() != null) {
 				x = getMinX();

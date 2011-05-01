@@ -65,11 +65,6 @@ public class CreateGameCommand implements CommandExecutor {
 				 }
 			 }
 		 }
-		 if (args.length > 4){
-			 if (args[4].equalsIgnoreCase("thunder") || args[4].equalsIgnoreCase("t")){
-				 game.setMode(1);
-			 }
-		 }
 		 arena.setMyGame(plugin.nSpleefGames.size() - 1);
 		 player.sendMessage(ChatColor.DARK_PURPLE + "Game " + args[1] + " has been created.");
 		 if (args.length > 3){
