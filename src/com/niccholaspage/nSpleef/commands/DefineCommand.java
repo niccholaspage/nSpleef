@@ -49,7 +49,7 @@ public class DefineCommand implements CommandExecutor {
 					 + ":" + b2loc.getBlockX() + ":" + b2loc.getBlockY() + ":" + b2loc.getBlockZ() + ":" + nSpleefBlockListener.world.getName() + "\n");
 		 }
 		 Util.closefile();
-		 Data.setupArrays();
+		 Data.setupArenas();
 		 player.sendMessage(ChatColor.DARK_PURPLE + "Arena " + name + " has been made!");
 		return true;
 	}

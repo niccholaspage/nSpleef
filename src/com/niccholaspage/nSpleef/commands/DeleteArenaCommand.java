@@ -49,7 +49,7 @@ public class DeleteArenaCommand implements CommandExecutor {
 	    }
 	    Util.closefile();
 	    }
-	    Data.setupArrays();
+	    Data.setupArenas();
 	    player.sendMessage(ChatColor.DARK_PURPLE + "Arena " + args[1] + " has been deleted.");
 		return true;
 	}

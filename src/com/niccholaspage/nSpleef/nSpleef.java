@@ -186,7 +186,7 @@ public class nSpleef extends JavaPlugin{
         //Init Filter
         Filter.init(this);
         //Setup arenas
-	    Data.setupArrays();
+	    Data.setupArenas();
 	    //Setup config
 	    readConfig();
 	    //Read Games

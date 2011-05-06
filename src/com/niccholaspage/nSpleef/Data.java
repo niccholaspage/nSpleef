@@ -8,7 +8,7 @@ public class Data {
 	  public static void init (nSpleef instance){
 		  plugin = instance;
 	  }
-	  public static void setupArrays(){
+	  public static void setupArenas(){
 		    List<String> data = new ArrayList<String>();
 		    plugin.nSpleefArenas = new ArrayList<nSpleefArena>();
 		    if (Util.exists("arenas.txt") == false) return;
@@ -16,21 +16,8 @@ public class Data {
 		    data = Util.filetoarray();
 		    Util.closefileread();
 		    for (int i = 0; i < data.size(); i++) {
-		    	final String[] split = data.get(i).split(":");
-		    	if (plugin.getServer().getWorld(split[7]) == null){
-		    		plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable(){
-		    			public void run(){
-		    				while (true){
-		    					if (plugin.getServer().getWorld(split[7]) != null){
-		    						addArena(split);
-		    						break;
-		    					}
-		    				}
-		    			}
-		    		});
-		    	}else {
-		    		addArena(split);
-		    	}
+		    	String[] split = data.get(i).split(":");
+		    	addArena(split);
 		    }
 	  }
 	  

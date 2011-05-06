@@ -9,3 +9,6 @@ commands:
     usage: /<command>
   ready:
     usage: /<command>
+
+depend:
+- MultiVerse
