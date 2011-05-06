@@ -90,6 +90,7 @@ public class nSpleef extends JavaPlugin{
 				}
 		}
 	}
+		getServer().getScheduler().cancelTasks(this);
 		System.out.println("nSpleef Disabled");
 	}
 	
