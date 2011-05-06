@@ -30,9 +30,9 @@ import org.bukkit.util.config.Configuration;
  */
 //Starts the class
 public class nSpleef extends JavaPlugin{
-	//Links the nSpleefPlayerListener
+	//Player Listener
 	private final nSpleefPlayerListener playerListener = new nSpleefPlayerListener(this);
-	//Links the nSpleefBlockListener
+	//Block Listener
     private final nSpleefBlockListener blockListener = new nSpleefBlockListener(this);
     //Entity Listener
     private final nSpleefEntityListener entityListener = new nSpleefEntityListener(this);
@@ -133,6 +133,24 @@ public class nSpleef extends JavaPlugin{
     	giveMoneyOnKick = _config.getBoolean("nSpleef.givemoneyonkick", false);
     	joinKickerTime = _config.getInt("nSpleef.joinkickertime", 0);
         }
+    
+    private void registerEvents(){
+		//Create the pluginmanage pm.
+		PluginManager pm = getServer().getPluginManager();
+		//PlayerListener stuff
+	    pm.registerEvent(Event.Type.PLAYER_CHAT, this.playerListener, Event.Priority.Normal, this);
+	    pm.registerEvent(Event.Type.PLAYER_MOVE, this.playerListener, Event.Priority.Normal, this);
+	    pm.registerEvent(Event.Type.PLAYER_QUIT, this.playerListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.PLAYER_INTERACT, playerListener, Event.Priority.Normal, this);
+	    //BlockListener stuff
+        pm.registerEvent(Event.Type.BLOCK_PLACE, blockListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.BLOCK_DAMAGE, blockListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.BLOCK_BREAK, blockListener, Event.Priority.Normal, this);
+        //EntityListener stuff
+        pm.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Event.Priority.Normal, this);
+    }
+    
     private void registerCommands(){
     	CommandHandler commandHandler = new CommandHandler(this);
     	getCommand("spleef").setExecutor(commandHandler);
@@ -166,20 +184,7 @@ public class nSpleef extends JavaPlugin{
     }
 
 	public void onEnable() {
-		//Create the pluginmanage pm.
-		PluginManager pm = getServer().getPluginManager();
-		//PlayerListener stuff
-	    pm.registerEvent(Event.Type.PLAYER_CHAT, this.playerListener, Event.Priority.Normal, this);
-	    pm.registerEvent(Event.Type.PLAYER_MOVE, this.playerListener, Event.Priority.Normal, this);
-	    pm.registerEvent(Event.Type.PLAYER_QUIT, this.playerListener, Event.Priority.Normal, this);
-        pm.registerEvent(Event.Type.PLAYER_INTERACT, playerListener, Event.Priority.Normal, this);
-	    //BlockListener stuff
-        pm.registerEvent(Event.Type.BLOCK_PLACE, blockListener, Event.Priority.Normal, this);
-        pm.registerEvent(Event.Type.BLOCK_DAMAGE, blockListener, Event.Priority.Normal, this);
-        pm.registerEvent(Event.Type.BLOCK_BREAK, blockListener, Event.Priority.Normal, this);
-        //EntityListener stuff
-        pm.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Event.Priority.Normal, this);
-        pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Event.Priority.Normal, this);
+		registerEvents();
        //Get the infomation from the yml file.
         PluginDescriptionFile pdfFile = this.getDescription();
         //Init Data
