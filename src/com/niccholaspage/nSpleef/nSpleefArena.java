@@ -133,19 +133,19 @@ public class nSpleefArena {
 		}
 		go();
 	}
-	public void join(Player player){
+	public void join(final Player player){
 		getPlayersLocation().add(player.getLocation().clone());
 		getPlayers().add(player);
 		getPlayersIn().add(player);
 		getPlayerStatus().add(false);
 		player.teleport(getTpBlock().toLocation(getWorld()));
-		final Player pl = player;
 		if (!(plugin.joinKickerTime == 0)){
 		plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable(){
 			public void run(){
 				Util.waitMS(plugin.joinKickerTime * 1000);
-				if (getPlayerStatus().get(getPlayers().indexOf(pl)) == false){
-					plugin.leave(pl, 3);
+				if (Filter.getArenaByPlayer(player) == null) return;
+				if (getPlayerStatus().get(getPlayers().indexOf(player)) == false){
+					plugin.leave(player, 3);
 				}
 			}
 		});
