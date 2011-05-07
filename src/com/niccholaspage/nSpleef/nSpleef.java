@@ -36,8 +36,6 @@ public class nSpleef extends JavaPlugin{
     private final nSpleefBlockListener blockListener = new nSpleefBlockListener(this);
     //Entity Listener
     private final nSpleefEntityListener entityListener = new nSpleefEntityListener(this);
-    //World Listener
-    private final nSpleefWorldListener worldListener = new nSpleefWorldListener();
     //Is instant mining enabled?
     public boolean instantMine;
     //Persistent games
@@ -151,8 +149,6 @@ public class nSpleef extends JavaPlugin{
         //EntityListener stuff
         pm.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Event.Priority.Normal, this);
-        //WorldListener stuff
-        pm.registerEvent(Event.Type.WORLD_LOAD, worldListener, Event.Priority.Normal, this);
     }
     
     private void registerCommands(){
@@ -196,7 +192,11 @@ public class nSpleef extends JavaPlugin{
         //Init Filter
         Filter.init(this);
         //Setup arenas
-	    Data.setupArenas();
+        getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable(){
+        	public void run(){
+        		Data.setupArenas();
+        	}
+        });
 	    //Setup config
 	    readConfig();
 	    //Read Games
