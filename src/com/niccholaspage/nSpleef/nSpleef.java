@@ -195,6 +195,7 @@ public class nSpleef extends JavaPlugin{
         getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable(){
         	public void run(){
         		Data.setupArenas();
+        		System.out.println("[nSpleef] Arenas loaded!");
         	}
         });
 	    //Setup config
