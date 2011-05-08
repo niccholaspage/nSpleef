@@ -25,6 +25,11 @@ public class EconomyHandler {
 		Plugin boseconomy = server.getPluginManager().getPlugin("BOSEconomy");
 		Plugin mineConomy = server.getPluginManager().getPlugin("MineConomy");
 		if (iconomy != null){
+			if (iconomy.getDescription().getMain() == "com.nijiko.coelho.iConomy.iConomy"){
+				type = EconomyType.NONE;
+				System.out.println("[nSpleef] Please upgrade to iConomy 5!");
+				return;
+			}
 			type = EconomyType.ICONOMY;
 			System.out.println("[nSpleef] Hooked into iConomy " + iconomy.getDescription().getVersion());
 		}else if (boseconomy != null){
