@@ -68,7 +68,7 @@ public class EconomyHandler {
 	}
 	public static String getCurrencyName(){
 		switch (type){
-		case ICONOMY: return iConomy.format(0).replace("0 ", "");
+		case ICONOMY: return iConomy.format(0).replace("0.00 ", "");
 		case BOSECONOMY: return ((BOSEconomy)economyPlugin).getMoneyNamePlural();
 		case MINECONOMY: return "coins";
 		default: return null;
