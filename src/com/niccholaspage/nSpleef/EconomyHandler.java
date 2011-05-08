@@ -3,7 +3,8 @@ package com.niccholaspage.nSpleef;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-import com.nijiko.coelho.iConomy.iConomy;
+
+import com.iConomy.iConomy;
 import com.spikensbror.bukkit.mineconomy.MineConomy;
 
 import cosine.boseconomy.BOSEconomy;
@@ -41,21 +42,21 @@ public class EconomyHandler {
 	}
 	public static void addMoney(Player player, Integer amount){
 		switch (type){
-			case ICONOMY: iConomy.getBank().getAccount(player.getName()).add(amount); break;
+			case ICONOMY: iConomy.getAccount(player.getName()).getHoldings().add(amount); break;
 			case BOSECONOMY: bosecon.addPlayerMoney(player.getName(), amount, false); break;
 			case MINECONOMY: mineCon.getBank().add(player.getName(), amount); break;
 		}
 		}
 	public static void removeMoney(Player player, Integer amount){
 		switch (type){
-		case ICONOMY: iConomy.getBank().getAccount(player.getName()).subtract(amount); break;
+		case ICONOMY: iConomy.getAccount(player.getName()).getHoldings().subtract(amount); break;
 		case BOSECONOMY: bosecon.setPlayerMoney(player.getName(), bosecon.getPlayerMoney(player.getName()) - amount, false); break;
 		case MINECONOMY: mineCon.getBank().subtract(player.getName(), amount);
 		}
 	}
 	public static Integer getMoney(Player player){
 		switch (type){
-		case ICONOMY: return (int)iConomy.getBank().getAccount(player.getName()).getBalance();
+		case ICONOMY: return (int)iConomy.getAccount(player.getName()).getHoldings().balance();
 		case BOSECONOMY: return bosecon.getPlayerMoney(player.getName());
 		case MINECONOMY: return (int)mineCon.getBank().getTotal(player.getName());
 		default: return null;
@@ -63,7 +64,7 @@ public class EconomyHandler {
 	}
 	public static String getCurrencyName(){
 		switch (type){
-		case ICONOMY: return iConomy.getBank().getCurrency() + "s";
+		case ICONOMY: return iConomy.format(0).replace("0 ", "");
 		case BOSECONOMY: return bosecon.getMoneyNamePlural();
 		case MINECONOMY: return "coins";
 		default: return null;
