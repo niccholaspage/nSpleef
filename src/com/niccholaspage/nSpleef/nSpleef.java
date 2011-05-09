@@ -153,6 +153,7 @@ public class nSpleef extends JavaPlugin{
     
     private void registerCommands(){
     	CommandHandler commandHandler = new CommandHandler(this);
+    	getCommand("ready").setExecutor(commandHandler);
     	getCommand("spleef").setExecutor(commandHandler);
     	commandHandler.registerExecutor("define", new DefineCommand(this), "/spleef define arena", "nSpleef.admin.define");
     	commandHandler.registerExecutor("join", new JoinCommand(this), "/spleef join game", "nSpleef.member.join");
