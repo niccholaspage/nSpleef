@@ -5,7 +5,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.niccholaspage.nSpleef.Filter;
 import com.niccholaspage.nSpleef.nSpleef;
+import com.niccholaspage.nSpleef.nSpleefArena;
 
 public class ForceReadyCommand implements CommandExecutor {
 	public static nSpleef plugin;
@@ -13,17 +15,10 @@ public class ForceReadyCommand implements CommandExecutor {
 		plugin = instance;
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
-		Player player = (Player) sender;
-		for (int i = 0; i < plugin.nSpleefArenas.size(); i++){
-			if (plugin.nSpleefArenas.get(i).getPlayers().contains(player)){
-				if (plugin.nSpleefArenas.get(i).getInGame() == 0){
-					for (int j = 0; j < plugin.nSpleefArenas.get(i).getPlayers().size(); j++){
-					 plugin.nSpleefArenas.get(i).getPlayerStatus().set(j, true);
-					 plugin.nSpleefArenas.get(i).checkReady();
-					}
-				}
-			}
-		}
+		nSpleefArena arena = Filter.getArenaByPlayer((Player)sender);
+		if (arena == null) return true;
+		if (arena.getInGame() != 0) return true;
+		arena.go();
 		return true;
 	}
 }

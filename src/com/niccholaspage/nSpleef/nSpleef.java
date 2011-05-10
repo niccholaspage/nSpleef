@@ -213,6 +213,13 @@ public class nSpleef extends JavaPlugin{
         System.out.println( pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!" );
 		
 	}
+	public void ready(Player player){
+		 nSpleefArena arena = Filter.getArenaByPlayerIn(player);
+		 if (arena == null) return;
+		 if (arena.getInGame() > 0) return;
+		 arena.getPlayerStatus().set(arena.getPlayers().indexOf(player), true);
+		 arena.checkReady();
+	}
 	public void leave(Player player, Integer mode){
 		//Mode 0: Disconnect
 		//Mode 1: Leave

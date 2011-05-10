@@ -28,8 +28,7 @@ public class CommandHandler implements CommandExecutor {
 			return true;
 		}
 		if (cmd.getName().equalsIgnoreCase("ready")){
-			Player player = (Player) sender;
-			player.chat("/spleef ready");
+			plugin.ready((Player)sender);
 			return true;
 		}
 		if (args.length < 1) return true;
