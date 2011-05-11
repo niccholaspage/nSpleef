@@ -136,20 +136,4 @@ public class Util {
 			{
 			}
 		}
-		public static void createDefaultConfig(){
-  	      try{
-	    	    BufferedWriter out = new BufferedWriter(new FileWriter("plugins/nSpleef/config.yml"));
-	    	    out.write("nSpleef:\n");
-	    	    out.write("    instantmine: true\n");
-	    	    out.write("    canplaceblocks: false\n");
-	    	    out.write("    persistentgames: false\n");
-	    	    out.write("    givemoneyonleave: false\n");
-	    	    out.write("    givemoneyondisconnect: false\n");
-	    	    out.write("    givemoneyonkick: false\n");
-	    	    out.write("    joinkickertime: 0\n");
-	    	    out.close();
-  	      }catch (Exception e){//Catch exception if any
-  	    	  System.out.println("[nSpleef] Could not write the default config file.");
-  	      }
-		}
 }

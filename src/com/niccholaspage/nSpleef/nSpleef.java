@@ -113,34 +113,64 @@ public class nSpleef extends JavaPlugin{
 			if (split.length > 4) game.setMode(Integer.parseInt(split[4]));
 		}
 	}
-	
-    private void readConfig() {
-		File file = new File("plugins/nSpleef/");
-		if (!(file.exists())){
-			file.mkdir();
-		}
-    	Configuration _config = new Configuration(new File("plugins/nSpleef/config.yml"));
 
-    	_config.load();
-		file = new File("plugins/nSpleef/config.yml");
-    	if (!file.exists()) Util.createDefaultConfig();
+    private boolean createFile(String file){
+		File f = new File(file);
+		if (!f.exists()){
+			if (file.endsWith("/")){
+				f.mkdir();
+			}else {
+				try {
+					f.createNewFile();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			return true;
+		}else {
+			return false;
+		}
+    }
+    
+	private void writeDefaultNode(String node,Object value, Configuration config){
+		if (config.getProperty(node) == null) config.setProperty(node, value);
+	}
+	
+	private void writeOptions(Configuration config){
+		writeDefaultNode("nSpleef", "", config);
+		writeDefaultNode("nSpleef.instantmine", true, config);
+		writeDefaultNode("nSpleef.canplaceblocks", false, config);
+		writeDefaultNode("nSpleef.persistentgames", true, config);
+		writeDefaultNode("nSpleef.givemoneyonleave", false, config);
+		writeDefaultNode("nSpleef.givemoneyondisconnect", false, config);
+		writeDefaultNode("nSpleef.givemoneyonkick", false, config);
+		writeDefaultNode("nSpleef.joinkickertime", false, config);
+	}
+    
+    private void readConfig() {
+		createFile("plugins/nSpleef/");
+		createFile("plugins/nSpleef/config.yml");
+    	Configuration config = new Configuration(new File("plugins/nSpleef/config.yml"));
+    	config.load();
+    	writeOptions(config);
+    	config.save();
     	// Reading from yml file
-    	instantMine = _config.getBoolean("nSpleef.instantmine", true);
-    	canPlaceBlocks = _config.getBoolean("nSpleef.canplaceblocks", false);
-    	persistentGames = _config.getBoolean("nSpleef.persistentgames", false);
-    	giveMoneyOnLeave = _config.getBoolean("nSpleef.givemoneyonleave", false);
-    	giveMoneyOnDisconnect = _config.getBoolean("nSpleef.givemoneyondisconnect", false);
-    	giveMoneyOnKick = _config.getBoolean("nSpleef.givemoneyonkick", false);
-    	joinKickerTime = _config.getInt("nSpleef.joinkickertime", 0);
+    	instantMine = config.getBoolean("nSpleef.instantmine", true);
+    	canPlaceBlocks = config.getBoolean("nSpleef.canplaceblocks", false);
+    	persistentGames = config.getBoolean("nSpleef.persistentgames", false);
+    	giveMoneyOnLeave = config.getBoolean("nSpleef.givemoneyonleave", false);
+    	giveMoneyOnDisconnect = config.getBoolean("nSpleef.givemoneyondisconnect", false);
+    	giveMoneyOnKick = config.getBoolean("nSpleef.givemoneyonkick", false);
+    	joinKickerTime = config.getInt("nSpleef.joinkickertime", 0);
         }
     
     private void registerEvents(){
 		//Create the pluginmanage pm.
 		PluginManager pm = getServer().getPluginManager();
 		//PlayerListener stuff
-	    pm.registerEvent(Event.Type.PLAYER_CHAT, this.playerListener, Event.Priority.Normal, this);
-	    pm.registerEvent(Event.Type.PLAYER_MOVE, this.playerListener, Event.Priority.Normal, this);
-	    pm.registerEvent(Event.Type.PLAYER_QUIT, this.playerListener, Event.Priority.Normal, this);
+	    pm.registerEvent(Event.Type.PLAYER_CHAT, playerListener, Event.Priority.Normal, this);
+	    pm.registerEvent(Event.Type.PLAYER_MOVE, playerListener, Event.Priority.Normal, this);
+	    pm.registerEvent(Event.Type.PLAYER_QUIT, playerListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.PLAYER_INTERACT, playerListener, Event.Priority.Normal, this);
 	    //BlockListener stuff
         pm.registerEvent(Event.Type.BLOCK_PLACE, blockListener, Event.Priority.Normal, this);
