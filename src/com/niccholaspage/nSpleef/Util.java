@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.util.BlockVector;
 import org.bukkit.util.Vector;
@@ -41,6 +42,9 @@ public class Util {
 	  }
 	  public static BlockVector toBlockVector(Vector block){
 		  return new BlockVector(block.getBlockX(), block.getBlockY(), block.getBlockZ());
+	  }
+	  public static Block toBlockFromVector(Vector vector, World world){
+		  return vector.toLocation(world).getBlock();
 	  }
 	  public static BlockVector toVectorxyz(int x, int y, int z)
 	  {
