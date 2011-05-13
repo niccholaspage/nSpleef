@@ -19,17 +19,21 @@ public class nSpleefWorldListener extends WorldListener {
 	
 	public void onChunkUnload(ChunkUnloadEvent event){
 		for (nSpleefArena arena : plugin.nSpleefArenas){
-			Block block1 = Util.toBlockFromVector(arena.getFirstBlock(), arena.getWorld());
-			Block block2 = Util.toBlockFromVector(arena.getSecondBlock(), arena.getWorld());
 			Chunk chunk = event.getChunk();
-			if (block1.getChunk() == chunk || block2.getChunk() == chunk){
-				event.setCancelled(true);
-				return;
-			}
-			for (Location location : arena.getPlayersLocation()){
-				if (location.getBlock().getChunk() == chunk){
+			if (plugin.keepArenaChunksLoaded){
+				Block block1 = Util.toBlockFromVector(arena.getFirstBlock(), arena.getWorld());
+				Block block2 = Util.toBlockFromVector(arena.getSecondBlock(), arena.getWorld());
+				if (block1.getChunk() == chunk || block2.getChunk() == chunk){
 					event.setCancelled(true);
 					return;
+				}
+			}
+			if (plugin.keepPlayerLocationsLoaded){
+				for (Location location : arena.getPlayersLocation()){
+					if (location.getBlock().getChunk() == chunk){
+						event.setCancelled(true);
+						return;
+					}
 				}
 			}
 		}

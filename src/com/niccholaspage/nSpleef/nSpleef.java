@@ -52,6 +52,10 @@ public class nSpleef extends JavaPlugin{
     public boolean canPlaceBlocks;
     //How long until the player gets booted after joining?
     public int joinKickerTime;
+    //Will the arena chunks stay loaded?
+    public boolean keepArenaChunksLoaded;
+    //Will the players' location's chunk stay loaded?
+    public boolean keepPlayerLocationsLoaded;
     //Create arena array
     public List<nSpleefArena> nSpleefArenas = new ArrayList<nSpleefArena>();
     //Create the games array
@@ -134,19 +138,21 @@ public class nSpleef extends JavaPlugin{
 		}
     }
     
-	private void writeDefaultNode(String node,Object value, Configuration config){
+	private void writeNode(String node,Object value, Configuration config){
 		if (config.getProperty(node) == null) config.setProperty(node, value);
 	}
 	
 	private void writeOptions(Configuration config){
-		writeDefaultNode("nSpleef", "", config);
-		writeDefaultNode("nSpleef.instantmine", true, config);
-		writeDefaultNode("nSpleef.canplaceblocks", false, config);
-		writeDefaultNode("nSpleef.persistentgames", true, config);
-		writeDefaultNode("nSpleef.givemoneyonleave", false, config);
-		writeDefaultNode("nSpleef.givemoneyondisconnect", false, config);
-		writeDefaultNode("nSpleef.givemoneyonkick", false, config);
-		writeDefaultNode("nSpleef.joinkickertime", false, config);
+		writeNode("nSpleef", "", config);
+		writeNode("nSpleef.instantmine", true, config);
+		writeNode("nSpleef.canplaceblocks", false, config);
+		writeNode("nSpleef.persistentgames", true, config);
+		writeNode("nSpleef.givemoneyonleave", false, config);
+		writeNode("nSpleef.givemoneyondisconnect", false, config);
+		writeNode("nSpleef.givemoneyonkick", false, config);
+		writeNode("nSpleef.joinkickertime", false, config);
+		writeNode("nSpleef.keeparenachunksloaded", true, config);
+		writeNode("nSpleef.keepplayerlocationsloaded", true, config);
 	}
     
     private void readConfig() {
@@ -164,6 +170,8 @@ public class nSpleef extends JavaPlugin{
     	giveMoneyOnDisconnect = config.getBoolean("nSpleef.givemoneyondisconnect", false);
     	giveMoneyOnKick = config.getBoolean("nSpleef.givemoneyonkick", false);
     	joinKickerTime = config.getInt("nSpleef.joinkickertime", 0);
+    	keepArenaChunksLoaded = config.getBoolean("nSpleef.keeparenachunksloaded", true);
+    	keepArenaChunksLoaded = config.getBoolean("nSpleef.keepplayerlocationsloaded", true);
         }
     
     private void registerEvents(){
