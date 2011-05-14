@@ -48,6 +48,7 @@ public class nSpleefPlayerListener extends PlayerListener{
 			  }
 			  arena.checkLeave();
 			  player.setFireTicks(0);
+			  player.setFallDistance(0F);
 			  player.setHealth(20);
 		  }
 	  }
