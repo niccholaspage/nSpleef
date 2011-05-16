@@ -18,13 +18,14 @@ public class HelpCommand implements CommandExecutor {
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		Player player = (Player)sender;
-		String[] executors = (String[])plugin.commandHandler.getExecutors().keySet().toArray();
+		Object[] executors = plugin.commandHandler.getExecutors().keySet().toArray();
 		HashMap<String, String> help = plugin.commandHandler.getHelp();
-		HashMap<String, String> permissions = new HashMap<String, String>();
+		HashMap<String, String> permissions = plugin.commandHandler.getPermissions();
 		for (int i = 0; i < executors.length; i++){
-			if (PermissionHandler.has(player, permissions.get(executors[i]))){
-				player.sendMessage(ChatColor.DARK_PURPLE + help.get(executors[i]));
+			if (permissions.get(executors[i]) != "") if (!PermissionHandler.has(player, permissions.get(executors[i]))){
+				continue;
 			}
+			player.sendMessage(ChatColor.DARK_PURPLE + help.get(executors[i]));
 		}
 		return true;
 	}
