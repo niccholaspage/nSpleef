@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 
 public class nSpleefPlayer {
 	private final Player player;
-	private int state = -1;
+	private int state = 0;
 	private boolean ready = false;
 	private Location location;
 	public nSpleefPlayer(Player player){
@@ -34,8 +34,5 @@ public class nSpleefPlayer {
 	}
 	public Location getLocation(){
 		return location;
-	}
-	public void sendMessage(String message){
-		getPlayer().sendMessage(message);
 	}
 }
