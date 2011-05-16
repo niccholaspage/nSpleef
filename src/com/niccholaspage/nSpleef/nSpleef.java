@@ -38,6 +38,8 @@ public class nSpleef extends JavaPlugin{
     private final nSpleefEntityListener entityListener = new nSpleefEntityListener(this);
     //World Listener
     private final nSpleefWorldListener worldListener = new nSpleefWorldListener(this);
+    //Command Handler is now public for the help command
+    public final CommandHandler commandHandler = new CommandHandler(this);
     //Is instant mining enabled?
     public boolean instantMine;
     //Persistent games
@@ -194,7 +196,6 @@ public class nSpleef extends JavaPlugin{
     }
     
     private void registerCommands(){
-    	CommandHandler commandHandler = new CommandHandler(this);
     	getCommand("ready").setExecutor(commandHandler);
     	getCommand("spleef").setExecutor(commandHandler);
     	commandHandler.registerExecutor("define", new DefineCommand(this), "/spleef define arena", "nSpleef.admin.define");
@@ -206,6 +207,8 @@ public class nSpleef extends JavaPlugin{
     	commandHandler.registerExecutor("deletearena", new DeleteArenaCommand(this), "/spleef deletearena arena", "nSpleef.admin.deletearena");
     	commandHandler.registerExecutor("ready", new ReadyCommand(this), "/spleef ready", "");
     	commandHandler.registerExecutor("forceready", new ForceReadyCommand(this), "/spleef forceready", "nSpleef.admin.forceready");
+    	commandHandler.registerExecutor("help", new HelpCommand(this), "/spleef help", "nSpleef.member.help");
+    	commandHandler.registerExecutor("?", new HelpCommand(this), "/spleef ?", "nSpleef.member.help");
     }
     
     public boolean isInt(String i){
