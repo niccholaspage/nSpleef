@@ -36,8 +36,6 @@ public class nSpleef extends JavaPlugin{
     private final nSpleefBlockListener blockListener = new nSpleefBlockListener(this);
     //Entity Listener
     private final nSpleefEntityListener entityListener = new nSpleefEntityListener(this);
-    //World Listener
-    private final nSpleefWorldListener worldListener = new nSpleefWorldListener(this);
     //Command Handler is now public for the help command
     public final CommandHandler commandHandler = new CommandHandler(this);
     //Is instant mining enabled?
@@ -54,10 +52,6 @@ public class nSpleef extends JavaPlugin{
     public boolean canPlaceBlocks;
     //How long until the player gets booted after joining?
     public int joinKickerTime;
-    //Will the arena chunks stay loaded?
-    public boolean keepArenaChunksLoaded;
-    //Will the players' location's chunk stay loaded?
-    public boolean keepPlayerLocationsLoaded;
     //Create arena array
     public List<nSpleefArena> nSpleefArenas = new ArrayList<nSpleefArena>();
     //Create the games array
@@ -153,8 +147,6 @@ public class nSpleef extends JavaPlugin{
 		writeNode("nSpleef.givemoneyondisconnect", false, config);
 		writeNode("nSpleef.givemoneyonkick", false, config);
 		writeNode("nSpleef.joinkickertime", false, config);
-		writeNode("nSpleef.keeparenachunksloaded", true, config);
-		writeNode("nSpleef.keepplayerlocationsloaded", true, config);
 	}
     
     private void readConfig() {
@@ -172,8 +164,6 @@ public class nSpleef extends JavaPlugin{
     	giveMoneyOnDisconnect = config.getBoolean("nSpleef.givemoneyondisconnect", false);
     	giveMoneyOnKick = config.getBoolean("nSpleef.givemoneyonkick", false);
     	joinKickerTime = config.getInt("nSpleef.joinkickertime", 0);
-    	keepArenaChunksLoaded = config.getBoolean("nSpleef.keeparenachunksloaded", true);
-    	keepArenaChunksLoaded = config.getBoolean("nSpleef.keepplayerlocationsloaded", true);
         }
     
     private void registerEvents(){
@@ -191,8 +181,6 @@ public class nSpleef extends JavaPlugin{
         //EntityListener stuff
         pm.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Event.Priority.Normal, this);
-        //WorldListener stuff
-        pm.registerEvent(Event.Type.CHUNK_UNLOAD, worldListener, Event.Priority.Normal, this);
     }
     
     private void registerCommands(){
