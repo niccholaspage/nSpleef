@@ -1,5 +1,6 @@
 package com.niccholaspage.nSpleef.commands;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 import org.bukkit.ChatColor;
@@ -19,6 +20,7 @@ public class HelpCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		Player player = (Player)sender;
 		Object[] executors = plugin.commandHandler.getExecutors().keySet().toArray();
+		Arrays.sort(executors);
 		HashMap<String, String> help = plugin.commandHandler.getHelp();
 		HashMap<String, String> permissions = plugin.commandHandler.getPermissions();
 		for (int i = 0; i < executors.length; i++){
