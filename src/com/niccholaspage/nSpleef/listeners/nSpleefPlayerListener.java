@@ -20,7 +20,7 @@ import com.niccholaspage.nSpleef.nSpleef;
 import com.niccholaspage.nSpleef.nSpleefArena;
 //Starts the class nSpleefPlayer listener
 public class nSpleefPlayerListener extends PlayerListener{
-	 public static nSpleef plugin;
+	 public nSpleef plugin;
 	  public nSpleefPlayerListener(nSpleef instance) {
 	        plugin = instance;
 	    }

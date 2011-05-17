@@ -10,7 +10,7 @@ import com.niccholaspage.nSpleef.Util;
 import com.niccholaspage.nSpleef.nSpleef;
 
 public class nSpleefEntityListener extends EntityListener {
-	public static nSpleef plugin;
+	public nSpleef plugin;
 	 public nSpleefEntityListener(nSpleef instance) {
     	 plugin = instance;
     }

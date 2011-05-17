@@ -16,7 +16,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.BlockListener;
 import org.bukkit.util.BlockVector;
 public class nSpleefBlockListener extends BlockListener{
-	 public static nSpleef plugin;
+	 public nSpleef plugin;
 	 public static BlockVector b1loc;
 	 public static BlockVector b2loc;
 	 public static World world;
