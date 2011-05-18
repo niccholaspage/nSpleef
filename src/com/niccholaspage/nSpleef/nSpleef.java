@@ -207,15 +207,6 @@ public class nSpleef extends JavaPlugin{
     		return false;
     	}
     }
-    
-    public boolean isBoolean(String b){
-    	try {
-    		Boolean.parseBoolean(b);
-    		return true;
-    	}catch(NumberFormatException nfe) {
-    		return false;
-    	}
-    }
 
 	public void onEnable() {
 		registerEvents();
