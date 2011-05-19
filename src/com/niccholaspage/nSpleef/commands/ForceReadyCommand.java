@@ -18,6 +18,7 @@ public class ForceReadyCommand implements CommandExecutor {
 		nSpleefArena arena = Filter.getArenaByPlayer((Player)sender);
 		if (arena == null) return true;
 		if (arena.getInGame() != 0) return true;
+		if (arena.getPlayersIn().size() < 2) return true;
 		arena.go();
 		return true;
 	}

@@ -45,8 +45,9 @@ public class nSpleefBlockListener extends BlockListener{
 			 player.sendMessage(ChatColor.DARK_PURPLE + "You cannot mine outside the spleef zone!");
 			 event.setCancelled(true);
 		 }else {
- 			player.sendMessage(ChatColor.DARK_PURPLE + "You cannot mine blocks if the game hasn't started yet!");
-			event.setCancelled(true);
+			 //if (arena.getInGame() < 2) return;
+			 player.sendMessage(ChatColor.DARK_PURPLE + "You cannot mine blocks if the game hasn't started yet!");
+			 event.setCancelled(true);
 		 }
 	 }
 	 @Override
@@ -60,7 +61,7 @@ public class nSpleefBlockListener extends BlockListener{
 			 player.sendMessage(ChatColor.DARK_PURPLE + "First point set.");
 			 return;
 		 }
-		 if (plugin.instantMine == false) return;
+		 if (!plugin.instantMine) return;
 		 nSpleefArena arena = Filter.getArenaByPlayerIn(player);
 		 if (arena == null) return;
 		 if (arena.getInGame() < 2) return;
