@@ -43,6 +43,7 @@ public class CommandHandler implements CommandExecutor {
 		}
 		if (args.length < 1){
 			player.sendMessage(ChatColor.DARK_PURPLE + "nSpleef " + plugin.getDescription().getVersion());
+			player.sendMessage(ChatColor.DARK_PURPLE + "by niccholaspage");
 			player.sendMessage(ChatColor.DARK_PURPLE + "Type /spleef help or /spleef ? for help.");
 			return true;
 		}
