@@ -5,13 +5,13 @@ import java.util.List;
 
 public class Data {
 	public static nSpleef plugin;
-	  public static void init (nSpleef instance){
-		  plugin = instance;
-	  }
+	public static void init (nSpleef instance){
+		plugin = instance;
+	}
 	  public static void setupArenas(){
 		    List<String> data = new ArrayList<String>();
-		    plugin.nSpleefArenas = new ArrayList<nSpleefArena>();
-		    if (Util.exists("arenas.txt") == false) return;
+		    plugin.nSpleefArenas.clear();
+		    if (!Util.exists("arenas.txt")) return;
 		    Util.openfileread("arenas.txt");
 		    data = Util.filetoarray();
 		    Util.closefileread();

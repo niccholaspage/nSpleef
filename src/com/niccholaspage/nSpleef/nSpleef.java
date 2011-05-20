@@ -53,7 +53,7 @@ public class nSpleef extends JavaPlugin{
     //How long until the player gets booted after joining?
     public int joinKickerTime;
     //Create arena array
-    public List<nSpleefArena> nSpleefArenas = new ArrayList<nSpleefArena>();
+    public final List<nSpleefArena> nSpleefArenas = new ArrayList<nSpleefArena>();
     //Create the games array
     public final List<nSpleefGame> nSpleefGames = new ArrayList<nSpleefGame>();
     
