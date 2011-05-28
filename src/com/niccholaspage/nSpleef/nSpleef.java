@@ -195,7 +195,7 @@ public class nSpleef extends JavaPlugin{
     	commandHandler.registerExecutor("forceready", new ForceReadyCommand(this), "/spleef forceready", "nSpleef.admin.forceready");
     	commandHandler.registerExecutor("help", new HelpCommand(this), "/spleef help", "");
     	commandHandler.registerExecutor("?", new HelpCommand(this), "/spleef ?", "");
-    	commandHandler.registerExecutor("forceleave", new ForceLeaveCommand(this), "/spleef forceleave", "nSpleef.admin.forceleave");
+    	commandHandler.registerExecutor("forceleave", new ForceLeaveCommand(this), "/spleef forceleave player", "nSpleef.admin.forceleave");
     }
     
     public boolean isInt(String i){
