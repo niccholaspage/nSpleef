@@ -166,7 +166,7 @@ public class nSpleefArena {
 	public void checkLeave(){
 		if (players.size() == 1){
 			ingame = 0;
-			messagePlayersIn(ChatColor.DARK_PURPLE + "[nSpleef] " + players.get(0).getDisplayName() + " has won the game!");
+			messagePlayersIn(ChatColor.DARK_PURPLE + "[nSpleef] " + players.get(0).getDisplayName() + ChatColor.DARK_PURPLE + " has won the game!");
 			if (getGame().getMoney() > 0){
 				Integer amount = getGame().getMoney() * playersin.size();
 				EconomyHandler.addMoney(players.get(0), amount);
