@@ -13,8 +13,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -244,39 +242,5 @@ public class nSpleef extends JavaPlugin{
 		 if (arena.getInGame() > 0) return;
 		 arena.getPlayerStatus().set(arena.getPlayers().indexOf(player), true);
 		 arena.checkReady();
-	}
-	public void leave(Player player, Integer mode){
-		//Mode 0: Disconnect
-		//Mode 1: Leave
-		//Mode 2: Deleted arena or game
-		//Mode 3: Kicked
-	    if (nSpleefArenas.size() == 0) return;
-		 for (int i = 0; i <= nSpleefArenas.size() - 1; i++){
-			 for (int j = 0; j <= nSpleefArenas.get(i).getPlayersIn().size() - 1; j++){
-				 if (player.equals(nSpleefArenas.get(i).getPlayersIn().get(j))){
-					 	nSpleefArenas.get(i).getPlayerStatus().remove(j);
-					 	nSpleefArenas.get(i).getPlayersIn().remove(j);
-					 	nSpleefArenas.get(i).getPlayers().remove(player);
-					 	player.teleport(nSpleefArenas.get(i).getPlayersLocation().get(j));
-					 	nSpleefArenas.get(i).getPlayersLocation().remove(j);
-						if (nSpleefArenas.get(i).getGame().getMoney() > 0){
-							int money = nSpleefArenas.get(i).getGame().getMoney();
-							if (mode == 2) EconomyHandler.addMoney(player, money);
-							if ((mode == 1) && (giveMoneyOnLeave)) EconomyHandler.addMoney(player, money);
-							if ((mode == 0) && (giveMoneyOnDisconnect)) EconomyHandler.addMoney(player, money);
-							if ((mode == 3) && (giveMoneyOnKick)) EconomyHandler.addMoney(player, money);
-						}
-						switch (mode){
-							case 3:
-								player.sendMessage(ChatColor.DARK_PURPLE + "You were kicked from the spleef game!"); break;
-							case 2:
-								player.sendMessage(ChatColor.DARK_PURPLE + "The game/arena you were playing on has been deleted!"); break;
-							default:
-								player.sendMessage(ChatColor.DARK_PURPLE + "You've left the spleef game."); break;
-						}
-						nSpleefArenas.get(i).leave(player);
-				 }
-			 }
-		 }
 	}
 }

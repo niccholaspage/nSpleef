@@ -14,6 +14,7 @@ import com.niccholaspage.nSpleef.Filter;
 import com.niccholaspage.nSpleef.Util;
 import com.niccholaspage.nSpleef.nSpleef;
 import com.niccholaspage.nSpleef.nSpleefArena;
+import com.niccholaspage.nSpleef.jobs.LeaveJob;
 
 public class DeleteArenaCommand implements CommandExecutor {
 	public static nSpleef plugin;
@@ -37,7 +38,7 @@ public class DeleteArenaCommand implements CommandExecutor {
 	    	return true;
 	    }
 	    for (int i = 0; i < arena.getPlayersIn().size(); i++){
-	    	plugin.leave(arena.getPlayersIn().get(i), 2);
+	    	new LeaveJob(plugin, arena.getPlayersIn().get(i), 2);
 	    }
 	    if (!(arena.getGame() == null)) plugin.nSpleefGames.remove(arena.getGame());
 	    data.remove(Filter.getArenaIndex(arena).intValue());

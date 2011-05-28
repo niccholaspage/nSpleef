@@ -11,6 +11,7 @@ import com.niccholaspage.nSpleef.PermissionHandler;
 import com.niccholaspage.nSpleef.nSpleef;
 import com.niccholaspage.nSpleef.nSpleefArena;
 import com.niccholaspage.nSpleef.nSpleefGame;
+import com.niccholaspage.nSpleef.jobs.LeaveJob;
 
 public class DeleteGameCommand implements CommandExecutor {
 	public static nSpleef plugin;
@@ -33,7 +34,7 @@ public class DeleteGameCommand implements CommandExecutor {
 		 if ((name.equalsIgnoreCase(game.getOwner())) || (PermissionHandler.has(player, "nSpleef.admin.deleteanygame"))){
 			 nSpleefArena arena = Filter.getArenaByGame(game);
 				 for (int j = 0; j < arena.getPlayersIn().size(); j++){
-					 plugin.leave(arena.getPlayersIn().get(j), 2);
+					 new LeaveJob(plugin, arena.getPlayersIn().get(j), 2);
 				 }
 				 if (!(arena.getGame() == null)) plugin.nSpleefGames.remove(arena.getGame());
 				 arena.resetVars();

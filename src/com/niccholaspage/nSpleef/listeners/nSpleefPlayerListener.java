@@ -18,6 +18,7 @@ import com.niccholaspage.nSpleef.PermissionHandler;
 import com.niccholaspage.nSpleef.Util;
 import com.niccholaspage.nSpleef.nSpleef;
 import com.niccholaspage.nSpleef.nSpleefArena;
+import com.niccholaspage.nSpleef.jobs.LeaveJob;
 //Starts the class nSpleefPlayer listener
 public class nSpleefPlayerListener extends PlayerListener{
 	 public nSpleef plugin;
@@ -26,7 +27,7 @@ public class nSpleefPlayerListener extends PlayerListener{
 	    }
 	  @Override
 	  public void onPlayerQuit(PlayerQuitEvent event){
-		  plugin.leave(event.getPlayer(), 0);
+		  new LeaveJob(plugin, event.getPlayer(), 0);
 	  }
 	  @Override
 	  public void onPlayerMove(PlayerMoveEvent event){

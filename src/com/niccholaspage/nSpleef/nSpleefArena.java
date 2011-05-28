@@ -10,6 +10,8 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.util.BlockVector;
 
+import com.niccholaspage.nSpleef.jobs.LeaveJob;
+
 public class nSpleefArena {
 	private final nSpleef plugin;
 	private final String name;
@@ -145,7 +147,7 @@ public class nSpleefArena {
 				Util.waitMS(plugin.joinKickerTime * 1000);
 				if (Filter.getArenaByPlayer(player) == null) return;
 				if (getPlayerStatus().get(getPlayers().indexOf(player)) == false){
-					plugin.leave(player, 3);
+					new LeaveJob(plugin, player, 3).run();
 				}
 			}
 		});
