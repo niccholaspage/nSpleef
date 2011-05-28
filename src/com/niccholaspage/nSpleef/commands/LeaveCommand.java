@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import com.niccholaspage.nSpleef.nSpleef;
 
 public class LeaveCommand implements CommandExecutor {
-	public static nSpleef plugin;
+	public nSpleef plugin;
 	public LeaveCommand(nSpleef instance) {
 		plugin = instance;
 	}

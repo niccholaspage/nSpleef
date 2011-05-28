@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 
 import com.niccholaspage.nSpleef.EconomyHandler;
 import com.niccholaspage.nSpleef.Filter;
-import com.niccholaspage.nSpleef.Util;
 import com.niccholaspage.nSpleef.nSpleef;
 import com.niccholaspage.nSpleef.nSpleefArena;
 import com.niccholaspage.nSpleef.nSpleefGame;
@@ -21,21 +20,10 @@ public class JoinCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		Player player = (Player) sender;
 	    if (args.length < 2) return false;
-	    if (plugin.nSpleefArenas.size() == 0) return true;
-		 for (int i = 0; i <= plugin.nSpleefArenas.size() - 1; i++){
-			 if (plugin.nSpleefArenas.get(i).getPlayersIn().contains(player)){
-				 player.sendMessage(ChatColor.DARK_PURPLE + "You are already in a game!");
-				 return true;
-			 }
-		 }
-		 if (Util.exists("arenas.txt") == false) {
-			 player.sendMessage(ChatColor.DARK_PURPLE + "No arenas!");
-			 return true;
-		 }
-		 if (plugin.nSpleefGames.size() == 0){
-			 player.sendMessage(ChatColor.DARK_PURPLE + "No games!");
-			 return true;
-		 }
+		if (Filter.getArenaByPlayer(player) != null){
+			player.sendMessage(ChatColor.DARK_PURPLE + "You are already in a game!");
+			return true;
+		}
 		String name = args[1];
 		nSpleefGame game = Filter.getGameByName(name);
 		if (game == null){
