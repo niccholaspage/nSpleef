@@ -38,7 +38,7 @@ public class DeleteArenaCommand implements CommandExecutor {
 	    	return true;
 	    }
 	    for (int i = 0; i < arena.getPlayersIn().size(); i++){
-	    	new LeaveJob(plugin, arena.getPlayersIn().get(i), 2);
+	    	new LeaveJob(plugin, arena.getPlayersIn().get(i), 2).run();
 	    }
 	    if (!(arena.getGame() == null)) plugin.nSpleefGames.remove(arena.getGame());
 	    data.remove(Filter.getArenaIndex(arena).intValue());
