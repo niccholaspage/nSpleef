@@ -33,11 +33,11 @@ public class DeleteGameCommand implements CommandExecutor {
 		 }
 		 if ((name.equalsIgnoreCase(game.getOwner())) || (PermissionHandler.has(player, "nSpleef.admin.deleteanygame"))){
 			 nSpleefArena arena = Filter.getArenaByGame(game);
-				 for (int j = 0; j < arena.getPlayersIn().size(); j++){
-					 new LeaveJob(plugin, arena.getPlayersIn().get(j), 2).run();
-				 }
-				 if (!(arena.getGame() == null)) plugin.nSpleefGames.remove(arena.getGame());
-				 arena.resetVars();
+			 for (Player playerIn : arena.getPlayersIn()){
+				 new LeaveJob(plugin, playerIn, 2).run();
+			 }
+			 if (!(arena.getGame() == null)) plugin.nSpleefGames.remove(arena.getGame());
+			 arena.resetVars();
 			 player.sendMessage(ChatColor.DARK_PURPLE + "Deleted game.");
 		 }else {
 			 player.sendMessage(ChatColor.DARK_PURPLE + "You did not create that game!");

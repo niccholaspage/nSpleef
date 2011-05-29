@@ -45,7 +45,7 @@ public class LeaveJob implements Runnable {
 			player.sendMessage(ChatColor.DARK_PURPLE + "The game/arena you were playing on has been deleted!"); break;
 		default:
 			player.sendMessage(ChatColor.DARK_PURPLE + "You've left the spleef game."); break;
-	}
+		}
 	arena.leave(player);
 	}
 }
