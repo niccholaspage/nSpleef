@@ -28,7 +28,7 @@ public class ListCommand implements CommandExecutor {
 				 String send = ChatColor.DARK_PURPLE + plugin.nSpleefGames.get(i).getName() + " in arena " + plugin.nSpleefGames.get(i).getArena();
 				 if (plugin.nSpleefGames.get(i).getMoney() > 0){
 					 if (!(plugin.method == null))
-						 send += ";Cost:" + plugin.method.format(plugin.nSpleefGames.get(i).getMoney());
+						 send += ";Cost: " + plugin.method.format(plugin.nSpleefGames.get(i).getMoney());
 				 }
 				 player.sendMessage(send);
 			 }

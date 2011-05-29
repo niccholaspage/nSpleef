@@ -114,7 +114,7 @@ public class nSpleef extends JavaPlugin{
 			split = data.get(i).split(",");
 			nSpleefGame game = new nSpleefGame(split[0], split[1], split[2]);
 			nSpleefGames.add(game);
-			if (split.length > 3) game.setMoney(Integer.parseInt(split[3]));
+			if (split.length > 3) game.setMoney(Double.parseDouble(split[3]));
 			if (split.length > 4) game.setMode(Integer.parseInt(split[4]));
 		}
 	}
@@ -206,9 +206,9 @@ public class nSpleef extends JavaPlugin{
     	commandHandler.registerExecutor("forceleave", new ForceLeaveCommand(this), "/spleef forceleave player", "nSpleef.admin.forceleave");
     }
     
-    public boolean isInt(String i){
+    public boolean isDouble(String d){
     	try {
-    		Integer.parseInt(i);
+    		Double.parseDouble(d);
     		return true;
     	} catch(NumberFormatException nfe){
     		return false;
