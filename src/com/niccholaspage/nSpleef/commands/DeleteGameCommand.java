@@ -35,6 +35,7 @@ public class DeleteGameCommand implements CommandExecutor {
 			 nSpleefArena arena = Filter.getArenaByGame(game);
 			 for (Player playerIn : arena.getPlayersIn()){
 				 new LeaveJob(plugin, playerIn, 2).run();
+				 plugin.getServer().broadcastMessage("ddd");
 			 }
 			 if (!(arena.getGame() == null)) plugin.nSpleefGames.remove(arena.getGame());
 			 arena.resetVars();

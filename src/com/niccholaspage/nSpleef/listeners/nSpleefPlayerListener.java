@@ -27,7 +27,7 @@ public class nSpleefPlayerListener extends PlayerListener{
 	    }
 	  @Override
 	  public void onPlayerQuit(PlayerQuitEvent event){
-		  new LeaveJob(plugin, event.getPlayer(), 0);
+		  new LeaveJob(plugin, event.getPlayer(), 0).run();
 	  }
 	  @Override
 	  public void onPlayerMove(PlayerMoveEvent event){
