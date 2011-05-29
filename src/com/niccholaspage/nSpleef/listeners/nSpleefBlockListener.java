@@ -45,7 +45,7 @@ public class nSpleefBlockListener extends BlockListener{
 			 player.sendMessage(ChatColor.DARK_PURPLE + "You cannot mine outside the spleef zone!");
 			 event.setCancelled(true);
 		 }else {
-			 if (arena.getInGame() < 2) return;
+			 if (arena.getInGame() > 1) return;
 			 player.sendMessage(ChatColor.DARK_PURPLE + "You cannot mine blocks if the game hasn't started yet!");
 			 event.setCancelled(true);
 		 }
