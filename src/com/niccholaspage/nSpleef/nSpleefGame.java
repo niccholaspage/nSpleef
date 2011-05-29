@@ -4,7 +4,7 @@ public class nSpleefGame {
 	private final String name;
 	private final String arena;
 	private final String owner;
-	private int money = 0;
+	private double money = 0;
 	private int mode = 0;
 	public nSpleefGame(String name, String arena, String owner){
 		this.name = name;
@@ -20,10 +20,10 @@ public class nSpleefGame {
 	public String getOwner(){
 		return owner;
 	}
-	public int getMoney(){
+	public double getMoney(){
 		return money;
 	}
-	public void setMoney(int money){
+	public void setMoney(double money){
 		this.money = money;
 	}
 	public int getMode(){

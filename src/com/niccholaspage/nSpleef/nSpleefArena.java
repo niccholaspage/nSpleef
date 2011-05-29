@@ -25,7 +25,6 @@ public class nSpleefArena {
 	private BlockVector tpblock = new BlockVector(0,0,0);
 	private Volume vol = null;
 	private Integer ingame = 0;
-	private Integer mygame = null;
 	  public nSpleefArena(String name, World world, nSpleef plugin){
 		  this.name = name;
 		  this.world = world;
@@ -33,12 +32,6 @@ public class nSpleefArena {
 	  }
 	  public String getName(){
 		  return this.name;
-	  }
-	  public Integer getMyGame(){
-		  return this.mygame;
-	  }
-	  public void setMyGame(Integer game){
-		  this.mygame = game;
 	  }
 	  public World getWorld(){
 		  return this.world;
@@ -169,10 +162,10 @@ public class nSpleefArena {
 		if (players.size() == 1){
 			ingame = 0;
 			messagePlayersIn(ChatColor.DARK_PURPLE + "[nSpleef] " + players.get(0).getDisplayName() + ChatColor.DARK_PURPLE + " has won the game!");
-			if (getGame().getMoney() > 0){
-				Integer amount = getGame().getMoney() * playersin.size();
-				EconomyHandler.addMoney(players.get(0), amount);
-				players.get(0).sendMessage(ChatColor.DARK_PURPLE + "You just won " + amount + " " + EconomyHandler.getCurrencyName() + ".");
+			if (getGame().getMoney() > 0 && plugin.method != null){
+				double amount = getGame().getMoney() * playersin.size();
+				plugin.method.getAccount(players.get(0).getName()).add(amount);
+				players.get(0).sendMessage(ChatColor.DARK_PURPLE + "You just won " + plugin.method.format(amount) + ".");
 			}
 			players.remove(0);
 			checkLeave();

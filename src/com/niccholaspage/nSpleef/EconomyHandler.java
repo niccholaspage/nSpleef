@@ -1,12 +1,9 @@
-package com.niccholaspage.nSpleef;
+/*package com.niccholaspage.nSpleef;
 
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-
 import com.iConomy.iConomy;
-import com.spikensbror.bukkit.mineconomy.MineConomy;
-
 import cosine.boseconomy.BOSEconomy;
 
 public class EconomyHandler {
@@ -74,4 +71,4 @@ public class EconomyHandler {
 		default: return null;
 		}
 	}
-}
+}*/

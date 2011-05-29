@@ -2,8 +2,6 @@ package com.niccholaspage.nSpleef.jobs;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-
-import com.niccholaspage.nSpleef.EconomyHandler;
 import com.niccholaspage.nSpleef.Filter;
 import com.niccholaspage.nSpleef.nSpleef;
 import com.niccholaspage.nSpleef.nSpleefArena;
@@ -31,12 +29,13 @@ public class LeaveJob implements Runnable {
 	 	arena.getPlayers().remove(player);
 	 	player.teleport(arena.getPlayersLocation().get(index));
 	 	arena.getPlayersLocation().remove(index);
-		if (arena.getGame().getMoney() > 0){
-			int money = arena.getGame().getMoney();
-			if (mode == 2) EconomyHandler.addMoney(player, money);
-			if ((mode == 1) && (plugin.giveMoneyOnLeave)) EconomyHandler.addMoney(player, money);
-			if ((mode == 0) && (plugin.giveMoneyOnDisconnect)) EconomyHandler.addMoney(player, money);
-			if ((mode == 3) && (plugin.giveMoneyOnKick)) EconomyHandler.addMoney(player, money);
+		if (arena.getGame().getMoney() > 0 && (plugin.method != null)){
+			String name = player.getName();
+			double money = arena.getGame().getMoney();
+			if (mode == 2) plugin.method.getAccount(name).add(money);
+			if ((mode == 1) && (plugin.giveMoneyOnLeave)) plugin.method.getAccount(name).add(money);
+			if ((mode == 0) && (plugin.giveMoneyOnDisconnect)) plugin.method.getAccount(name).add(money);
+			if ((mode == 3) && (plugin.giveMoneyOnKick)) plugin.method.getAccount(name).add(money);
 		}
 		switch (mode){
 		case 3:

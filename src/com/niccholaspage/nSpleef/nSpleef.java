@@ -19,6 +19,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.util.config.Configuration;
+import com.nijikokun.register.payment.Method;
 
 /**
  * nSpleef for Bukkit
@@ -34,6 +35,8 @@ public class nSpleef extends JavaPlugin{
     private final nSpleefBlockListener blockListener = new nSpleefBlockListener(this);
     //Entity Listener
     private final nSpleefEntityListener entityListener = new nSpleefEntityListener(this);
+    //Server Listener
+    private final nSpleefServerListener serverListener = new nSpleefServerListener(this);
     //Command Handler is now public for the help command
     public final CommandHandler commandHandler = new CommandHandler(this);
     //Is instant mining enabled?
@@ -54,6 +57,8 @@ public class nSpleef extends JavaPlugin{
     public final List<nSpleefArena> nSpleefArenas = new ArrayList<nSpleefArena>();
     //Create the games array
     public final List<nSpleefGame> nSpleefGames = new ArrayList<nSpleefGame>();
+    //Economy
+    public Method method = null;
     
 	public void onDisable() {
 		for (int i = 0; i < nSpleefArenas.size(); i++){
@@ -179,6 +184,9 @@ public class nSpleef extends JavaPlugin{
         //EntityListener stuff
         pm.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Event.Priority.Normal, this);
+        //ServerListener stuff
+        pm.registerEvent(Event.Type.PLUGIN_ENABLE, serverListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.PLUGIN_DISABLE, serverListener, Event.Priority.Normal, this);
     }
     
     private void registerCommands(){
@@ -228,8 +236,6 @@ public class nSpleef extends JavaPlugin{
 	    if (persistentGames) readGames();
         //Setup Permissions
         PermissionHandler.init(getServer());
-        //Setup economy
-        EconomyHandler.init(getServer());
 	    //Commands
 	    registerCommands();
         //Print that the plugin has been enabled!
