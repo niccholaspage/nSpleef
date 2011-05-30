@@ -215,6 +215,15 @@ public class nSpleef extends JavaPlugin{
     		return false;
     	}
     }
+    
+    public boolean isInt(String i){
+    	try {
+    		Integer.parseInt(i);
+    		return true;
+    	}catch(NumberFormatException nfe){
+    		return false;
+    	}
+    }
 
 	public void onEnable() {
 		registerEvents();
