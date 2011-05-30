@@ -55,21 +55,13 @@ public class CreateGameCommand implements CommandExecutor {
 		 vol.saveBlocks();
 		 nSpleefGame game = new nSpleefGame(args[1], args[2].toLowerCase(), player.getName());
 		 plugin.nSpleefGames.add(game);
-		 if (plugin.method != null){
-			 if (args.length > 3){
-				 if (plugin.isDouble(args[3])){
-					 game.setMoney(Double.parseDouble(args[3]));
-				 }
-			 }
+		 if (plugin.method != null && args.length > 3 && plugin.isDouble(args[3])){
+			 game.setMoney(Double.parseDouble(args[3]));
 		 }
 		 player.sendMessage(ChatColor.DARK_PURPLE + "Game " + args[1] + " has been created.");
 		 if (args.length > 3){
-			 if (PermissionHandler.has(player, "nSpleef.member.wager")){
-			 if (plugin.isDouble(args[3])){
-				 if (plugin.method != null){
-				 player.sendMessage(ChatColor.DARK_PURPLE + "Everyone who joins game " + args[1] + " must pay " + plugin.method.format(game.getMoney()) + ".");
-				 }
-			 }
+			 if (PermissionHandler.has(player, "nSpleef.member.wager") && game.getMoney() > 0){
+				 player.sendMessage(ChatColor.DARK_PURPLE + "Everyone who joins game " + game.getName() + " must pay " + plugin.method.format(game.getMoney()) + ".");
 			 }
 		 }
 		return true;

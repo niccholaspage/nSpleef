@@ -4,7 +4,7 @@ public class nSpleefGame {
 	private final String name;
 	private final String arena;
 	private final String owner;
-	private double money = 0;
+	private double money = 0.0;
 	private int mode = 0;
 	public nSpleefGame(String name, String arena, String owner){
 		this.name = name;
