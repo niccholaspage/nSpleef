@@ -201,8 +201,8 @@ public class nSpleef extends JavaPlugin{
     	commandHandler.registerExecutor("deletearena", new DeleteArenaCommand(this), "/spleef deletearena arena", "nSpleef.admin.deletearena");
     	commandHandler.registerExecutor("ready", new ReadyCommand(this), "/spleef ready", "");
     	commandHandler.registerExecutor("forceready", new ForceReadyCommand(this), "/spleef forceready", "nSpleef.admin.forceready");
-    	commandHandler.registerExecutor("help", new HelpCommand(this), "/spleef help", "");
-    	commandHandler.registerExecutor("?", new HelpCommand(this), "/spleef ?", "");
+    	commandHandler.registerExecutor("help", new HelpCommand(this), "/spleef help <page>", "");
+    	commandHandler.registerExecutor("?", new HelpCommand(this), "/spleef ? <page>", "");
     	commandHandler.registerExecutor("forceleave", new ForceLeaveCommand(this), "/spleef forceleave player", "nSpleef.admin.forceleave");
     	commandHandler.registerExecutor("forcejoin", new ForceJoinCommand(this), "/spleef forcejoin player game", "nSpleef.admin.forcejoin");
     }
