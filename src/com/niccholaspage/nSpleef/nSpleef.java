@@ -204,6 +204,7 @@ public class nSpleef extends JavaPlugin{
     	commandHandler.registerExecutor("help", new HelpCommand(this), "/spleef help", "");
     	commandHandler.registerExecutor("?", new HelpCommand(this), "/spleef ?", "");
     	commandHandler.registerExecutor("forceleave", new ForceLeaveCommand(this), "/spleef forceleave player", "nSpleef.admin.forceleave");
+    	commandHandler.registerExecutor("forcejoin", new ForceJoinCommand(this), "/spleef forcejoin player game", "nSpleef.admin.forcejoin");
     }
     
     public boolean isDouble(String d){
