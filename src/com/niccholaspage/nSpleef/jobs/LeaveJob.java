@@ -31,7 +31,6 @@ public class LeaveJob implements Runnable {
 	 	player.teleport(arena.getPlayersLocation().get(index));
 	 	arena.getPlayersLocation().remove(index);
 		if (arena.getGame().getMoney() > 0 && plugin.method != null){
-			System.out.println("Passed fuck");
 			String name = player.getName();
 			double money = arena.getGame().getMoney();
 			if (mode == 2) plugin.method.getAccount(name).add(money);
