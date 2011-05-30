@@ -15,8 +15,8 @@ public class ForceLeaveCommand implements CommandExecutor {
 		plugin = instance;
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
-		if (args.length < 1) return false;
-		Player player = plugin.getServer().getPlayer(args[0]);
+		if (args.length < 2) return false;
+		Player player = plugin.getServer().getPlayer(args[1]);
 		if (player == null){
 			sender.sendMessage(ChatColor.DARK_PURPLE + "That player doesn't exist!");
 			return true;
