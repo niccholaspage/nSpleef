@@ -10,14 +10,9 @@ import org.bukkit.util.BlockVector;
 import com.niccholaspage.nSpleef.Data;
 import com.niccholaspage.nSpleef.Filter;
 import com.niccholaspage.nSpleef.Util;
-import com.niccholaspage.nSpleef.nSpleef;
 import com.niccholaspage.nSpleef.listeners.nSpleefBlockListener;
 
 public class DefineCommand implements CommandExecutor {
-	public static nSpleef plugin;
-	public DefineCommand(nSpleef instance) {
-		plugin = instance;
-	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		Player player = (Player) sender;
 		if (args.length < 2) return false;

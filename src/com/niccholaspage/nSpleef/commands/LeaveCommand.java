@@ -9,9 +9,9 @@ import com.niccholaspage.nSpleef.nSpleef;
 import com.niccholaspage.nSpleef.jobs.LeaveJob;
 
 public class LeaveCommand implements CommandExecutor {
-	public nSpleef plugin;
-	public LeaveCommand(nSpleef instance) {
-		plugin = instance;
+	private final nSpleef plugin;
+	public LeaveCommand(nSpleef plugin) {
+		this.plugin = plugin;
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		new LeaveJob(plugin, (Player) sender, 1).run();

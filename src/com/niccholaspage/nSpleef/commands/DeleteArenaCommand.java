@@ -17,9 +17,9 @@ import com.niccholaspage.nSpleef.nSpleefArena;
 import com.niccholaspage.nSpleef.jobs.LeaveJob;
 
 public class DeleteArenaCommand implements CommandExecutor {
-	public static nSpleef plugin;
-	public DeleteArenaCommand(nSpleef instance) {
-		plugin = instance;
+	private final nSpleef plugin;
+	public DeleteArenaCommand(nSpleef plugin) {
+		this.plugin = plugin;
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		Player player = (Player) sender;

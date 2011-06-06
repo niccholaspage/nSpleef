@@ -8,9 +8,9 @@ import org.bukkit.entity.Player;
 import com.niccholaspage.nSpleef.nSpleef;
 
 public class ReadyCommand implements CommandExecutor {
-	public static nSpleef plugin;
-	public ReadyCommand(nSpleef instance) {
-		plugin = instance;
+	private final nSpleef plugin;
+	public ReadyCommand(nSpleef plugin) {
+		this.plugin = plugin;
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		plugin.ready((Player)sender);

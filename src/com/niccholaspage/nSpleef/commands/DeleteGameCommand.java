@@ -14,9 +14,9 @@ import com.niccholaspage.nSpleef.nSpleefGame;
 import com.niccholaspage.nSpleef.jobs.LeaveJob;
 
 public class DeleteGameCommand implements CommandExecutor {
-	public static nSpleef plugin;
-	public DeleteGameCommand(nSpleef instance) {
-		plugin = instance;
+	private final nSpleef plugin;
+	public DeleteGameCommand(nSpleef plugin) {
+		this.plugin = plugin;
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		Player player = (Player) sender;

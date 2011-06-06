@@ -8,9 +8,9 @@ import org.bukkit.entity.Player;
 import com.niccholaspage.nSpleef.nSpleef;
 
 public class ListCommand implements CommandExecutor {
-	public static nSpleef plugin;
-	public ListCommand(nSpleef instance) {
-		plugin = instance;
+	private final nSpleef plugin;
+	public ListCommand(nSpleef plugin) {
+		this.plugin = plugin;
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		Player player = (Player) sender;

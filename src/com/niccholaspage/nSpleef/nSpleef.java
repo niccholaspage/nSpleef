@@ -192,7 +192,7 @@ public class nSpleef extends JavaPlugin{
     private void registerCommands(){
     	getCommand("ready").setExecutor(commandHandler);
     	getCommand("spleef").setExecutor(commandHandler);
-    	commandHandler.registerExecutor("define", new DefineCommand(this), "/spleef define arena", "nSpleef.admin.define");
+    	commandHandler.registerExecutor("define", new DefineCommand(), "/spleef define arena", "nSpleef.admin.define");
     	commandHandler.registerExecutor("join", new JoinCommand(this), "/spleef join game", "nSpleef.member.join");
     	commandHandler.registerExecutor("leave", new LeaveCommand(this), "/spleef leave", "nSpleef.member.leave");
     	commandHandler.registerExecutor("list", new ListCommand(this), "/spleef list", "nSpleef.member.list");
@@ -200,7 +200,7 @@ public class nSpleef extends JavaPlugin{
     	commandHandler.registerExecutor("creategame", new CreateGameCommand(this), "/spleef creategame name arena <money>", "nSpleef.member.creategame");
     	commandHandler.registerExecutor("deletearena", new DeleteArenaCommand(this), "/spleef deletearena arena", "nSpleef.admin.deletearena");
     	commandHandler.registerExecutor("ready", new ReadyCommand(this), "/spleef ready", "");
-    	commandHandler.registerExecutor("forceready", new ForceReadyCommand(this), "/spleef forceready", "nSpleef.admin.forceready");
+    	commandHandler.registerExecutor("forceready", new ForceReadyCommand(), "/spleef forceready", "nSpleef.admin.forceready");
     	commandHandler.registerExecutor("help", new HelpCommand(this), "/spleef help <page>", "");
     	commandHandler.registerExecutor("?", new HelpCommand(this), "/spleef ? <page>", "");
     	commandHandler.registerExecutor("forceleave", new ForceLeaveCommand(this), "/spleef forceleave player", "nSpleef.admin.forceleave");

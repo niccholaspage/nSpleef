@@ -8,9 +8,9 @@ import com.niccholaspage.nSpleef.nSpleef;
 import com.niccholaspage.nSpleef.jobs.JoinJob;
 
 public class JoinCommand implements CommandExecutor {
-	public static nSpleef plugin;
-	public JoinCommand(nSpleef instance) {
-		plugin = instance;
+	private final nSpleef plugin;
+	public JoinCommand(nSpleef plugin) {
+		this.plugin = plugin;
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		if (args.length < 2) return false;

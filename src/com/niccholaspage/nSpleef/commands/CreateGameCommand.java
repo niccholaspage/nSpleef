@@ -14,7 +14,7 @@ import com.niccholaspage.nSpleef.nSpleefArena;
 import com.niccholaspage.nSpleef.nSpleefGame;
 
 public class CreateGameCommand implements CommandExecutor {
-	public static nSpleef plugin;
+	private final nSpleef plugin;
 	public CreateGameCommand(nSpleef instance) {
 		plugin = instance;
 	}

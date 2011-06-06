@@ -14,7 +14,7 @@ import com.niccholaspage.nSpleef.PermissionHandler;
 import com.niccholaspage.nSpleef.nSpleef;
 
 public class HelpCommand implements CommandExecutor {
-	public nSpleef plugin;
+	private final nSpleef plugin;
 	public HelpCommand(nSpleef plugin) {
 		this.plugin = plugin;
 	}
