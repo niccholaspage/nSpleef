@@ -15,8 +15,8 @@ import com.niccholaspage.nSpleef.nSpleefGame;
 
 public class CreateGameCommand implements CommandExecutor {
 	private final nSpleef plugin;
-	public CreateGameCommand(nSpleef instance) {
-		plugin = instance;
+	public CreateGameCommand(nSpleef plugin) {
+		this.plugin = plugin;
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		Player player = (Player) sender;
