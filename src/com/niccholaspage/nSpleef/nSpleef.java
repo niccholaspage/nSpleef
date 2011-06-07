@@ -13,7 +13,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -199,7 +198,7 @@ public class nSpleef extends JavaPlugin{
     	commandHandler.registerExecutor("deletegame", new DeleteGameCommand(this), "/spleef deletegame name", "nSpleef.member.deletegame");
     	commandHandler.registerExecutor("creategame", new CreateGameCommand(this), "/spleef creategame name arena <money>", "nSpleef.member.creategame");
     	commandHandler.registerExecutor("deletearena", new DeleteArenaCommand(this), "/spleef deletearena arena", "nSpleef.admin.deletearena");
-    	commandHandler.registerExecutor("ready", new ReadyCommand(this), "/spleef ready", "");
+    	commandHandler.registerExecutor("ready", new ReadyCommand(), "/spleef ready", "");
     	commandHandler.registerExecutor("forceready", new ForceReadyCommand(), "/spleef forceready", "nSpleef.admin.forceready");
     	commandHandler.registerExecutor("help", new HelpCommand(this), "/spleef help <page>", "");
     	commandHandler.registerExecutor("?", new HelpCommand(this), "/spleef ? <page>", "");
@@ -251,12 +250,5 @@ public class nSpleef extends JavaPlugin{
         //Print that the plugin has been enabled!
         System.out.println(pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!");
 		
-	}
-	public void ready(Player player){
-		 nSpleefArena arena = Filter.getArenaByPlayerIn(player);
-		 if (arena == null) return;
-		 if (arena.getInGame() > 0) return;
-		 arena.getPlayerStatus().set(arena.getPlayers().indexOf(player), true);
-		 arena.checkReady();
 	}
 }

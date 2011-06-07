@@ -8,6 +8,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.niccholaspage.nSpleef.jobs.ReadyJob;
+
 public class CommandHandler implements CommandExecutor {
 	 public static nSpleef plugin;
 	 //Thanks for the idea BigBrother (specifically N3X15)
@@ -38,7 +40,7 @@ public class CommandHandler implements CommandExecutor {
 		}
 		Player player = (Player)sender;
 		if (cmd.getName().equalsIgnoreCase("ready")){
-			plugin.ready(player);
+			new ReadyJob(player).run();
 			return true;
 		}
 		if (args.length < 1){

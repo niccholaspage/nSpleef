@@ -19,6 +19,7 @@ import com.niccholaspage.nSpleef.Util;
 import com.niccholaspage.nSpleef.nSpleef;
 import com.niccholaspage.nSpleef.nSpleefArena;
 import com.niccholaspage.nSpleef.jobs.LeaveJob;
+import com.niccholaspage.nSpleef.jobs.ReadyJob;
 //Starts the class nSpleefPlayer listener
 public class nSpleefPlayerListener extends PlayerListener{
 	 public nSpleef plugin;
@@ -68,6 +69,8 @@ public class nSpleefPlayerListener extends PlayerListener{
 	  @Override
 		 public void onPlayerChat(PlayerChatEvent event){
 			 Player player = event.getPlayer();
-			 if (event.getMessage().toLowerCase().contains("ready")) plugin.ready(player);
+			 if (event.getMessage().toLowerCase().contains("ready")){
+				 new ReadyJob(player).run();
+			 }
 		 }
 }
