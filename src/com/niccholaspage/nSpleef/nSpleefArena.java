@@ -146,7 +146,7 @@ public class nSpleefArena {
 		});
 		}
 	}
-	public void leave(Player player){
+	public void leave(){
 		if (players.size() == 1){
 			ingame = 0;
 			players.get(0).sendMessage(ChatColor.DARK_PURPLE + "Everyone else has left. If you would like to leave, type /spleef leave.");
