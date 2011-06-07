@@ -172,12 +172,16 @@ public class nSpleefArena {
 			return;
 		}
 		if (players.size() == 0){
-			ingame = 0;
-			for (int i = 0; i < playersin.size(); i++){
-				playersin.get(i).teleport(playerslocation.get(i));
-			}
-			vol.resetBlocks();
-			resetVars();
+			plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable(){
+				public void run(){
+					ingame = 0;
+					for (int i = 0; i < playersin.size(); i++){
+						playersin.get(i).teleport(playerslocation.get(i));
+					}
+					vol.resetBlocks();
+					resetVars();
+				}
+			}, 20);
 		}
 	}
 	public void resetVars(){
