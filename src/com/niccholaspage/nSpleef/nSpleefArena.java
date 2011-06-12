@@ -194,16 +194,16 @@ public class nSpleefArena {
 		return ingame;
 	}
 	public nSpleefGame getGame(){
-		for (nSpleefGame game : plugin.nSpleefGames){
-			if (game.getArena().equalsIgnoreCase(name)){
-				return game;
+		for (int i = 0; i < plugin.nSpleefGames.size(); i++){
+			if (plugin.nSpleefGames.get(i).getArena().equalsIgnoreCase(name)){
+				return plugin.nSpleefGames.get(i);
 			}
 		}
 		return null;
 	}
 	public void messagePlayersIn(String message){
-		for (Player player : playersin){
-			player.sendMessage(message);
+		for (int i = 0; i < playersin.size(); i++){
+			playersin.get(i).sendMessage(message);
 		}
 	}
 }
