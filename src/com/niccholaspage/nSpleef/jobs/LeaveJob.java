@@ -24,6 +24,10 @@ public class LeaveJob implements Runnable {
 		//Mode 3: Kicked
 		nSpleefArena arena = Filter.getArenaByPlayer(player);
 		if (arena == null) return;
+		if (arena.isGracePeriod()){
+			player.sendMessage(ChatColor.DARK_PURPLE + "You cannot leave while in the grace period!");
+			return;
+		}
 		int index = arena.getPlayersIn().indexOf(player);
 	 	arena.getPlayerStatus().remove(index);
 	 	arena.getPlayersIn().remove(index);

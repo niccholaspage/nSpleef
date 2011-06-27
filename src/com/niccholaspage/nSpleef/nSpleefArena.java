@@ -25,75 +25,79 @@ public class nSpleefArena {
 	private BlockVector tpblock = new BlockVector(0,0,0);
 	private Volume vol = null;
 	private Integer ingame = 0;
-	  public nSpleefArena(String name, World world, nSpleef plugin){
-		  this.name = name;
-		  this.world = world;
-		  this.plugin = plugin;
-	  }
-	  public String getName(){
-		  return this.name;
-	  }
-	  public World getWorld(){
-		  return this.world;
-	  }
-	  public void setFirstBlock(BlockVector b1){
-		  this.block1 = b1;
-	  }
-	  public void setSecondBlock(BlockVector b2){
-		  this.block2 = b2;
-	  }
-	  public void setTpBlock(){
-			 if (block1.getBlockX() == block2.getBlockX()){
-				 this.tpblock = block1;
-				 return;
-			 }
-			 if (block1.getBlockX() > block2.getBlockX()){
-				 tpblock.setX(block1.getBlockX() - block2.getBlockX() + block2.getBlockX());
-			 }
-			 if (block1.getBlockX() < block2.getBlockX()){
-				 tpblock.setX(block2.getBlockX() - block1.getBlockX() + block1.getBlockX());
-			 }
-			 if (block1.getBlockZ() > block2.getBlockZ()){
-				 tpblock.setZ(block1.getBlockZ() - block2.getBlockZ() + block2.getBlockZ());
-			 }
-			 if (block1.getBlockZ() < block2.getBlockZ()){
-				 tpblock.setZ(block2.getBlockZ() - block1.getBlockZ() + block1.getBlockZ());
-			 }
-			 if (block1.getBlockY() > block2.getBlockY()){
-				 tpblock.setY(block1.getBlockY() + 1);
-			 }else {
-				 tpblock.setY(block2.getBlockY() + 1);
-			 }
-	  }
-	  public BlockVector getTpBlock(){
-		  return this.tpblock;
-	  }
-	  public void createVolume(){
-		  this.vol = new Volume(name,world);
-	  }
-	  public BlockVector getFirstBlock(){
-		  return this.block1;
-	  }
-	  public BlockVector getSecondBlock(){
-		  return this.block2;
-	  }
-	  public List<Player> getPlayers(){
-		  return players;
-	  }
-	  public List<Player> getPlayersIn(){
-		  return playersin;
-	  }
-	  public List<Boolean> getPlayerStatus(){
-		  return playerstatus;
-	  }
-	  public List<Location> getPlayersLocation(){
-		  return playerslocation;
-	  }
-	  public Volume getVolume(){
-		  return this.vol;
-	  }
+	private boolean gracePeriod = false;
+	public nSpleefArena(String name, World world, nSpleef plugin){
+		this.name = name;
+		this.world = world;
+		this.plugin = plugin;
+	}
+	public String getName(){
+		return this.name;
+	}
+	public World getWorld(){
+		return this.world;
+	}
+	public void setFirstBlock(BlockVector b1){
+		this.block1 = b1;
+	}
+	public void setSecondBlock(BlockVector b2){
+		this.block2 = b2;
+	}
+	public void setTpBlock(){
+		if (block1.getBlockX() == block2.getBlockX()){
+			this.tpblock = block1;
+			return;
+		}
+		if (block1.getBlockX() > block2.getBlockX()){
+			tpblock.setX(block1.getBlockX() - block2.getBlockX() + block2.getBlockX());
+		}
+		if (block1.getBlockX() < block2.getBlockX()){
+			tpblock.setX(block2.getBlockX() - block1.getBlockX() + block1.getBlockX());
+		}
+		if (block1.getBlockZ() > block2.getBlockZ()){
+			tpblock.setZ(block1.getBlockZ() - block2.getBlockZ() + block2.getBlockZ());
+		}
+		if (block1.getBlockZ() < block2.getBlockZ()){
+			tpblock.setZ(block2.getBlockZ() - block1.getBlockZ() + block1.getBlockZ());
+		}
+		if (block1.getBlockY() > block2.getBlockY()){
+			tpblock.setY(block1.getBlockY() + 1);
+		}else {
+			tpblock.setY(block2.getBlockY() + 1);
+		}
+	}
+	public BlockVector getTpBlock(){
+		return this.tpblock;
+	}
+	public void createVolume(){
+		this.vol = new Volume(name,world);
+	}
+	public BlockVector getFirstBlock(){
+		return this.block1;
+	}
+	public BlockVector getSecondBlock(){
+		return this.block2;
+	}
+	public List<Player> getPlayers(){
+		return players;
+	}
+	public List<Player> getPlayersIn(){
+		return playersin;
+	}
+	public List<Boolean> getPlayerStatus(){
+		return playerstatus;
+	}
+	public List<Location> getPlayersLocation(){
+		return playerslocation;
+	}
+	public Volume getVolume(){
+		return this.vol;
+	}
 	public void setInGame(Integer ingame) {
 		this.ingame = ingame;
+	}
+	public boolean isGracePeriod(){
+		return gracePeriod;
 	}
 	public void go(){
 		ingame = 1;
@@ -135,15 +139,15 @@ public class nSpleefArena {
 		getPlayerStatus().add(false);
 		player.teleport(getTpBlock().toLocation(getWorld()));
 		if (!(plugin.joinKickerTime == 0)){
-		plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable(){
-			public void run(){
-				Util.waitMS(plugin.joinKickerTime * 1000);
-				if (Filter.getArenaByPlayer(player) == null) return;
-				if (getPlayerStatus().get(getPlayers().indexOf(player)) == false){
-					new LeaveJob(plugin, player, 3).run();
+			plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable(){
+				public void run(){
+					Util.waitMS(plugin.joinKickerTime * 1000);
+					if (Filter.getArenaByPlayer(player) == null) return;
+					if (getPlayerStatus().get(getPlayers().indexOf(player)) == false){
+						new LeaveJob(plugin, player, 3).run();
+					}
 				}
-			}
-		});
+			});
 		}
 	}
 	public void leave(){
@@ -167,6 +171,7 @@ public class nSpleefArena {
 				plugin.method.getAccount(players.get(0).getName()).add(amount);
 				players.get(0).sendMessage(ChatColor.DARK_PURPLE + "You just won " + plugin.method.format(amount) + ".");
 			}
+			gracePeriod = true;
 			players.remove(0);
 			checkLeave();
 			return;
@@ -185,10 +190,11 @@ public class nSpleefArena {
 		}
 	}
 	public void resetVars(){
-		this.players = new ArrayList<Player>();
-		this.playersin = new ArrayList<Player>();
-		this.playerstatus = new ArrayList<Boolean>();
-		this.playerslocation = new ArrayList<Location>();
+		players = new ArrayList<Player>();
+		playersin = new ArrayList<Player>();
+		playerstatus = new ArrayList<Boolean>();
+		playerslocation = new ArrayList<Location>();
+		gracePeriod = false;
 	}
 	public Integer getInGame() {
 		return ingame;
