@@ -60,6 +60,7 @@ public class nSpleef extends JavaPlugin{
     public Method method = null;
     
 	public void onDisable() {
+		method = null;
 		for (int i = 0; i < nSpleefArenas.size(); i++){
 			if (nSpleefArenas.get(i).getPlayersIn().size() > 0){
 				System.out.println("[nSpleef] Restoring arena " + nSpleefArenas.get(i).getName());
