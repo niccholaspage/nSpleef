@@ -43,9 +43,6 @@ public class nSpleefPlayerListener extends PlayerListener{
 		  if (loc.getBlockY() + 1 <= theblock.getBlockY() + 1){
 			  arena.messagePlayersIn(ChatColor.DARK_PURPLE + "[nSpleef] " + player.getDisplayName() + " is out!");
 			  arena.getPlayers().remove(player);
-			  if (arena.getPlayers().size() == 1){
-				  event.setTo(arena.getPlayersLocation().get(arena.getPlayersIn().indexOf(player)));
-			  }
 			  arena.checkLeave();
 			  player.setFireTicks(0);
 			  player.setFallDistance(0F);
