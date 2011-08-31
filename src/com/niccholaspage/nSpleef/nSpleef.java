@@ -27,6 +27,8 @@ public class nSpleef extends JavaPlugin {
 	
 	private Set<nSpleefArena> arenas;
 	
+	private Set<nSpleefGame> games;
+	
 	private ConfigHandler configHandler;
 	
 	private PermissionsHandler permissionsHandler;
@@ -41,6 +43,8 @@ public class nSpleef extends JavaPlugin {
 		log = Logger.getLogger("Minecraft");
 		
 		arenas = new HashSet<nSpleefArena>();
+		
+		games = new HashSet<nSpleefGame>();
 		
 		sessions = new HashSet<Session>();
 		
@@ -79,10 +83,24 @@ public class nSpleef extends JavaPlugin {
 		return arenas;
 	}
 	
+	public Set<nSpleefGame> getGames(){
+		return games;
+	}
+	
 	public nSpleefArena getArena(String name){
 		for (nSpleefArena arena : arenas){
 			if (arena.getName().equalsIgnoreCase(name)){
 				return arena;
+			}
+		}
+		
+		return null;
+	}
+	
+	public nSpleefGame getGame(String name){
+		for (nSpleefGame game : games){
+			if (game.getName().equalsIgnoreCase(name)){
+				return game;
 			}
 		}
 		

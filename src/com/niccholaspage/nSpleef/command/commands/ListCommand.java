@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 
 import com.niccholaspage.nSpleef.nSpleef;
 import com.niccholaspage.nSpleef.nSpleefArena;
+import com.niccholaspage.nSpleef.nSpleefGame;
 import com.niccholaspage.nSpleef.command.nSpleefCommand;
 
 public class ListCommand extends nSpleefCommand {
@@ -33,6 +34,16 @@ public class ListCommand extends nSpleefCommand {
 		
 		for (nSpleefArena arena : plugin.getArenas()){
 			sender.sendMessage(ChatColor.DARK_PURPLE + arena.getName());
+		}
+		
+		if (plugin.getGames().isEmpty()) return true;
+		
+		sender.sendMessage(ChatColor.DARK_PURPLE + "Games:");
+		
+		for (nSpleefGame game : plugin.getGames()){
+			sender.sendMessage(ChatColor.DARK_PURPLE + game.getName());
+			
+			return true;
 		}
 		
 		return true;
