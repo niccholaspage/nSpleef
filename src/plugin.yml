@@ -1,0 +1,10 @@
+name: nSpleef
+
+main: com.niccholaspage.nSpleef.nSpleef
+
+version: 0.1
+
+commands:
+  spleef:
+    usage: 
+    description: 
