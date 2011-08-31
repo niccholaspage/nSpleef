@@ -58,6 +58,8 @@ public class nSpleef extends JavaPlugin {
 		
 		commandHandler.registerCommand(new ListCommand(this));
 		
+		commandHandler.registerCommand(new CreateGameCommand(this));
+		
 		getCommand("spleef").setExecutor(commandHandler);
 		
 		getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable(){
