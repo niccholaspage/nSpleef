@@ -42,6 +42,12 @@ public class CreateGameCommand extends nSpleefCommand {
 			return true;
 		}
 		
+		if (plugin.getGameByArena(arena) != null){
+			sender.sendMessage(ChatColor.RED + "That arena already has a game!");
+			
+			return true;
+		}
+		
 		nSpleefGame game = new nSpleefGame(args[0], arena);
 		
 		plugin.getGames().add(game);

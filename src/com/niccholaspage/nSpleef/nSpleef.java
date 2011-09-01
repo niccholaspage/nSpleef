@@ -64,6 +64,8 @@ public class nSpleef extends JavaPlugin {
 		
 		commandHandler.registerCommand(new CreateGameCommand(this));
 		
+		commandHandler.registerCommand(new DeleteGameCommand(this));
+		
 		getCommand("spleef").setExecutor(commandHandler);
 		
 		getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable(){
@@ -108,6 +110,16 @@ public class nSpleef extends JavaPlugin {
 	public nSpleefGame getGame(String name){
 		for (nSpleefGame game : games){
 			if (game.getName().equalsIgnoreCase(name)){
+				return game;
+			}
+		}
+		
+		return null;
+	}
+	
+	public nSpleefGame getGameByArena(nSpleefArena arena){
+		for (nSpleefGame game : games){
+			if (game.getArena().equals(arena)){
 				return game;
 			}
 		}

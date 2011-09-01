@@ -1,0 +1,45 @@
+package com.niccholaspage.nSpleef.command.commands;
+
+import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+
+import com.niccholaspage.nSpleef.nSpleef;
+import com.niccholaspage.nSpleef.nSpleefGame;
+import com.niccholaspage.nSpleef.command.nSpleefCommand;
+
+public class DeleteGameCommand extends nSpleefCommand {
+
+	public DeleteGameCommand(nSpleef plugin) {
+		super(plugin);
+		
+		setName("deletegame");
+		
+		setHelp("/spleef deletegame name");
+		
+		setPermission("nSpleef.trusted.deletegame");
+		
+		setConsoleCommand(true);
+	}
+	
+	public boolean run(CommandSender sender, Command cmd, String[] args){
+		if (args.length < 1){
+			return false;
+		}
+		
+		nSpleefGame game = plugin.getGame(args[0]);
+		
+		if (game == null){
+			sender.sendMessage(ChatColor.DARK_PURPLE + "That game doesn't exist!");
+			
+			return true;
+		}
+		
+		plugin.getGames().remove(game);
+		
+		sender.sendMessage(ChatColor.DARK_PURPLE + "The game '" + args[0] + "' has been deleted.");
+		
+		return true;
+	}
+
+}
