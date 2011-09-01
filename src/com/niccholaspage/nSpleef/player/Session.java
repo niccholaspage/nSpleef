@@ -3,8 +3,12 @@ package com.niccholaspage.nSpleef.player;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import com.niccholaspage.nSpleef.nSpleefArena;
+
 public class Session {
 	private final Player player;
+	
+	private nSpleefArena arena = null;
 	
 	private Location block1;
 	
@@ -32,5 +36,13 @@ public class Session {
 	
 	public Location getBlock2(){
 		return block2;
+	}
+	
+	public nSpleefArena getArena(){
+		return arena;
+	}
+	
+	public void setArena(nSpleefArena arena){
+		this.arena = arena;
 	}
 }

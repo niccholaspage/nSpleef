@@ -43,7 +43,7 @@ public class PermissionsHandler {
 		
 		switch (type){
 		case PERMISSIONS: return ((Permissions) plugin).getHandler().has(player, node);
-		case BUKKIT_PERMS: return true;
+		case BUKKIT_PERMS: return player.hasPermission(node);
 		default: return false;
 		}
 	}

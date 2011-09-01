@@ -3,6 +3,7 @@ package com.niccholaspage.nSpleef.listeners;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -22,21 +23,42 @@ public class nSpleefPlayerListener extends PlayerListener {
 		
 		if (player.getItemInHand() == null) return;
 		
-		if (player.getItemInHand().getTypeId() != plugin.getConfigHandler().getItem()) return;
-		
-		if (!plugin.getPermissionsHandler().has(player, "nSpleef.admin.define")) return;
+		if (player.getItemInHand().getTypeId() == plugin.getConfigHandler().getItem()){
+			if (!plugin.getPermissionsHandler().has(player, "nSpleef.admin.define")) return;
+			
+			Session session = plugin.getSession(player);
+			
+			if (event.getAction() == Action.LEFT_CLICK_BLOCK){
+				session.setBlock1(event.getClickedBlock().getLocation());
+				
+				player.sendMessage(ChatColor.DARK_PURPLE + "First location set!");
+			}else if (event.getAction() == Action.RIGHT_CLICK_BLOCK){
+				session.setBlock2(event.getClickedBlock().getLocation());
+				
+				player.sendMessage(ChatColor.DARK_PURPLE + "Second location set!");
+			}
+		}
+	}
+	
+	
+	public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event){
+		Player player = event.getPlayer();
 		
 		Session session = plugin.getSession(player);
 		
-		if (event.getAction() == Action.LEFT_CLICK_BLOCK){
-			session.setBlock1(event.getClickedBlock().getLocation());
-			
-			player.sendMessage(ChatColor.DARK_PURPLE + "First location set!");
-		}else if (event.getAction() == Action.RIGHT_CLICK_BLOCK){
-			session.setBlock2(event.getClickedBlock().getLocation());
-			
-			player.sendMessage(ChatColor.DARK_PURPLE + "Second location set!");
-		}
+		if (session.getArena() != null) return;
+		
+	    String[] split = event.getMessage().split(" ");
+	    
+	    if (split.length < 1) return;
+
+	    String cmd = split[0].trim().substring(1).toLowerCase();
+
+	    if (!cmd.startsWith("spleef")) {
+	      event.setCancelled(true);
+	      
+	      event.setMessage("command_has_been_disabled");
+	    }
 	}
 	
 	public void onPlayerQuit(PlayerQuitEvent event){
