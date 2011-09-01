@@ -54,7 +54,7 @@ public class nSpleefPlayerListener extends PlayerListener {
 
 	    String cmd = split[0].trim().substring(1).toLowerCase();
 
-	    if (!cmd.startsWith("spleef")) {
+	    if (!cmd.equalsIgnoreCase("spleef")) {
 	      event.setCancelled(true);
 	      
 	      event.setMessage("command_has_been_disabled");
