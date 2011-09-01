@@ -46,7 +46,7 @@ public class nSpleefPlayerListener extends PlayerListener {
 		
 		Session session = plugin.getSession(player);
 		
-		if (session.getArena() != null) return;
+		if (session.getArena() == null) return;
 		
 	    String[] split = event.getMessage().split(" ");
 	    
