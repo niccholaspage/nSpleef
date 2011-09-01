@@ -41,7 +41,7 @@ public class ListCommand extends nSpleefCommand {
 		sender.sendMessage(ChatColor.DARK_PURPLE + "Games:");
 		
 		for (nSpleefGame game : plugin.getGames()){
-			sender.sendMessage(ChatColor.DARK_PURPLE + game.getName());
+			sender.sendMessage(ChatColor.DARK_PURPLE + game.getName() + " in arena " + game.getArena().getName());
 			
 			return true;
 		}
