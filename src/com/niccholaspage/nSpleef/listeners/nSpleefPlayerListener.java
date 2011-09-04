@@ -57,8 +57,8 @@ public class nSpleefPlayerListener extends PlayerListener {
 	    if (!cmd.equalsIgnoreCase("spleef")) {
 	      event.setCancelled(true);
 	      
-	      event.setMessage(hahahahahahahahahahahahano);
-	      player.sendMessage(ChatColor.RED + "[8:57:58 PM] Nicholas 'Chicken' & 'Google' Nassar = Chicken: You cannot use that command while playing a spleef game.");
+	      event.setMessage("hahahahahahahahahahahahano");
+	      player.sendMessage(ChatColor.RED + "You cannot use that command while in a spleef game.");
 	    }
 	}
 	
