@@ -58,6 +58,7 @@ public class nSpleefPlayerListener extends PlayerListener {
 	      event.setCancelled(true);
 	      
 	      event.setMessage("hahahahahahahahahahahahano");
+	      
 	      player.sendMessage(ChatColor.RED + "You cannot use that command while in a spleef game.");
 	    }
 	}
