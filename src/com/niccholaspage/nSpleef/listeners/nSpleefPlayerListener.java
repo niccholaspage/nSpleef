@@ -23,8 +23,7 @@ public class nSpleefPlayerListener extends PlayerListener {
 		
 		if (player.getItemInHand() == null) return;
 		
-		if (player.getItemInHand().getTypeId() == plugin.getConfigHandler().getItem()){
-			if (!plugin.getPermissionsHandler().has(player, "nSpleef.admin.define")) return;
+		if (player.getItemInHand().getTypeId() == plugin.getConfigHandler().getItem() && plugin.getPermissionsHandler().has(player, "nSpleef.admin.define")){
 			
 			Session session = plugin.getSession(player);
 			
