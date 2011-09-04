@@ -57,7 +57,7 @@ public class nSpleefPlayerListener extends PlayerListener {
 	    if (!cmd.equalsIgnoreCase("spleef")) {
 	      event.setCancelled(true);
 	      
-	      event.setMessage("command_has_been_disabled");
+	      event.setMessage(ChatColor.RED + "Commands have been disabled.");
 	    }
 	}
 	
