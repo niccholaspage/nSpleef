@@ -32,6 +32,8 @@ public class nSpleef extends JavaPlugin {
 	private ConfigHandler configHandler;
 	
 	private PermissionsHandler permissionsHandler;
+	
+	private File arenasFolder;
 
 	@Override
 	public void onDisable() {
@@ -67,6 +69,8 @@ public class nSpleef extends JavaPlugin {
 		commandHandler.registerCommand(new DeleteGameCommand(this));
 		
 		getCommand("spleef").setExecutor(commandHandler);
+		
+		arenasFolder = new File(getDataFolder(), "arenas");
 		
 		getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable(){
 			public void run(){
@@ -192,8 +196,6 @@ public class nSpleef extends JavaPlugin {
 		
 		getDataFolder().mkdir();
 		
-		File arenasFolder = new File(getDataFolder(), "arenas");
-		
 		arenasFolder.mkdir();
 		
 		for (String fileName : arenasFolder.list()){
@@ -223,5 +225,9 @@ public class nSpleef extends JavaPlugin {
 			
 			arenas.add(new nSpleefArena(name, world, block1, block2));
 		}
+	}
+	
+	public File getArenasFolder(){
+		return arenasFolder;
 	}
 }

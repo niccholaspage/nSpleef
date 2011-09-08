@@ -1,9 +1,9 @@
 package com.niccholaspage.nSpleef.command.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
+import com.niccholaspage.nSpleef.Messaging;
 import com.niccholaspage.nSpleef.nSpleef;
 import com.niccholaspage.nSpleef.nSpleefArena;
 import com.niccholaspage.nSpleef.nSpleefGame;
@@ -25,23 +25,23 @@ public class ListCommand extends nSpleefCommand {
 	
 	public boolean run(CommandSender sender, Command cmd, String[] args){
 		if (plugin.getArenas().isEmpty()){
-			sender.sendMessage(ChatColor.DARK_PURPLE + "No arenas exist!");
+			Messaging.send(sender, "No arenas exist!");
 			
 			return true;
 		}
 		
-		sender.sendMessage(ChatColor.DARK_PURPLE + "Arenas:");
+		Messaging.send(sender, "Arenas:");
 		
 		for (nSpleefArena arena : plugin.getArenas()){
-			sender.sendMessage(ChatColor.DARK_PURPLE + arena.getName());
+			Messaging.send(sender, arena.getName());
 		}
 		
 		if (plugin.getGames().isEmpty()) return true;
 		
-		sender.sendMessage(ChatColor.DARK_PURPLE + "Games:");
+		Messaging.send(sender, "Games:");
 		
 		for (nSpleefGame game : plugin.getGames()){
-			sender.sendMessage(ChatColor.DARK_PURPLE + game.getName() + " in arena " + game.getArena().getName());
+			Messaging.send(sender, game.getName() + " in arena " + game.getArena().getName());
 			
 			return true;
 		}

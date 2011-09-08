@@ -1,9 +1,9 @@
 package com.niccholaspage.nSpleef.command.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
+import com.niccholaspage.nSpleef.Messaging;
 import com.niccholaspage.nSpleef.nSpleef;
 import com.niccholaspage.nSpleef.nSpleefGame;
 import com.niccholaspage.nSpleef.command.nSpleefCommand;
@@ -30,14 +30,14 @@ public class DeleteGameCommand extends nSpleefCommand {
 		nSpleefGame game = plugin.getGame(args[0]);
 		
 		if (game == null){
-			sender.sendMessage(ChatColor.DARK_PURPLE + "That game doesn't exist!");
+			Messaging.send(sender, "That game doesn't exist!");
 			
 			return true;
 		}
 		
 		plugin.getGames().remove(game);
 		
-		sender.sendMessage(ChatColor.DARK_PURPLE + "The game '" + args[0] + "' has been deleted.");
+		Messaging.send(sender, "The game '" + args[0] + "' has been deleted.");
 		
 		return true;
 	}
