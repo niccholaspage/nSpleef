@@ -25,11 +25,13 @@ public class ConfigHandler {
 		
 		item = config.getInt("item", 280);
 		
-		int code = config.getInt("messagecolor", ChatColor.DARK_PURPLE.getCode());
+		ChatColor def = ChatColor.DARK_PURPLE;
+		
+		int code = config.getInt("messagecolor", def.getCode());
 		
 		ChatColor color = ChatColor.getByCode(code);
 		
-		Messaging.setColor(color == null ? ChatColor.DARK_PURPLE : color);
+		Messaging.setColor(color == null ? def : color);
 	}
 	
 	private void writeNode(String node, Object value, Configuration config){
