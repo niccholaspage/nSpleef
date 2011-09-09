@@ -28,19 +28,21 @@ public class ConfigHandler {
 	}
 	
 	public void load(){
+		ChatColor def = ChatColor.DARK_PURPLE;
+		
 		config.load();
 		
 		writeNode("item", 280, config);
 		
-		writeNode("messagecolor", getGoodName(ChatColor.DARK_PURPLE), config);
+		writeNode("messagecolor", getGoodName(def), config);
 		
 		config.save();
 		
 		item = config.getInt("item", 280);
 		
-		ChatColor color = ChatColor.DARK_PURPLE;
+		ChatColor color = def;
 		
-		String readColor = config.getString("messagecolor", getGoodName(ChatColor.DARK_PURPLE)).toLowerCase();
+		String readColor = config.getString("messagecolor", getGoodName(def)).toLowerCase();
 		
 		if (chatColors.containsKey(readColor)){
 			color = chatColors.get(readColor);
