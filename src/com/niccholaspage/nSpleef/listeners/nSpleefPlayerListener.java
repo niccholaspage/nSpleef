@@ -1,6 +1,5 @@
 package com.niccholaspage.nSpleef.listeners;
 
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -8,6 +7,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import com.niccholaspage.nSpleef.Messaging;
 import com.niccholaspage.nSpleef.nSpleef;
 import com.niccholaspage.nSpleef.player.Session;
 
@@ -30,11 +30,11 @@ public class nSpleefPlayerListener extends PlayerListener {
 			if (event.getAction() == Action.LEFT_CLICK_BLOCK){
 				session.setBlock1(event.getClickedBlock().getLocation());
 				
-				player.sendMessage(ChatColor.DARK_PURPLE + "First location set!");
+				Messaging.send(player, "First location set!");
 			}else if (event.getAction() == Action.RIGHT_CLICK_BLOCK){
 				session.setBlock2(event.getClickedBlock().getLocation());
 				
-				player.sendMessage(ChatColor.DARK_PURPLE + "Second location set!");
+				Messaging.send(player, "Second location set!");
 			}
 		}
 	}
@@ -58,7 +58,7 @@ public class nSpleefPlayerListener extends PlayerListener {
 	      
 	      event.setMessage("hahahahahahahahahahahahano");
 	      
-	      player.sendMessage(ChatColor.RED + "You cannot use that command while in a spleef game.");
+	      Messaging.send(player, "You cannot use that command while in a spleef game.");
 	    }
 	}
 	

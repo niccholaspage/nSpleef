@@ -9,6 +9,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.niccholaspage.nSpleef.Messaging;
 import com.niccholaspage.nSpleef.nSpleef;
 
 public class CommandHandler implements CommandExecutor {
@@ -27,9 +28,9 @@ public class CommandHandler implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if (args.length < 1){
-			sender.sendMessage(ChatColor.DARK_PURPLE + "nSpleef " + plugin.getDescription().getVersion() + " by niccholaspage");
+			Messaging.send(sender, "nSpleef " + plugin.getDescription().getVersion() + " by niccholaspage");
 			
-			sender.sendMessage(ChatColor.DARK_PURPLE + "Type /spleef help for help");
+			Messaging.send(sender, "Type /spleef help for help");
 			
 			return true;
 		}
@@ -41,7 +42,7 @@ public class CommandHandler implements CommandExecutor {
 		}
 		
 		if (!(sender instanceof Player) && !command.isConsoleCommand()){
-			sender.sendMessage(ChatColor.RED + "You must be a player to use that command!");
+			Messaging.send(sender, "You must be a player to use that command!");
 			
 			return true;
 		}
@@ -58,7 +59,7 @@ public class CommandHandler implements CommandExecutor {
 		}
 		
 		if (!command.run(sender, cmd, realArgs)){
-			sender.sendMessage(ChatColor.RED + command.getHelp());
+			Messaging.send(sender, ChatColor.RED + command.getHelp());
 		}
 		
 		return true;
