@@ -10,7 +10,13 @@ public class Messaging {
 		color = configColor;
 	}
 	
-	public static void send(CommandSender sender, String message){
+	public static void send(CommandSender sender, String message, String... params){
+		if (params != null){
+			for (int i = 0; i < params.length; i++){
+				message = message.replace("$" + (i + 1), params[i]);
+			}
+		}
+		
 		sender.sendMessage(color + message);
 	}
 }
