@@ -38,6 +38,8 @@ public class CommandHandler implements CommandExecutor {
 		nSpleefCommand command = getCommand(args[0]);
 		
 		if (command == null){
+			Messaging.send(sender, "That command doesn't exist!");
+			
 			return true;
 		}
 		
