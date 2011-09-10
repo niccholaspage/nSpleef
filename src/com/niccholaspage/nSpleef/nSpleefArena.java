@@ -60,4 +60,8 @@ public class nSpleefArena {
 	public Map<String, String> getProperties(){
 		return properties;
 	}
+	
+	public String getProperty(String node){
+		return properties.get(node);
+	}
 }
