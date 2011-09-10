@@ -3,7 +3,6 @@ package com.niccholaspage.nSpleef;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -227,12 +226,10 @@ public class nSpleef extends JavaPlugin {
 			nSpleefArena arena = new nSpleefArena(name, world, block1, block2);
 			
 			//Lets read properties!
-			List<String> keys = config.getKeys("properties");
-			
-			if (keys != null){
-				for (String key : keys){
-					arena.getProperties().put(key, config.getString("properties." + key));
-				}
+			for (DefaultProperty property : DefaultProperty.values()){
+				String read = config.getString( "properties." + property);
+				
+				arena.getProperties().put(property + "", read);
 			}
 			
 			arenas.add(arena);

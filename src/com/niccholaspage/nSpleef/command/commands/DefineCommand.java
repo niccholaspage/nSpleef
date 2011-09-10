@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.util.config.Configuration;
 
+import com.niccholaspage.nSpleef.DefaultProperty;
 import com.niccholaspage.nSpleef.nSpleef;
 import com.niccholaspage.nSpleef.command.nSpleefCommand;
 import com.niccholaspage.nSpleef.player.Session;
@@ -90,6 +91,10 @@ public class DefineCommand extends nSpleefCommand {
 		arenaConfig.setProperty("block2.y", session.getBlock2().getY());
 		
 		arenaConfig.setProperty("block2.z", session.getBlock2().getZ());
+		
+		for (DefaultProperty property : DefaultProperty.values()){
+			arenaConfig.setProperty("property." + property, property.getValue());
+		}
 		
 		arenaConfig.save();
 		
