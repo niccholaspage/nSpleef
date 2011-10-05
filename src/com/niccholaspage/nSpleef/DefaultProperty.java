@@ -1,15 +1,15 @@
 package com.niccholaspage.nSpleef;
 
 public enum DefaultProperty {
-	LAVA_OUT("false");
+	LAVA_OUT(false);
 	
-	private final String value;
+	private final Object value;
 	
-	private DefaultProperty(String value){
+	private DefaultProperty(Object value){
 		this.value = value;
 	}
 	
-	public String getValue(){
+	public Object getValue(){
 		return value;
 	}
 	

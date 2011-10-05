@@ -62,6 +62,6 @@ public class nSpleefArena {
 	}
 	
 	public String getProperty(String node){
-		return properties.get(node);
+		return properties.get(node.toLowerCase());
 	}
 }
