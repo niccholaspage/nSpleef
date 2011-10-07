@@ -9,9 +9,10 @@ import com.niccholaspage.nSpleef.nSpleefGame;
 import com.niccholaspage.nSpleef.command.nSpleefCommand;
 
 public class DeleteGameCommand extends nSpleefCommand {
+	private final nSpleef plugin;
 
 	public DeleteGameCommand(nSpleef plugin) {
-		super(plugin);
+		this.plugin = plugin;
 		
 		setName("deletegame");
 		

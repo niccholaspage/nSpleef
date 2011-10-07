@@ -11,8 +11,10 @@ import com.niccholaspage.nSpleef.nSpleefArena;
 import com.niccholaspage.nSpleef.command.nSpleefCommand;
 
 public class DeleteArenaCommand extends nSpleefCommand {
+	private final nSpleef plugin;
+	
 	public DeleteArenaCommand(nSpleef plugin) {
-		super(plugin);
+		this.plugin = plugin;
 		
 		setName("deletearena");
 		

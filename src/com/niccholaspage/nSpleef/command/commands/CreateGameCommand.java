@@ -10,9 +10,10 @@ import com.niccholaspage.nSpleef.nSpleefGame;
 import com.niccholaspage.nSpleef.command.nSpleefCommand;
 
 public class CreateGameCommand extends nSpleefCommand {
-
+	private final nSpleef plugin;
+	
 	public CreateGameCommand(nSpleef plugin) {
-		super(plugin);
+		this.plugin = plugin;
 		
 		setName("creategame");
 		

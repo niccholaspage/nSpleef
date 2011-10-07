@@ -3,11 +3,7 @@ package com.niccholaspage.nSpleef.command;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-import com.niccholaspage.nSpleef.nSpleef;
-
 public class nSpleefCommand {
-	protected final nSpleef plugin;
-	
 	private String name;
 	
 	private String help;
@@ -15,10 +11,6 @@ public class nSpleefCommand {
 	private String permission = "";
 	
 	private boolean consoleCommand;
-	
-	public nSpleefCommand(nSpleef plugin){
-		this.plugin = plugin;
-	}
 	
 	public String getName(){
 		return name;

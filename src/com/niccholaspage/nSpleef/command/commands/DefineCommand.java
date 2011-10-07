@@ -15,8 +15,9 @@ import com.niccholaspage.nSpleef.command.nSpleefCommand;
 import com.niccholaspage.nSpleef.player.Session;
 
 public class DefineCommand extends nSpleefCommand {
+	private final nSpleef plugin;
 	public DefineCommand(nSpleef plugin) {
-		super(plugin);
+		this.plugin = plugin;
 		
 		setName("define");
 		

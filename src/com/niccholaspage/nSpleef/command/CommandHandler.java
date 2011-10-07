@@ -76,4 +76,8 @@ public class CommandHandler implements CommandExecutor {
 		
 		return null;
 	}
+	
+	public Set<nSpleefCommand> getCommands(){
+		return commands;
+	}
 }

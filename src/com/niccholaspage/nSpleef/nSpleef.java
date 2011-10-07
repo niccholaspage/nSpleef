@@ -33,6 +33,8 @@ public class nSpleef extends JavaPlugin {
 	
 	private PermissionsHandler permissionsHandler;
 	
+	private CommandHandler commandHandler;
+	
 	private File arenasFolder;
 
 	@Override
@@ -58,7 +60,7 @@ public class nSpleef extends JavaPlugin {
 		
 		permissionsHandler = new PermissionsHandler(this);
 		
-		CommandHandler commandHandler = new CommandHandler(this);
+		commandHandler = new CommandHandler(this);
 		
 		commandHandler.registerCommand(new DefineCommand(this));
 		
@@ -99,6 +101,10 @@ public class nSpleef extends JavaPlugin {
 	
 	public Set<nSpleefGame> getGames(){
 		return games;
+	}
+	
+	public CommandHandler getCommandHandler(){
+		return commandHandler;
 	}
 	
 	public nSpleefArena getArena(String name){
