@@ -24,8 +24,7 @@ public class CommandHandler implements CommandExecutor {
 	public void registerCommand(nSpleefCommand command){
 		commands.add(command);
 	}
-
-	@Override
+	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 		if (args.length < 1){
 			Messaging.send(sender, "nSpleef " + plugin.getDescription().getVersion() + " by niccholaspage");

@@ -1,6 +1,7 @@
 package com.niccholaspage.nSpleef.command.commands;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.command.Command;
@@ -24,28 +25,48 @@ public class HelpCommand extends nSpleefCommand {
 	}
 	
 	public boolean run(CommandSender sender, Command cmd, String[] args){
-		int page = 1;
+		int page = 0;
 		
 		if (args.length > 1){
 			try {
-				page = Integer.parseInt(args[0]);
+				page = Integer.parseInt(args[0]) - 1;
 			}catch (NumberFormatException e){
 				
 			}
 		}
 		
-		Messaging.send(sender, "Spleef Help:");
+		Messaging.send(sender, "Commands: (Page " + (page + 1) + ")");
 		
-		for (String message : getHelpLines(sender, page)){
-			Messaging.send(sender, message);
+		List<String> commands = getCommands(sender);
+		
+		int entries = 9;
+		
+		int start = (page * entries);
+		
+		Collections.sort(commands);
+		
+		for (int i = start; i < start + entries; i++){
+			try {
+				sender.sendMessage(commands.get(i));
+			}catch (IndexOutOfBoundsException e){
+				break;
+			}
 		}
 		
 		return true;
 	}
 	
-	private List<String> getHelpLines(CommandSender sender, int page){
-		List<String> lines = new ArrayList<String>();
+	private List<String> getCommands(CommandSender sender){
+		List<String> commands = new ArrayList<String>();
 		
-		return lines;
+		for (nSpleefCommand command : plugin.getCommandHandler().getCommands()){
+			if (!command.getPermission().isEmpty() && !plugin.getPermissionsHandler().has(sender, command.getPermission())){
+				continue;
+			}
+			
+			commands.add(command.getHelp());
+		}
+		
+		return commands;
 	}
 }
