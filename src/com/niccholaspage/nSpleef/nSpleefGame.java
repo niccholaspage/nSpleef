@@ -1,5 +1,7 @@
 package com.niccholaspage.nSpleef;
 
+import com.niccholaspage.nSpleef.arena.nSpleefArena;
+
 public class nSpleefGame {
 	private final String name;
 	

@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 
 import com.niccholaspage.nSpleef.Messaging;
 import com.niccholaspage.nSpleef.nSpleef;
-import com.niccholaspage.nSpleef.nSpleefArena;
+import com.niccholaspage.nSpleef.arena.nSpleefArena;
 import com.niccholaspage.nSpleef.command.nSpleefCommand;
 
 public class DeleteArenaCommand extends nSpleefCommand {

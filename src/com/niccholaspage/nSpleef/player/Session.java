@@ -3,7 +3,7 @@ package com.niccholaspage.nSpleef.player;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import com.niccholaspage.nSpleef.nSpleefArena;
+import com.niccholaspage.nSpleef.arena.nSpleefArena;
 
 public class Session {
 	private final Player player;

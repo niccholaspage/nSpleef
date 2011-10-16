@@ -15,6 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.config.Configuration;
 
+import com.niccholaspage.nSpleef.arena.nSpleefArena;
 import com.niccholaspage.nSpleef.command.CommandHandler;
 import com.niccholaspage.nSpleef.command.commands.*;
 import com.niccholaspage.nSpleef.listeners.nSpleefPlayerListener;
