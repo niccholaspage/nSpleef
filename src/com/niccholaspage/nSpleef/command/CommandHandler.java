@@ -68,8 +68,12 @@ public class CommandHandler implements CommandExecutor {
 	
 	private nSpleefCommand getCommand(String name){
 		for (nSpleefCommand cmd : commands){
-			if (cmd.getName().equalsIgnoreCase(name)){
-				return cmd;
+			String[] aliases = cmd.getName().split(",");
+			
+			for (String alias : aliases){
+				if (name.equalsIgnoreCase(alias)){
+					return cmd;
+				}
 			}
 		}
 		
