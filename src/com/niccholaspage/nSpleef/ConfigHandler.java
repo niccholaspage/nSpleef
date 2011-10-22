@@ -1,20 +1,26 @@
 package com.niccholaspage.nSpleef;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.bukkit.ChatColor;
-import org.bukkit.util.config.Configuration;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 public class ConfigHandler {
-	private Configuration config;
+	private File configFile;
+	
+	private YamlConfiguration config;
 	
 	private int item;
 	
 	private Map<String, ChatColor> chatColors = new HashMap<String, ChatColor>();
 	
-	public ConfigHandler(Configuration config){
-		this.config = config;
+	public ConfigHandler(File configFile){
+		this.configFile = configFile;
+		
+		this.config = YamlConfiguration.loadConfiguration(configFile);
 		
 		for (ChatColor color : ChatColor.values()){
 			chatColors.put(getGoodName(color), color);
@@ -30,13 +36,15 @@ public class ConfigHandler {
 	public void load(){
 		ChatColor def = ChatColor.DARK_PURPLE;
 		
-		config.load();
+		config.setDefaults(getDefaultConfig(def));
 		
-		writeNode("item", 280, config);
+		config.options().copyDefaults(true);
 		
-		writeNode("messagecolor", getGoodName(def), config);
-		
-		config.save();
+		try {
+			config.save(configFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		item = config.getInt("item", 280);
 		
@@ -51,8 +59,14 @@ public class ConfigHandler {
 		Messaging.setColor(color);
 	}
 	
-	private void writeNode(String node, Object value, Configuration config){
-		if (config.getProperty(node) == null) config.setProperty(node, value);
+	private YamlConfiguration getDefaultConfig(ChatColor defaultColor){
+		YamlConfiguration defaultConfig = new YamlConfiguration();
+		
+		defaultConfig.set("item", 280);
+		
+		defaultConfig.set("messagecolor", getGoodName(defaultColor));
+		
+		return defaultConfig;
 	}
 	
 	public int getItem(){

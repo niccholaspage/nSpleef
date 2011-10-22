@@ -6,8 +6,8 @@ import java.io.IOException;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.util.config.Configuration;
 
 import com.niccholaspage.nSpleef.DefaultProperty;
 import com.niccholaspage.nSpleef.nSpleef;
@@ -73,31 +73,33 @@ public class DefineCommand extends nSpleefCommand {
 			return true;
 		}
 		
-		Configuration arenaConfig = new Configuration(arenaConfigFile);
+		YamlConfiguration arenaConfig = YamlConfiguration.loadConfiguration(arenaConfigFile);
 		
-		arenaConfig.load();
+		arenaConfig.set("name", args[0]);
 		
-		arenaConfig.setProperty("name", args[0]);
+		arenaConfig.set("world", world);
 		
-		arenaConfig.setProperty("world", world);
+		arenaConfig.set("block1.x", session.getBlock1().getX());
 		
-		arenaConfig.setProperty("block1.x", session.getBlock1().getX());
+		arenaConfig.set("block1.y", session.getBlock1().getY());
 		
-		arenaConfig.setProperty("block1.y", session.getBlock1().getY());
+		arenaConfig.set("block1.z", session.getBlock1().getZ());
 		
-		arenaConfig.setProperty("block1.z", session.getBlock1().getZ());
+		arenaConfig.set("block2.x", session.getBlock2().getX());
 		
-		arenaConfig.setProperty("block2.x", session.getBlock2().getX());
+		arenaConfig.set("block2.y", session.getBlock2().getY());
 		
-		arenaConfig.setProperty("block2.y", session.getBlock2().getY());
-		
-		arenaConfig.setProperty("block2.z", session.getBlock2().getZ());
+		arenaConfig.set("block2.z", session.getBlock2().getZ());
 		
 		for (DefaultProperty property : DefaultProperty.values()){
-			arenaConfig.setProperty("property." + property, property.getValue());
+			arenaConfig.set("property." + property, property.getValue());
 		}
 		
-		arenaConfig.save();
+		try {
+			arenaConfig.save(arenaConfigFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		plugin.loadArenas();
 		

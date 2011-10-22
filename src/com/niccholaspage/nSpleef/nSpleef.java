@@ -8,12 +8,12 @@ import java.util.logging.Logger;
 
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event.Priority;
 import org.bukkit.event.Event.Type;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.util.config.Configuration;
 
 import com.niccholaspage.nSpleef.arena.nSpleefArena;
 import com.niccholaspage.nSpleef.command.CommandHandler;
@@ -193,9 +193,7 @@ public class nSpleef extends JavaPlugin {
 			e.printStackTrace();
 		}
 		
-		Configuration config = new Configuration(configFile);
-		
-		configHandler = new ConfigHandler(config);
+		configHandler = new ConfigHandler(configFile);
 	}
 	
 	public void loadArenas(){
@@ -208,9 +206,7 @@ public class nSpleef extends JavaPlugin {
 		for (String fileName : arenasFolder.list()){
 			if (!fileName.endsWith(".yml")) continue;
 			
-			Configuration config = new Configuration(new File(arenasFolder, fileName));
-			
-			config.load();
+			YamlConfiguration config = YamlConfiguration.loadConfiguration(new File(arenasFolder, fileName));
 			
 			String name = config.getString("name");
 			
