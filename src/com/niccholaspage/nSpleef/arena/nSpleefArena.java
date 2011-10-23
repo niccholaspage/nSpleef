@@ -65,6 +65,8 @@ public class nSpleefArena {
 	public void addSession(Session session){
 		session.setArena(this);
 		
+		//TODO: Teleport player
+		
 		sessions.add(session);
 		
 		state = State.JOINED;

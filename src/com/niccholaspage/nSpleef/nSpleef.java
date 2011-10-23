@@ -37,13 +37,11 @@ public class nSpleef extends JavaPlugin {
 	private CommandHandler commandHandler;
 	
 	private File arenasFolder;
-
-	@Override
+	
 	public void onDisable() {
 		log("Disabled!");
 	}
-
-	@Override
+	
 	public void onEnable() {
 		log = Logger.getLogger("Minecraft");
 		
@@ -70,6 +68,8 @@ public class nSpleef extends JavaPlugin {
 		commandHandler.registerCommand(new CreateGameCommand(this));
 		
 		commandHandler.registerCommand(new DeleteGameCommand(this));
+		
+		commandHandler.registerCommand(new JoinGameCommand(this));
 		
 		getCommand("spleef").setExecutor(commandHandler);
 		
