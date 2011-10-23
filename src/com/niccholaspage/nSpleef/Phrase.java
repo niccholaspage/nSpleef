@@ -5,7 +5,7 @@ public enum Phrase {
 	FIRST_POINT_NOT_SELECTED("You haven't chosen your first point."),
 	SECOND_POINT_SELECTED("Second point selected."),
 	SECOND_POINT_NOT_SELECTED("You haven't chosen your first point."),
-	MULTIWORLD_POINT_FAIL("The two selected blcoks are in different worlds."),
+	MULTIWORLD_POINT_FAIL("The two selected blocks are in different worlds."),
 	NULL_COMMAND("That command doesn't exist!"),
 	THIS_IS_NOT_A_CONSOLE_COMMAND("You must be a player to use that command!"),
 	GAME_CREATED("The game '$0' has been created."),
