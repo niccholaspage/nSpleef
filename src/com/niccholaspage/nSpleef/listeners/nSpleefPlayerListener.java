@@ -8,6 +8,7 @@ import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.niccholaspage.nSpleef.Messaging;
+import com.niccholaspage.nSpleef.Phrase;
 import com.niccholaspage.nSpleef.nSpleef;
 import com.niccholaspage.nSpleef.player.Session;
 
@@ -30,11 +31,11 @@ public class nSpleefPlayerListener extends PlayerListener {
 			if (event.getAction() == Action.LEFT_CLICK_BLOCK){
 				session.setBlock1(event.getClickedBlock().getLocation());
 				
-				Messaging.send(player, "First location set!");
+				Messaging.send(player, Phrase.FIRST_POINT_SELECTED.getMessage());
 			}else if (event.getAction() == Action.RIGHT_CLICK_BLOCK){
 				session.setBlock2(event.getClickedBlock().getLocation());
 				
-				Messaging.send(player, "Second location set!");
+				Messaging.send(player, Phrase.SECOND_POINT_SELECTED.getMessage());
 			}
 		}
 	}

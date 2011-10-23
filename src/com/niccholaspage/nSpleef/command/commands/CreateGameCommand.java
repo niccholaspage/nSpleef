@@ -4,6 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import com.niccholaspage.nSpleef.Messaging;
+import com.niccholaspage.nSpleef.Phrase;
 import com.niccholaspage.nSpleef.nSpleef;
 import com.niccholaspage.nSpleef.nSpleefGame;
 import com.niccholaspage.nSpleef.arena.nSpleefArena;
@@ -30,7 +31,7 @@ public class CreateGameCommand extends nSpleefCommand {
 		}
 		
 		if (plugin.getGame(args[0]) != null){
-			Messaging.send(sender, "That game already exists!");
+			Messaging.send(sender, Phrase.GAME_ALREADY_EXISTS.parse());
 			
 			return true;
 		}
@@ -38,13 +39,13 @@ public class CreateGameCommand extends nSpleefCommand {
 		nSpleefArena arena = plugin.getArena(args[1]);
 		
 		if (arena == null){
-			Messaging.send(sender, "That arena doesn't exist!");
+			Messaging.send(sender, Phrase.ARENA_DOES_NOT_EXIST.getMessage());
 			
 			return true;
 		}
 		
 		if (plugin.getGameByArena(arena) != null){
-			Messaging.send(sender, "That arena already has a game!");
+			Messaging.send(sender, Phrase.ARENA_ALREADY_HAS_GAME.parse());
 			
 			return true;
 		}
@@ -53,7 +54,7 @@ public class CreateGameCommand extends nSpleefCommand {
 		
 		plugin.getGames().add(game);
 		
-		Messaging.send(sender, "The game '" + args[0] + "' has been created.");
+		Messaging.send(sender, Phrase.GAME_CREATED.parse(game.getName()));
 		
 		return true;
 	}

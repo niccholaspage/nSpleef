@@ -10,6 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.niccholaspage.nSpleef.Messaging;
+import com.niccholaspage.nSpleef.Phrase;
 import com.niccholaspage.nSpleef.nSpleef;
 
 public class CommandHandler implements CommandExecutor {
@@ -37,13 +38,13 @@ public class CommandHandler implements CommandExecutor {
 		nSpleefCommand command = getCommand(args[0]);
 		
 		if (command == null){
-			Messaging.send(sender, "That command doesn't exist!");
+			Messaging.send(sender, Phrase.NULL_COMMAND.parse());
 			
 			return true;
 		}
 		
 		if (!(sender instanceof Player) && !command.isConsoleCommand()){
-			Messaging.send(sender, "You must be a player to use that command!");
+			Messaging.send(sender, Phrase.THIS_IS_NOT_A_CONSOLE_COMMAND.parse());
 			
 			return true;
 		}
