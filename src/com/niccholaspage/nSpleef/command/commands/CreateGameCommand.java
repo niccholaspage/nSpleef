@@ -39,7 +39,7 @@ public class CreateGameCommand extends nSpleefCommand {
 		nSpleefArena arena = plugin.getArena(args[1]);
 		
 		if (arena == null){
-			Messaging.send(sender, Phrase.ARENA_DOES_NOT_EXIST.getMessage());
+			Messaging.send(sender, Phrase.ARENA_DOES_NOT_EXIST.parse());
 			
 			return true;
 		}
@@ -54,7 +54,7 @@ public class CreateGameCommand extends nSpleefCommand {
 		
 		plugin.getGames().add(game);
 		
-		Messaging.send(sender, Phrase.GAME_CREATED.parse(game.getName()));
+		Messaging.send(sender, Phrase.GAME_CREATED.parse(args[0]));
 		
 		return true;
 	}

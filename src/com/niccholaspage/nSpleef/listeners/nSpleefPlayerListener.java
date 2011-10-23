@@ -31,11 +31,11 @@ public class nSpleefPlayerListener extends PlayerListener {
 			if (event.getAction() == Action.LEFT_CLICK_BLOCK){
 				session.setBlock1(event.getClickedBlock().getLocation());
 				
-				Messaging.send(player, Phrase.FIRST_POINT_SELECTED.getMessage());
+				Messaging.send(player, Phrase.FIRST_POINT_SELECTED.parse());
 			}else if (event.getAction() == Action.RIGHT_CLICK_BLOCK){
 				session.setBlock2(event.getClickedBlock().getLocation());
 				
-				Messaging.send(player, Phrase.SECOND_POINT_SELECTED.getMessage());
+				Messaging.send(player, Phrase.SECOND_POINT_SELECTED.parse());
 			}
 		}
 	}

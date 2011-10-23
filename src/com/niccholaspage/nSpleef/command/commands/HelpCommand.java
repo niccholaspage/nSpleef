@@ -8,6 +8,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import com.niccholaspage.nSpleef.Messaging;
+import com.niccholaspage.nSpleef.Phrase;
 import com.niccholaspage.nSpleef.nSpleef;
 import com.niccholaspage.nSpleef.command.nSpleefCommand;
 
@@ -35,7 +36,7 @@ public class HelpCommand extends nSpleefCommand {
 			}
 		}
 		
-		Messaging.send(sender, "Commands: (Page " + (page + 1) + ")");
+		Messaging.send(sender, Phrase.HELP_PAGE.parse(page + 1 + ""));
 		
 		List<String> commands = getCommands(sender);
 		

@@ -6,6 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import com.niccholaspage.nSpleef.Messaging;
+import com.niccholaspage.nSpleef.Phrase;
 import com.niccholaspage.nSpleef.nSpleef;
 import com.niccholaspage.nSpleef.arena.nSpleefArena;
 import com.niccholaspage.nSpleef.command.nSpleefCommand;
@@ -33,7 +34,7 @@ public class DeleteArenaCommand extends nSpleefCommand {
 		nSpleefArena arena = plugin.getArena(args[0]);
 		
 		if (arena == null){
-			Messaging.send(sender, "That arena doesn't exist!");
+			Messaging.send(sender, Phrase.ARENA_DOES_NOT_EXIST.parse());
 			
 			return true;
 		}
@@ -44,7 +45,7 @@ public class DeleteArenaCommand extends nSpleefCommand {
 		
 		plugin.loadArenas();
 		
-		Messaging.send(sender, "That arena has been deleted!");
+		Messaging.send(sender, Phrase.ARENA_DELETED.parse());
 		
 		return true;
 	}

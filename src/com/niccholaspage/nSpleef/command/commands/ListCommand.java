@@ -4,6 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import com.niccholaspage.nSpleef.Messaging;
+import com.niccholaspage.nSpleef.Phrase;
 import com.niccholaspage.nSpleef.nSpleef;
 import com.niccholaspage.nSpleef.nSpleefGame;
 import com.niccholaspage.nSpleef.arena.nSpleefArena;
@@ -31,7 +32,7 @@ public class ListCommand extends nSpleefCommand {
 			return true;
 		}
 		
-		Messaging.send(sender, "Arenas:");
+		Messaging.send(sender, Phrase.ARENA_LIST.parse());
 		
 		for (nSpleefArena arena : plugin.getArenas()){
 			Messaging.send(sender, arena.getName());
@@ -39,10 +40,10 @@ public class ListCommand extends nSpleefCommand {
 		
 		if (plugin.getGames().isEmpty()) return true;
 		
-		Messaging.send(sender, "Games:");
+		Messaging.send(sender, Phrase.GAME_LIST.parse());
 		
 		for (nSpleefGame game : plugin.getGames()){
-			Messaging.send(sender, game.getName() + " in arena " + game.getArena().getName());
+			Messaging.send(sender, Phrase.LISTING.parse(game.getName(), game.getArena().getName()));
 			
 			return true;
 		}

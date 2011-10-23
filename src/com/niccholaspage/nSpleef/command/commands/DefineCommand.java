@@ -10,6 +10,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import com.niccholaspage.nSpleef.DefaultProperty;
+import com.niccholaspage.nSpleef.Phrase;
 import com.niccholaspage.nSpleef.nSpleef;
 import com.niccholaspage.nSpleef.command.nSpleefCommand;
 import com.niccholaspage.nSpleef.player.Session;
@@ -36,7 +37,7 @@ public class DefineCommand extends nSpleefCommand {
 		Player player = (Player) sender;
 		
 		if (plugin.getArena(args[0]) != null){
-			sender.sendMessage(ChatColor.DARK_PURPLE + "That arena already exists!");
+			sender.sendMessage(ChatColor.DARK_PURPLE + Phrase.ARENA_ALREADY_EXISTS.parse());
 			
 			return true;
 		}
@@ -44,19 +45,19 @@ public class DefineCommand extends nSpleefCommand {
 		Session session = plugin.getSession(player);
 		
 		if (session.getBlock1() == null){
-			sender.sendMessage(ChatColor.RED + "You haven't chosen your first point!");
+			sender.sendMessage(ChatColor.RED + Phrase.FIRST_POINT_NOT_SELECTED.parse());
 			
 			return true;
 		}
 		
 		if (session.getBlock2() == null){
-			sender.sendMessage(ChatColor.RED + "You haven't chosen your second point!");
+			sender.sendMessage(ChatColor.RED + Phrase.SECOND_POINT_SELECTED.parse());
 			
 			return true;
 		}
 		
 		if (session.getBlock1().getWorld() != session.getBlock2().getWorld()){
-			player.sendMessage(ChatColor.RED + "The two selected blcoks are in different worlds!");
+			player.sendMessage(ChatColor.RED + Phrase.MULTIWORLD_POINT_FAIL.parse());
 			
 			return true;
 		}
@@ -68,7 +69,7 @@ public class DefineCommand extends nSpleefCommand {
 		try {
 			arenaConfigFile.createNewFile();
 		} catch (IOException e) {
-			player.sendMessage(ChatColor.RED + "Could not create the arena!");
+			player.sendMessage(ChatColor.RED + Phrase.ARENA_CREATE_FAIL.parse());
 			
 			return true;
 		}
@@ -103,7 +104,7 @@ public class DefineCommand extends nSpleefCommand {
 		
 		plugin.loadArenas();
 		
-		player.sendMessage(ChatColor.DARK_PURPLE + "You've created the arena '" + args[0] + "'!");
+		player.sendMessage(ChatColor.DARK_PURPLE + Phrase.ARENA_CREATED.parse(args[0]));
 		
 		return true;
 	}
