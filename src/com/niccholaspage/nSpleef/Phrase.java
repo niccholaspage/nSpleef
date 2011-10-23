@@ -13,7 +13,7 @@ public enum Phrase {
 	GAME_DOES_NOT_EXIST("That game doesn't exist."),
 	GAME_DELETED("The game '$0' has been deleted."),
 	ALREADY_IN_GAME("You are already in a game."),
-	GAME_IN_PROGRESS("That game is in progress!"),
+	GAME_IN_PROGRESS("That game is in progress."),
 	GAME_LIST("Games:"),
 	ARENA_ALREADY_EXISTS("That arena already exists."),
 	ARENA_DOES_NOT_EXIST("That arena doesn't exist."),
