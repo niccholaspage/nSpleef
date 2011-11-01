@@ -3,13 +3,13 @@ package com.niccholaspage.nSpleef.command.commands;
 import java.io.File;
 import java.io.IOException;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import com.niccholaspage.nSpleef.DefaultProperty;
+import com.niccholaspage.nSpleef.Messaging;
 import com.niccholaspage.nSpleef.Phrase;
 import com.niccholaspage.nSpleef.nSpleef;
 import com.niccholaspage.nSpleef.command.nSpleefCommand;
@@ -37,7 +37,7 @@ public class DefineCommand extends nSpleefCommand {
 		Player player = (Player) sender;
 		
 		if (plugin.getArena(args[0]) != null){
-			sender.sendMessage(ChatColor.DARK_PURPLE + Phrase.ARENA_ALREADY_EXISTS.parse());
+			Messaging.send(sender, Phrase.ARENA_ALREADY_EXISTS.parse());
 			
 			return true;
 		}
@@ -45,21 +45,25 @@ public class DefineCommand extends nSpleefCommand {
 		Session session = plugin.getSession(player);
 		
 		if (session.getBlock1() == null){
-			sender.sendMessage(ChatColor.RED + Phrase.FIRST_POINT_NOT_SELECTED.parse());
+			Messaging.send(player, Phrase.FIRST_POINT_NOT_SELECTED.parse());
 			
 			return true;
 		}
 		
 		if (session.getBlock2() == null){
-			sender.sendMessage(ChatColor.RED + Phrase.SECOND_POINT_SELECTED.parse());
+			Messaging.send(player, Phrase.SECOND_POINT_SELECTED.parse());
 			
 			return true;
 		}
 		
 		if (session.getBlock1().getWorld() != session.getBlock2().getWorld()){
-			player.sendMessage(ChatColor.RED + Phrase.MULTIWORLD_POINT_FAIL.parse());
+			Messaging.send(player, Phrase.MULTIWORLD_POINT_FAIL.parse());
 			
 			return true;
+		}
+		
+		if (session.getBlock1().getY() <= session.getBlock2().getY()){
+			
 		}
 		
 		String world = session.getBlock1().getWorld().getName();
@@ -69,7 +73,7 @@ public class DefineCommand extends nSpleefCommand {
 		try {
 			arenaConfigFile.createNewFile();
 		} catch (IOException e) {
-			player.sendMessage(ChatColor.RED + Phrase.ARENA_CREATE_FAIL.parse());
+			Messaging.send(player, Phrase.ARENA_CREATE_FAIL.parse());
 			
 			return true;
 		}
@@ -104,7 +108,7 @@ public class DefineCommand extends nSpleefCommand {
 		
 		plugin.loadArenas();
 		
-		player.sendMessage(ChatColor.DARK_PURPLE + Phrase.ARENA_CREATED.parse(args[0]));
+		Messaging.send(player, Phrase.ARENA_CREATED.parse(args[0]));
 		
 		return true;
 	}
