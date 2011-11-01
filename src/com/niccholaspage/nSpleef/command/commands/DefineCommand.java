@@ -63,7 +63,9 @@ public class DefineCommand extends nSpleefCommand {
 		}
 		
 		if (session.getBlock1().getY() <= session.getBlock2().getY()){
+			Messaging.send(player, Phrase.FIRST_POINT_LOWER_THAN_SECOND_POINT.parse());
 			
+			return true;
 		}
 		
 		String world = session.getBlock1().getWorld().getName();
