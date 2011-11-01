@@ -13,7 +13,7 @@ public class PermissionsExHandler implements PermissionsHandler {
 		this.pexHandler = PermissionsEx.getPermissionManager();
 	}
 	
-	public boolean hasPermission(CommandSender sender, String permission){
+	public boolean has(CommandSender sender, String permission){
 		if (sender instanceof Player){
 			Player player = (Player) sender;
 			

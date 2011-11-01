@@ -13,12 +13,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event.Priority;
 import org.bukkit.event.Event.Type;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.niccholaspage.nSpleef.arena.nSpleefArena;
 import com.niccholaspage.nSpleef.command.CommandHandler;
 import com.niccholaspage.nSpleef.command.commands.*;
 import com.niccholaspage.nSpleef.listeners.nSpleefPlayerListener;
+import com.niccholaspage.nSpleef.permissions.*;
 import com.niccholaspage.nSpleef.player.Session;
 
 public class nSpleef extends JavaPlugin {
@@ -57,7 +59,7 @@ public class nSpleef extends JavaPlugin {
 		registerEvent(Type.PLAYER_INTERACT, playerListener);
 		registerEvent(Type.PLAYER_COMMAND_PREPROCESS, playerListener);
 		
-		permissionsHandler = new PermissionsHandler(this);
+		setupPermissions();
 		
 		commandHandler = new CommandHandler(this);
 		
@@ -82,6 +84,26 @@ public class nSpleef extends JavaPlugin {
 		});
 		
 		log(getDescription().getVersion() + " enabled!");
+	}
+	
+	private void setupPermissions(){
+		Plugin permissions = getServer().getPluginManager().getPlugin("Permissions");
+		
+		Plugin PEX = getServer().getPluginManager().getPlugin("PermissionsEx");
+		
+		if(PEX != null){
+			permissionsHandler = new PermissionsExHandler();
+		}else if (permissions != null) {
+			String version = permissions.getDescription().getVersion();
+			
+			if (version.startsWith("3")){
+				permissionsHandler = new Permissions3Handler(permissions);
+			}else {
+				permissionsHandler = new Permissions2Handler(permissions);
+			}
+		}else {
+			permissionsHandler = new DinnerPermissionsHandler(this);
+		}
 	}
 	
 	private void registerEvent(Type type, Listener listener){

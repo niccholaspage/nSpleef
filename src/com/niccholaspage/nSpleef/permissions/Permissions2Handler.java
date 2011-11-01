@@ -14,7 +14,7 @@ public class Permissions2Handler implements PermissionsHandler {
 		p2Handler = ((Permissions) plugin).getHandler();
 	}
 	
-	public boolean hasPermission(CommandSender sender, String permission) {
+	public boolean has(CommandSender sender, String permission) {
 		if (sender instanceof Player){
 			Player player = (Player) sender;
 			
