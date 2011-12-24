@@ -72,12 +72,16 @@ public class nSpleefArena {
 		state = State.JOINED;
 	}
 	
-	public void reset(){
-		for (Session session : sessions){
-			session.setArena(null);
-		}
+	public void removeSession(Session session){
+		session.setArena(null);
 		
-		sessions.clear();
+		sessions.remove(session);
+	}
+	
+	public void reset(){
+		for (Session session : new HashSet<Session>(sessions)){
+			removeSession(session);
+		}
 		
 		//TODO: Restoring blocks
 		
