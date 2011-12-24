@@ -67,7 +67,11 @@ public class nSpleefPlayerListener extends PlayerListener {
 		Player player = event.getPlayer();
 		
 		if (plugin.sessionExists(player)){
-			plugin.getSessions().remove(plugin.getSession(player));
+			Session session = plugin.getSession(player);
+			
+			session.cleanup();
+			
+			plugin.getSessions().remove(session);
 		}
 	}
 }

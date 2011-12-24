@@ -45,4 +45,10 @@ public class Session {
 	public void setArena(nSpleefArena arena){
 		this.arena = arena;
 	}
+	
+	public void cleanup(){
+		if (arena != null){
+			arena.removeSession(this);
+		}
+	}
 }
