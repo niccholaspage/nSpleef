@@ -78,6 +78,11 @@
             <artifactId>boseconomy</artifactId>
             <version>0.7.0</version>
         </dependency>
+        <dependency>
+            <groupId>ru.tehkode.permissions</groupId>
+            <artifactId>bukkit</artifactId>
+            <version>1.14</version>
+        </dependency>
     </dependencies>
 
     <build>
