@@ -82,8 +82,6 @@ public class DefineCommand extends nSpleefCommand {
 		
 		YamlConfiguration arenaConfig = YamlConfiguration.loadConfiguration(arenaConfigFile);
 		
-		arenaConfig.set("name", args[0]);
-		
 		arenaConfig.set("world", world);
 		
 		arenaConfig.set("block1.x", session.getBlock1().getX());

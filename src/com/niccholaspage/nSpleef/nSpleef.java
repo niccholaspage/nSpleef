@@ -225,12 +225,14 @@ public class nSpleef extends JavaPlugin {
 		
 		arenasFolder.mkdir();
 		
-		for (String fileName : arenasFolder.list()){
-			if (!fileName.endsWith(".yml")) continue;
+		for (File file : arenasFolder.listFiles()){
+			if (!file.getName().endsWith(".yml")) continue;
 			
-			YamlConfiguration config = YamlConfiguration.loadConfiguration(new File(arenasFolder, fileName));
+			YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
 			
-			String name = config.getString("name");
+			String name = file.getName();
+			
+			name = name.substring(0, name.length() - 4);
 			
 			String worldName = config.getString("world");
 			
