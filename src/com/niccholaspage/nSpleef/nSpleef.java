@@ -250,13 +250,6 @@ public class nSpleef extends JavaPlugin {
 			
 			nSpleefArena arena = new nSpleefArena(name, world, block1, block2);
 			
-			//Lets read properties!
-			for (DefaultProperty property : DefaultProperty.values()){
-				String read = config.getString( "properties." + property);
-				
-				arena.getProperties().put(property + "", read);
-			}
-			
 			arenas.add(arena);
 		}
 	}

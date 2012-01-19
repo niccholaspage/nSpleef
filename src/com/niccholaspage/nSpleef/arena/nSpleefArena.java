@@ -1,8 +1,6 @@
 package com.niccholaspage.nSpleef.arena;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.bukkit.Location;
@@ -24,8 +22,6 @@ public class nSpleefArena {
 	
 	private final Set<Session> sessions;
 	
-	private final Map<String, String> properties;
-	
 	private State state;
 	
 	public nSpleefArena(String name, World world, Location block1, Location block2){
@@ -42,8 +38,6 @@ public class nSpleefArena {
 		teleportBlock.setY(block1.getY() + 1);
 		
 		this.sessions = new HashSet<Session>();
-		
-		this.properties = new HashMap<String, String>();
 		
 		state = State.IDLE;
 	}
@@ -98,14 +92,6 @@ public class nSpleefArena {
 		for (Session session : sessions){
 			Messaging.send(session.getPlayer(), message);
 		}
-	}
-	
-	public Map<String, String> getProperties(){
-		return properties;
-	}
-	
-	public String getProperty(String node){
-		return properties.get(node.toLowerCase());
 	}
 	
 	public State getState(){
