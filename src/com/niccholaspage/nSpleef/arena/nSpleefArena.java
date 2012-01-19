@@ -20,6 +20,8 @@ public class nSpleefArena {
 	
 	private final Location block2;
 	
+	private final Location teleportBlock;
+	
 	private final Set<Session> sessions;
 	
 	private final Map<String, String> properties;
@@ -34,6 +36,10 @@ public class nSpleefArena {
 		this.block1 = block1;
 		
 		this.block2 = block2;
+		
+		teleportBlock = block1.clone();
+		
+		teleportBlock.setY(block1.getY() + 1);
 		
 		this.sessions = new HashSet<Session>();
 		
@@ -65,7 +71,7 @@ public class nSpleefArena {
 	public void addSession(Session session){
 		session.setArena(this);
 		
-		//TODO: Teleport player
+		session.getPlayer().teleport(teleportBlock);
 		
 		sessions.add(session);
 		
