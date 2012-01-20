@@ -3,6 +3,7 @@ package com.niccholaspage.nSpleef.listeners;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -63,15 +64,23 @@ public class nSpleefPlayerListener extends PlayerListener {
 	    }
 	}
 	
+	public void onPlayerDropItem(PlayerDropItemEvent event){
+		Player player = event.getPlayer();
+		
+		Session session = plugin.getSession(player);
+		
+		if (session.getArena() != null){
+			event.setCancelled(true);
+		}
+	}
+	
 	public void onPlayerQuit(PlayerQuitEvent event){
 		Player player = event.getPlayer();
 		
-		if (plugin.sessionExists(player)){
-			Session session = plugin.getSession(player);
-			
-			session.cleanup();
-			
-			plugin.getSessions().remove(session);
-		}
+		Session session = plugin.getSession(player);
+
+		session.cleanup();
+
+		plugin.getSessions().remove(session);
 	}
 }
