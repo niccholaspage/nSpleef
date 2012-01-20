@@ -1,11 +1,13 @@
 package com.niccholaspage.nSpleef.listeners;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.niccholaspage.nSpleef.Messaging;
@@ -13,13 +15,16 @@ import com.niccholaspage.nSpleef.Phrase;
 import com.niccholaspage.nSpleef.nSpleef;
 import com.niccholaspage.nSpleef.player.Session;
 
-public class nSpleefPlayerListener extends PlayerListener {
+public class nSpleefPlayerListener implements Listener {
 	private final nSpleef plugin;
 	
 	public nSpleefPlayerListener(nSpleef plugin){
 		this.plugin = plugin;
+		
+		plugin.getServer().getPluginManager().registerEvents(this, plugin);
 	}
 	
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerInteract(PlayerInteractEvent event){
 		Player player = event.getPlayer();
 		
@@ -41,7 +46,7 @@ public class nSpleefPlayerListener extends PlayerListener {
 		}
 	}
 	
-	
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event){
 		Player player = event.getPlayer();
 		
@@ -64,6 +69,7 @@ public class nSpleefPlayerListener extends PlayerListener {
 	    }
 	}
 	
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerDropItem(PlayerDropItemEvent event){
 		Player player = event.getPlayer();
 		
@@ -74,6 +80,7 @@ public class nSpleefPlayerListener extends PlayerListener {
 		}
 	}
 	
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerQuit(PlayerQuitEvent event){
 		Player player = event.getPlayer();
 		

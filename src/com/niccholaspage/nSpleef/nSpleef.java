@@ -10,9 +10,6 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event.Priority;
-import org.bukkit.event.Event.Type;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -53,11 +50,7 @@ public class nSpleef extends JavaPlugin {
 		
 		sessions = new HashSet<Session>();
 		
-		nSpleefPlayerListener playerListener = new nSpleefPlayerListener(this);
-		
-		//Player snuff
-		registerEvent(Type.PLAYER_INTERACT, playerListener);
-		registerEvent(Type.PLAYER_COMMAND_PREPROCESS, playerListener);
+		new nSpleefPlayerListener(this);
 		
 		setupPermissions();
 		
@@ -104,14 +97,6 @@ public class nSpleef extends JavaPlugin {
 		}else {
 			permissionsHandler = new DinnerPermissionsHandler(this);
 		}
-	}
-	
-	private void registerEvent(Type type, Listener listener){
-		registerEvent(type, listener, Priority.Normal);
-	}
-	
-	private void registerEvent(Type type, Listener listener, Priority priority){
-		getServer().getPluginManager().registerEvent(type, listener, priority, this);
 	}
 	
 	public void log(String message){
