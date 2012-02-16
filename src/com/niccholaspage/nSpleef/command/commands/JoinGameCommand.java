@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 import com.niccholaspage.nSpleef.Messaging;
 import com.niccholaspage.nSpleef.Phrase;
 import com.niccholaspage.nSpleef.nSpleef;
-import com.niccholaspage.nSpleef.arena.State;
 import com.niccholaspage.nSpleef.arena.nSpleefArena;
 import com.niccholaspage.nSpleef.command.nSpleefCommand;
 import com.niccholaspage.nSpleef.player.Session;
@@ -50,9 +49,7 @@ public class JoinGameCommand extends nSpleefCommand {
 			return true;
 		}
 		
-		State state = arena.getState();
-		
-		if (state == State.COUNTDOWN || state == State.IN_GAME){
+		if (!arena.canJoin()){
 			Messaging.send(sender, Phrase.GAME_IN_PROGRESS.parse());
 			
 			return true;

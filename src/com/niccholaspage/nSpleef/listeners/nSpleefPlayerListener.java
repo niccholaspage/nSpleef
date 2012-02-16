@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -13,6 +14,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import com.niccholaspage.nSpleef.Messaging;
 import com.niccholaspage.nSpleef.Phrase;
 import com.niccholaspage.nSpleef.nSpleef;
+import com.niccholaspage.nSpleef.jobs.ReadyJob;
 import com.niccholaspage.nSpleef.player.Session;
 
 public class nSpleefPlayerListener implements Listener {
@@ -46,13 +48,32 @@ public class nSpleefPlayerListener implements Listener {
 		}
 	}
 	
+	@EventHandler
+	public void onPlayerChat(PlayerChatEvent event){
+		if (event.isCancelled()){
+			return;
+		}
+		
+		if (!event.getMessage().toLowerCase().contains("ready")){
+			return;
+		}
+		
+		Player player = event.getPlayer();
+		
+		Session session = plugin.getSession(player);
+		
+		new ReadyJob(session).run();
+	}
+	
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event){
 		Player player = event.getPlayer();
 		
 		Session session = plugin.getSession(player);
 		
-		if (session.getArena() == null) return;
+		if (session.getArena() == null){
+			return;
+		}
 		
 	    String[] split = event.getMessage().split(" ");
 	    

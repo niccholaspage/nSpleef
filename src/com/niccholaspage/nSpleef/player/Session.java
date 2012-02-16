@@ -10,12 +10,20 @@ public class Session {
 	
 	private nSpleefArena arena = null;
 	
+	private boolean ready;
+	
 	private Location block1;
 	
 	private Location block2;
 	
+	private Location oldLocation;
+	
 	public Session(Player player){
 		this.player = player;
+		
+		ready = false;
+		
+		oldLocation = null;
 	}
 	
 	public Player getPlayer(){
@@ -44,6 +52,22 @@ public class Session {
 	
 	public void setArena(nSpleefArena arena){
 		this.arena = arena;
+	}
+	
+	public void setReady(boolean ready){
+		this.ready = ready;
+	}
+	
+	public boolean isReady(){
+		return ready;
+	}
+	
+	public void setOldLocation(Location oldLocation){
+		this.oldLocation = oldLocation;
+	}
+	
+	public Location getOldLocation(){
+		return oldLocation;
 	}
 	
 	public void cleanup(){
