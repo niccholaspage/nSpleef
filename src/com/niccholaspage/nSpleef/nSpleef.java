@@ -1,247 +1,231 @@
+//The Package
 package com.niccholaspage.nSpleef;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.logging.Logger;
-
-import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.java.JavaPlugin;
-
-import com.niccholaspage.nSpleef.arena.nSpleefArena;
-import com.niccholaspage.nSpleef.command.CommandHandler;
-import com.niccholaspage.nSpleef.command.commands.*;
-import com.niccholaspage.nSpleef.listeners.nSpleefPlayerListener;
-import com.niccholaspage.nSpleef.permissions.*;
-import com.niccholaspage.nSpleef.player.Session;
-
-public class nSpleef extends JavaPlugin {
-	private Logger log;
-	
-	private Set<Session> sessions;
-	
-	private Set<nSpleefArena> arenas;
-	
-	private Set<nSpleefGame> games;
-	
-	private ConfigHandler configHandler;
-	
-	private PermissionsHandler permissionsHandler;
-	
-	private CommandHandler commandHandler;
-	
-	private File arenasFolder;
-	
+//All the imports
+import com.niccholaspage.nSpleef.commands.*;
+//Starts the class
+public class nSpleef extends JavaPlugin{
+	//Player Listener
+	private final nSpleefPlayerListener playerListener = new nSpleefPlayerListener(this);
+	//Block Listener
+    private final nSpleefBlockListener blockListener = new nSpleefBlockListener(this);
+    //Entity Listener
+    private final nSpleefEntityListener entityListener = new nSpleefEntityListener(this);
+    //Server Listener
+    private final nSpleefServerListener serverListener = new nSpleefServerListener(this);
+    //Command Handler is now public for the help command
+    public final CommandHandler commandHandler = new CommandHandler(this);
+    //Is instant mining enabled?
+    public boolean instantMine;
+    //Persistent games
+    public boolean persistentGames;
+    //Give money on leave
+    public boolean giveMoneyOnLeave;
+    //Give money on disconnect
+    public boolean giveMoneyOnDisconnect;
+    //Give money on kick
+    public boolean giveMoneyOnKick;
+    //Can the player place blocks during spleef?
+    public boolean canPlaceBlocks;
+    //How long until the player gets booted after joining?
+    public int joinKickerTime;
+    //Create arena array
+    public final List<nSpleefArena> nSpleefArenas = new ArrayList<nSpleefArena>();
+    //Create the games array
+    public final List<nSpleefGame> nSpleefGames = new ArrayList<nSpleefGame>();
+    //Economy
+    public Method method = null;
+    
 	public void onDisable() {
-		log("Disabled!");
-	}
-	
-	public void onEnable() {
-		log = Logger.getLogger("Minecraft");
-		
-		arenas = new HashSet<nSpleefArena>();
-		
-		games = new HashSet<nSpleefGame>();
-		
-		sessions = new HashSet<Session>();
-		
-		new nSpleefPlayerListener(this);
-		
-		setupPermissions();
-		
-		commandHandler = new CommandHandler(this);
-		
-		commandHandler.registerCommand(new DefineCommand(this));
-		
-		commandHandler.registerCommand(new ListCommand(this));
-		
-		commandHandler.registerCommand(new CreateGameCommand(this));
-		
-		commandHandler.registerCommand(new DeleteGameCommand(this));
-		
-		commandHandler.registerCommand(new JoinGameCommand(this));
-		
-		getCommand("spleef").setExecutor(commandHandler);
-		
-		arenasFolder = new File(getDataFolder(), "arenas");
-		
-		getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable(){
-			public void run(){
-				load();
-			}
-		});
-		
-		log(getDescription().getVersion() + " enabled!");
-	}
-	
-	private void setupPermissions(){
-		Plugin permissions = getServer().getPluginManager().getPlugin("Permissions");
-		
-		Plugin PEX = getServer().getPluginManager().getPlugin("PermissionsEx");
-		
-		if(PEX != null){
-			permissionsHandler = new PermissionsExHandler();
-		}else if (permissions != null) {
-			String version = permissions.getDescription().getVersion();
-			
-			if (version.startsWith("3")){
-				permissionsHandler = new Permissions3Handler(permissions);
-			}else {
-				permissionsHandler = new Permissions2Handler(permissions);
-			}
-		}else {
-			permissionsHandler = new DinnerPermissionsHandler(this);
-		}
-	}
-	
-	public void log(String message){
-		log.info("[nSpleef] " + message);
-	}
-	
-	public Set<nSpleefArena> getArenas(){
-		return arenas;
-	}
-	
-	public Set<nSpleefGame> getGames(){
-		return games;
-	}
-	
-	public CommandHandler getCommandHandler(){
-		return commandHandler;
-	}
-	
-	public nSpleefArena getArena(String name){
-		for (nSpleefArena arena : arenas){
-			if (arena.getName().equalsIgnoreCase(name)){
-				return arena;
+		method = null;
+		for (int i = 0; i < nSpleefArenas.size(); i++){
+			if (nSpleefArenas.get(i).getPlayersIn().size() > 0){
+				System.out.println("[nSpleef] Restoring arena " + nSpleefArenas.get(i).getName());
+				for (int j = 0; j < nSpleefArenas.get(i).getPlayersIn().size(); j++){
+					nSpleefArenas.get(i).getPlayersIn().get(j).teleport(nSpleefArenas.get(i).getPlayersLocation().get(j));
+				}
+				nSpleefArenas.get(i).getVolume().resetBlocks();
 			}
 		}
-		
-		return null;
-	}
-	
-	public nSpleefGame getGame(String name){
-		for (nSpleefGame game : games){
-			if (game.getName().equalsIgnoreCase(name)){
-				return game;
-			}
+		if (new File("plugins/nSpleef/games.txt").exists()) new File("plugins/nSpleef/games.txt").delete();
+		if (persistentGames){
+			if (nSpleefGames.size() > 0){
+				File file = new File("plugins/nSpleef/games.txt");
+				BufferedWriter out = null;
+				try {
+					file.createNewFile();
+					out = new BufferedWriter(new FileWriter("plugins/nSpleef/games.txt"));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				for (int i = 0; i < nSpleefGames.size(); i++){
+					try {
+						out.write(nSpleefGames.get(i) + "\n");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				try {
+					out.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 		}
-		
-		return null;
+	}
+		getServer().getScheduler().cancelTasks(this);
+		System.out.println("nSpleef Disabled");
 	}
 	
-	public nSpleefGame getGameByArena(nSpleefArena arena){
-		for (nSpleefGame game : games){
-			if (game.getArena().equals(arena)){
-				return game;
-			}
-		}
-		
-		return null;
-	}
-	
-	public Set<Session> getSessions(){
-		return sessions;
-	}
-	
-	public Session getSession(Player player){
-		for (Session session : sessions){
-			if (session.getPlayer().equals(player)){
-				return session;
-			}
-		}
-		
-		return createNewSession(player);
-	}
-	
-	public boolean sessionExists(Player player){
-		for (Session session : sessions){
-			if (session.getPlayer().equals(player)){
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	
-	public PermissionsHandler getPermissionsHandler(){
-		return permissionsHandler;
-	}
-	
-	public ConfigHandler getConfigHandler(){
-		return configHandler;
-	}
-	
-	private Session createNewSession(Player player){
-		Session session = new Session(player);
-		
-		sessions.add(session);
-		
-		return session;
-	}
-	
-	public void load(){
-		loadConfig();
-		
-		loadArenas();
-	}
-	
-	public void loadConfig(){
-		File configFile = new File(getDataFolder(), "config.yml");
-		
+	private void readGames(){
+		File file = new File("plugins/nSpleef/games.txt");
+		if (!(file.exists())) return;
+		BufferedReader in = null;
 		try {
-			configFile.createNewFile();
-		} catch (IOException e) {
+			in = new BufferedReader(new FileReader("plugins/nSpleef/games.txt"));
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
-		configHandler = new ConfigHandler(configFile);
-	}
-	
-	public void loadArenas(){
-		arenas.clear();
-		
-		getDataFolder().mkdir();
-		
-		arenasFolder.mkdir();
-		
-		for (File file : arenasFolder.listFiles()){
-			if (!file.getName().endsWith(".yml")) continue;
-			
-			YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
-			
-			String name = file.getName();
-			
-			name = name.substring(0, name.length() - 4);
-			
-			String worldName = config.getString("world");
-			
-			World world = getServer().getWorld(worldName);
-			
-			if (world == null) continue;
-			
-			Location block1 = new Location(world,
-					config.getInt("block1.x", 0),
-					config.getInt("block1.y", 0),
-					config.getInt("block1.z", 0));
-			
-			Location block2 = new Location(world,
-					config.getInt("block2.x", 0),
-					config.getInt("block2.y", 0),
-					config.getInt("block2.z", 0));
-			
-			nSpleefArena arena = new nSpleefArena(name, world, block1, block2);
-			
-			arenas.add(arena);
+		List<String> data = Util.filetoarray(in);
+		for (int i = 0; i < data.size(); i++){
+			String[] split;
+			split = data.get(i).split(",");
+			nSpleefGame game = new nSpleefGame(split[0], split[1], split[2]);
+			nSpleefGames.add(game);
+			if (split.length > 3) game.setMoney(Double.parseDouble(split[3]));
+			if (split.length > 4) game.setMode(Integer.parseInt(split[4]));
 		}
 	}
+
+    private boolean createFile(String file){
+		File f = new File(file);
+		if (!f.exists()){
+			if (file.endsWith("/")){
+				f.mkdir();
+			}else {
+				try {
+					f.createNewFile();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			return true;
+		}else {
+			return false;
+		}
+    }
+    
+	private void writeNode(String node,Object value, Configuration config){
+		if (config.getProperty(node) == null) config.setProperty(node, value);
+	}
 	
-	public File getArenasFolder(){
-		return arenasFolder;
+	private void writeOptions(Configuration config){
+		writeNode("nSpleef", "", config);
+		writeNode("nSpleef.instantmine", true, config);
+		writeNode("nSpleef.canplaceblocks", false, config);
+		writeNode("nSpleef.persistentgames", true, config);
+		writeNode("nSpleef.givemoneyonleave", false, config);
+		writeNode("nSpleef.givemoneyondisconnect", false, config);
+		writeNode("nSpleef.givemoneyonkick", false, config);
+		writeNode("nSpleef.joinkickertime", false, config);
+	}
+    
+    private void readConfig() {
+		createFile("plugins/nSpleef/");
+		createFile("plugins/nSpleef/config.yml");
+    	Configuration config = new Configuration(new File("plugins/nSpleef/config.yml"));
+    	config.load();
+    	writeOptions(config);
+    	config.save();
+    	// Reading from yml file
+    	instantMine = config.getBoolean("nSpleef.instantmine", true);
+    	canPlaceBlocks = config.getBoolean("nSpleef.canplaceblocks", false);
+    	persistentGames = config.getBoolean("nSpleef.persistentgames", false);
+    	giveMoneyOnLeave = config.getBoolean("nSpleef.givemoneyonleave", false);
+    	giveMoneyOnDisconnect = config.getBoolean("nSpleef.givemoneyondisconnect", false);
+    	giveMoneyOnKick = config.getBoolean("nSpleef.givemoneyonkick", false);
+    	joinKickerTime = config.getInt("nSpleef.joinkickertime", 0);
+        }
+    
+    private void registerEvents(){
+		//Create the pluginmanage pm.
+		PluginManager pm = getServer().getPluginManager();
+		//PlayerListener stuff
+	    pm.registerEvent(Event.Type.PLAYER_CHAT, playerListener, Event.Priority.Normal, this);
+	    pm.registerEvent(Event.Type.PLAYER_MOVE, playerListener, Event.Priority.Normal, this);
+	    pm.registerEvent(Event.Type.PLAYER_QUIT, playerListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.PLAYER_INTERACT, playerListener, Event.Priority.Normal, this);
+	    //BlockListener stuff
+        pm.registerEvent(Event.Type.BLOCK_PLACE, blockListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.BLOCK_DAMAGE, blockListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.BLOCK_BREAK, blockListener, Event.Priority.Normal, this);
+        //EntityListener stuff
+        pm.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Event.Priority.Normal, this);
+        //ServerListener stuff
+        pm.registerEvent(Event.Type.PLUGIN_ENABLE, serverListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.PLUGIN_DISABLE, serverListener, Event.Priority.Normal, this);
+    }
+    
+    private void registerCommands(){
+    	getCommand("ready").setExecutor(commandHandler);
+    	getCommand("spleef").setExecutor(commandHandler);
+    	commandHandler.registerExecutor("define", new DefineCommand(), "/spleef define arena", "nSpleef.admin.define");
+    	commandHandler.registerExecutor("join", new JoinCommand(this), "/spleef join game", "nSpleef.member.join");
+    	commandHandler.registerExecutor("leave", new LeaveCommand(this), "/spleef leave", "nSpleef.member.leave");
+    	commandHandler.registerExecutor("list", new ListCommand(this), "/spleef list", "nSpleef.member.list");
+    	commandHandler.registerExecutor("deletegame", new DeleteGameCommand(this), "/spleef deletegame name", "nSpleef.member.deletegame");
+    	commandHandler.registerExecutor("creategame", new CreateGameCommand(this), "/spleef creategame name arena <money>", "nSpleef.member.creategame");
+    	commandHandler.registerExecutor("deletearena", new DeleteArenaCommand(this), "/spleef deletearena arena", "nSpleef.admin.deletearena");
+    	commandHandler.registerExecutor("ready", new ReadyCommand(), "/spleef ready", "");
+    	commandHandler.registerExecutor("forceready", new ForceReadyCommand(), "/spleef forceready", "nSpleef.admin.forceready");
+    	commandHandler.registerExecutor("help", new HelpCommand(this), "/spleef help <page>", "");
+    	commandHandler.registerExecutor("?", new HelpCommand(this), "/spleef ? <page>", "");
+    	commandHandler.registerExecutor("forceleave", new ForceLeaveCommand(this), "/spleef forceleave player", "nSpleef.admin.forceleave");
+    	commandHandler.registerExecutor("forcejoin", new ForceJoinCommand(this), "/spleef forcejoin player game", "nSpleef.admin.forcejoin");
+    }
+    
+    public boolean isDouble(String d){
+    	try {
+    		Double.parseDouble(d);
+    		return true;
+    	} catch(NumberFormatException nfe){
+    		return false;
+    	}
+    }
+    
+    public boolean isInt(String i){
+    	try {
+    		Integer.parseInt(i);
+    		return true;
+    	}catch(NumberFormatException nfe){
+    		return false;
+    	}
+    }
+
+	public void onEnable() {
+		registerEvents();
+       //Get the infomation from the yml file.
+        PluginDescriptionFile pdfFile = this.getDescription();
+        //Init Data
+        Data.init(this);
+        //Init Filter
+        Filter.init(this);
+        //Setup arenas
+        getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable(){
+        	public void run(){
+        		Data.setupArenas();
+        		System.out.println("[nSpleef] Arenas loaded!");
+        	}
+        });
+	    //Setup config
+	    readConfig();
+	    //Read Games
+	    if (persistentGames) readGames();
+        //Setup Permissions
+        PermissionHandler.init(getServer());
+	    //Commands
+	    registerCommands();
+        //Print that the plugin has been enabled!
+        System.out.println(pdfFile.getName() + " version " + pdfFile.getVersion() + " is enabled!");
+		
 	}
 }
